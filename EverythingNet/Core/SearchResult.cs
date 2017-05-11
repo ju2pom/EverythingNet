@@ -1,10 +1,10 @@
-﻿namespace EverythingNet
-{
-  using System;
-  using System.Collections.Generic;
-  using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-  public class SearchResult : IDisposable
+namespace EverythingNet.Core
+{
+  public class SearchResult : ISearchResult, IDisposable
   {
     public SearchResult(ErrorCode getError)
     {

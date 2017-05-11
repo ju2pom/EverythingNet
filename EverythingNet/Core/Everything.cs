@@ -1,25 +1,22 @@
-﻿namespace EverythingNet
-{
-  using System;
-  using System.Collections.Generic;
-  using System.Runtime.InteropServices;
-  using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text;
 
+namespace EverythingNet.Core
+{
   public class Everything : IEverything
   {
     public string SearchText
     {
       get
       {
-        IntPtr ptr = EverythingWrapper.Everything_GetSearchA();
+        var ptr = EverythingWrapper.Everything_GetSearchA();
 
         return Marshal.PtrToStringAnsi(ptr);
       }
 
-      set
-      {
-        EverythingWrapper.Everything_SetSearchA(value);
-      }
+      set { EverythingWrapper.Everything_SetSearchA(value); }
     }
 
     public bool MatchCase
@@ -43,39 +40,39 @@
       set { EverythingWrapper.Everything_SetMatchWholeWord(value); }
     }
 
-    public ErrorCode Search(IntPtr handle, bool wait)
+    public ErrorCode Search(bool wait)
+    {
+      return this.Search(wait, IntPtr.Zero);
+    }
+
+    public ErrorCode Search(bool wait, IntPtr handle)
     {
       if (!wait && handle != IntPtr.Zero)
-      {
         EverythingWrapper.Everything_SetReplyWindow(handle);
-      }
 
       EverythingWrapper.Everything_QueryA(wait);
 
-      return this.GetError();
+      return GetError();
     }
 
     public SearchResult DisposeSearch(IntPtr handle, bool wait)
     {
       if (!wait && handle != IntPtr.Zero)
-      {
         EverythingWrapper.Everything_SetReplyWindow(handle);
-      }
 
       EverythingWrapper.Everything_QueryA(wait);
 
-      return new SearchResult(this.GetError());
+      return new SearchResult(GetError());
     }
 
     public IEnumerable<string> GetResults()
     {
       //int totResults = EverythingWrapper.Everything_GetTotResults();
 
+      var builder = new StringBuilder(260);
+      var numResults = EverythingWrapper.Everything_GetNumResults();
 
-      StringBuilder builder = new StringBuilder(260);
-      int numResults = EverythingWrapper.Everything_GetNumResults();
-
-      for (int i = 0; i < numResults; i++)
+      for (var i = 0; i < numResults; i++)
       {
         EverythingWrapper.Everything_GetResultFullPathNameW(i, builder, 260);
 
@@ -90,9 +87,9 @@
 
     public ErrorCode GetError()
     {
-      int error = EverythingWrapper.Everything_GetLastError();
+      var error = EverythingWrapper.Everything_GetLastError();
 
-      return (ErrorCode)error;
+      return (ErrorCode) error;
     }
   }
 }

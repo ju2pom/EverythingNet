@@ -1,9 +1,9 @@
-﻿namespace EverythingNet
-{
-  using System;
-  using System.Runtime.InteropServices;
-  using System.Text;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Text;
 
+namespace EverythingNet.Core
+{
   internal class EverythingWrapper
   {
 #if WIN32

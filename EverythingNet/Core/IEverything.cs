@@ -1,8 +1,8 @@
-﻿namespace EverythingNet
-{
-  using System;
-  using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace EverythingNet.Core
+{
   public enum ErrorCode
   {
     Ok = 0,
@@ -25,7 +25,9 @@
 
     bool MatchWholeWord { get; set; }
 
-    ErrorCode Search(IntPtr handle, bool wait);
+    ErrorCode Search(bool wait);
+
+    ErrorCode Search(bool wait, IntPtr handle);
 
     SearchResult DisposeSearch(IntPtr handle, bool wait);
 

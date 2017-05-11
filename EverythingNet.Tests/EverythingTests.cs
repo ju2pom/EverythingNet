@@ -1,4 +1,6 @@
-﻿namespace EverythingNet.Tests
+﻿using EverythingNet.Core;
+
+namespace EverythingNet.Tests
 {
   using System;
   using System.Collections.Generic;
@@ -82,7 +84,7 @@
       everything.MatchWholeWord = true;
 
       // Act
-      ErrorCode errorCode = everything.Search(IntPtr.Zero, true);
+      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
 
       IEnumerable<string> results = everything.GetResults().ToList();
 
@@ -103,7 +105,7 @@
       everything.MatchWholeWord = true;
 
       // Act
-      ErrorCode errorCode = everything.Search(IntPtr.Zero, true);
+      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
 
       IEnumerable<string> results = everything.GetResults().ToList();
 
@@ -120,7 +122,7 @@
       everything.SearchText = searchText;
 
       // Act
-      ErrorCode errorCode = everything.Search(IntPtr.Zero, true);
+      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
       List<string> results = everything.GetResults().ToList();
 
       // Assert
@@ -137,7 +139,7 @@
       everything.SearchText = searchText;
 
       // Act
-      ErrorCode errorCode = everything.Search(IntPtr.Zero, true);
+      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
       List<string> results = everything.GetResults().ToList();
 
       // Assert
