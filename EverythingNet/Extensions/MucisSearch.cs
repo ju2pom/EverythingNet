@@ -4,37 +4,39 @@ namespace EverythingNet.Extensions
 {
   public static class MucisSearch
   {
-    public static IEverything SearchAlbumSync(this IEverything everything, string album)
+    public static IEverything Album(this IEverything everything, string album = null)
     {
-      everything.SearchText += $"album:{album}";
-
-      return everything;
+      return Search(everything, $"album:{album ?? string.Empty}");
     }
 
-    public static IEverything SearchArtistSync(this IEverything everything, string artist)
+    public static IEverything Artist(this IEverything everything, string artist = null)
     {
-      everything.SearchText += $"artist:{artist}";
-
-      return everything;
+      return Search(everything, $"artist:{artist ?? string.Empty}");
     }
 
-    public static IEverything SearchGenre(this IEverything everything, string genre)
+    public static IEverything Genre(this IEverything everything, string genre = null)
     {
-      everything.SearchText += $"genre:{genre}";
-
-      return everything;
+      return Search(everything, $"genre:{genre ?? string.Empty}");
     }
 
-    public static IEverything SearchTitle(this IEverything everything, string title)
+    public static IEverything Title(this IEverything everything, string title = null)
     {
-      everything.SearchText += $"title:{title}";
-
-      return everything;
+      return Search(everything, $"title:{title ?? string.Empty}");
     }
 
-    public static IEverything SearchComment(this IEverything everything, string comment)
+    public static IEverything Track(this IEverything everything, int track = -1)
     {
-      everything.SearchText += $"comment:{comment}";
+      return Search(everything, track >= 0 ? $"track:{track}" : "track:");
+    }
+
+    public static IEverything Comment(this IEverything everything, string comment = null)
+    {
+      return Search(everything, $"comment:{comment ?? string.Empty}");
+    }
+
+    private static IEverything Search(IEverything everything, string search)
+    {
+      everything.SearchText += search;
 
       return everything;
     }

@@ -43,14 +43,5 @@ namespace EverythingNet.Extensions
 
       return everything;
     }
-
-    public static IEverything Between(this IEverything everything, int min, int max, SizeUnit unit)
-    {
-      string u = unit.ToString().ToLower();
-
-      everything.SearchText += $"{min}{u}-{max}{u}";
-
-      return everything;
-    }
   }
 }
