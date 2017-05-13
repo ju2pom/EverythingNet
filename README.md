@@ -1,3 +1,5 @@
+![](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at?svg=true)
+
 # EverythingNet
 
 ## What
