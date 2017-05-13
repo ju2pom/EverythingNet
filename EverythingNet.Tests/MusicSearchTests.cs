@@ -65,13 +65,60 @@ namespace EverythingNet.Tests
       return everything.SearchText;
     }
 
+    [TestCase(0, ExpectedResult = "track:0")]
+    [TestCase(2, ExpectedResult = "track:2")]
+    public string Track(int track)
+    {
+      IEverything everything = new Everything();
+
+      everything.Track(track);
+
+      return everything.SearchText;
+    }
+
     [TestCase(0, 5, ExpectedResult = "track:0-5")]
     [TestCase(2, 7, ExpectedResult = "track:2-7")]
-    public string Track(int min, int max)
+    public string TrackBetween(int min, int max)
     {
       IEverything everything = new Everything();
 
       everything.Track().Between(min, max);
+
+      return everything.SearchText;
+    }
+
+    [TestCase(null, ExpectedResult = "comment:")]
+    [TestCase("", ExpectedResult = "comment:")]
+    [TestCase("great music", ExpectedResult = "comment:great music")]
+    public string Comment(string comment)
+    {
+      IEverything everything = new Everything();
+
+      everything.Comment(comment);
+
+      return everything.SearchText;
+    }
+
+    [TestCase(null, ExpectedResult = "title:")]
+    [TestCase("", ExpectedResult = "title:")]
+    [TestCase("Intro", ExpectedResult = "title:Intro")]
+    public string Title(string title)
+    {
+      IEverything everything = new Everything();
+
+      everything.Title(title);
+
+      return everything.SearchText;
+    }
+
+    [TestCase(null, ExpectedResult = "genre:")]
+    [TestCase("", ExpectedResult = "genre:")]
+    [TestCase("The Wall", ExpectedResult = "genre:The Wall")]
+    public string Genre(string genre)
+    {
+      IEverything everything = new Everything();
+
+      everything.Genre(genre);
 
       return everything.SearchText;
     }

@@ -13,80 +13,76 @@ namespace EverythingNet.Tests
   [TestFixture]
   public class EverythingTests
   {
+    private Everything everyThing;
+
     [SetUp]
-    public void SetUp()
+    public void Setup()
     {
+      this.everyThing = new Everything();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+      this.everyThing.CleanUp();
     }
 
     [TestCase("text1")]
     [TestCase("text2")]
     public void SearchText(string searchText)
     {
-      // Arrange
-      Everything everything = new Everything();
-
       // Act
-      everything.SearchText = searchText;
+      this.everyThing.SearchText = searchText;
 
       // Assert
-      Assert.AreEqual(searchText, everything.SearchText);
+      Assert.AreEqual(searchText, this.everyThing.SearchText);
     }
 
     [TestCase(true)]
     [TestCase(false)]
     public void MatchCase(bool matchCase)
     {
-      // Arrange
-      Everything everything = new Everything();
-
       // Act
-      everything.MatchCase = matchCase;
+      this.everyThing.MatchCase = matchCase;
 
       // Assert
-      Assert.AreEqual(matchCase, everything.MatchCase);
+      Assert.AreEqual(matchCase, this.everyThing.MatchCase);
     }
 
     [TestCase(true)]
     [TestCase(false)]
     public void MatchPath(bool matchPath)
     {
-      // Arrange
-      Everything everything = new Everything();
-
       // Act
-      everything.MatchPath = matchPath;
+      this.everyThing.MatchPath = matchPath;
 
       // Assert
-      Assert.AreEqual(matchPath, everything.MatchPath);
+      Assert.AreEqual(matchPath, this.everyThing.MatchPath);
     }
 
     [TestCase(true)]
     [TestCase(false)]
     public void MatchWholeWord(bool matchWholeWord)
     {
-      // Arrange
-      Everything everything = new Everything();
-
       // Act
-      everything.MatchWholeWord = matchWholeWord;
+      this.everyThing.MatchWholeWord = matchWholeWord;
 
       // Assert
-      Assert.AreEqual(matchWholeWord, everything.MatchWholeWord);
+      Assert.AreEqual(matchWholeWord, this.everyThing.MatchWholeWord);
     }
 
     [Test]
     public void Search()
     {
       // Arrange
-      Everything everything = new Everything();
       string searchText = Assembly.GetExecutingAssembly().GetName().Name + ".dll";
-      everything.SearchText = searchText;
-      everything.MatchWholeWord = true;
+      this.everyThing.SearchText = searchText;
+      this.everyThing.MatchWholeWord = true;
 
       // Act
-      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
+      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
 
-      IEnumerable<string> results = everything.GetResults().ToList();
+      IEnumerable<string> results = this.everyThing.GetResults().ToList();
 
       // Assert
       Assert.AreEqual(ErrorCode.Ok, errorCode);
@@ -100,14 +96,13 @@ namespace EverythingNet.Tests
     public void Search_Images(string searchText)
     {
       // Arrange
-      Everything everything = new Everything();
-      everything.SearchText = searchText;
-      everything.MatchWholeWord = true;
+      this.everyThing.SearchText = searchText;
+      this.everyThing.MatchWholeWord = true;
 
       // Act
-      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
+      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
 
-      IEnumerable<string> results = everything.GetResults().ToList();
+      IEnumerable<string> results = this.everyThing.GetResults().ToList();
 
       // Assert
       Assert.AreEqual(ErrorCode.Ok, errorCode);
@@ -118,12 +113,11 @@ namespace EverythingNet.Tests
     public void Search_ForFolders(string searchText)
     {
       // Arrange
-      Everything everything = new Everything();
-      everything.SearchText = searchText;
+      this.everyThing.SearchText = searchText;
 
       // Act
-      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
-      List<string> results = everything.GetResults().ToList();
+      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
+      List<string> results = this.everyThing.GetResults().ToList();
 
       // Assert
       Assert.AreEqual(ErrorCode.Ok, errorCode);
@@ -135,12 +129,11 @@ namespace EverythingNet.Tests
     public void Search_ForRootFolders(string searchText)
     {
       // Arrange
-      Everything everything = new Everything();
-      everything.SearchText = searchText;
+      this.everyThing.SearchText = searchText;
 
       // Act
-      ErrorCode errorCode = everything.Search(true, IntPtr.Zero);
-      List<string> results = everything.GetResults().ToList();
+      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
+      List<string> results = this.everyThing.GetResults().ToList();
 
       // Assert
       Assert.AreEqual(ErrorCode.Ok, errorCode);
