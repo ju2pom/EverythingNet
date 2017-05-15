@@ -10,7 +10,7 @@ namespace EverythingNet.Tests
 
   using NUnit.Framework;
 
-  [TestFixture]
+  [TestFixture, Ignore("Everything service don't run on Appveyor")]
   public class EverythingTests
   {
     private Everything everyThing;
