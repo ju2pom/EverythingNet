@@ -1,13 +1,12 @@
 init:
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 on_finish:
-- ps: $blockRdp = $true;iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: $blockRdp = $true;iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 version: 1.0.{build}
 configuration: Release
 platform: x64
 before_build:
-- cmd: nuget restore
-build:
+  - cmd: nuget restore
 verbosity: minimal
 before_test:
-- cmd: everything.exe -install-service
+  - cmd: everything.exe -install-service
