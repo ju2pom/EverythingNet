@@ -1,11 +1,32 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 
 namespace EverythingNet.Core
 {
   internal class EverythingWrapper
   {
+    private static readonly ReaderWriterLockSlim locker = new ReaderWriterLockSlim();
+
+
+    private class Locker : IDisposable
+    {
+      private readonly ReaderWriterLockSlim locker;
+
+      public Locker(ReaderWriterLockSlim locker)
+      {
+        this.locker = locker;
+        this.locker.EnterWriteLock();
+      }
+
+      public void Dispose()
+      {
+        this.locker.ExitWriteLock();
+        this.locker.Dispose();
+      }
+    }
+
 #if WIN32
     private const string EverythingDLL = "Everything32.dll";
 #else
@@ -20,6 +41,11 @@ namespace EverythingNet.Core
     const int EVERYTHING_ERROR_CREATETHREAD = 5;
     const int EVERYTHING_ERROR_INVALIDINDEX = 6;
     const int EVERYTHING_ERROR_INVALIDCALL = 7;
+
+    internal static IDisposable Lock()
+    {
+      return new Locker(locker);
+    }
 
     [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
     public static extern int Everything_SetSearchW(string lpSearchString);
@@ -39,6 +65,8 @@ namespace EverythingNet.Core
     public static extern void Everything_SetOffset(int dwOffset);
     [DllImport(EverythingDLL)]
     public static extern void Everything_SetReplyWindow(IntPtr handler);
+    [DllImport(EverythingDLL)]
+    public static extern void Everything_SetReplyID(uint nId);
 
     [DllImport(EverythingDLL)]
     public static extern void Everything_Reset();

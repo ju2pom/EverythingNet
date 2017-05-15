@@ -1,74 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Text;
 
 namespace EverythingNet.Core
 {
   public class Everything : IEverything
   {
-    public string SearchText
-    {
-      get
-      {
-        var ptr = EverythingWrapper.Everything_GetSearchA();
+    private readonly uint replyId;
 
-        return Marshal.PtrToStringAnsi(ptr);
+    public Everything()
+    {
+      this.replyId = Convert.ToUInt32(this.GetHashCode());
+    }
+
+    public string SearchText { get; set; }
+
+    public bool MatchCase { get; set; }
+
+    public bool MatchPath { get; set; }
+
+    public bool MatchWholeWord { get; set; }
+
+    public ISearchResult Search(bool wait)
+    {
+      ErrorCode errorCode;
+      string[] results;
+
+      using (EverythingWrapper.Lock())
+      {
+        EverythingWrapper.Everything_SetReplyID(this.replyId);
+
+        EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
+        EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
+        EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
+
+        EverythingWrapper.Everything_SetSearchA(this.SearchText);
+        EverythingWrapper.Everything_QueryA(wait);
+
+        errorCode = this.GetError();
+        results = this.GetResults().ToArray();
       }
 
-      set { EverythingWrapper.Everything_SetSearchA(value); }
+      return new SearchResult(errorCode, results);
+
     }
 
-    public bool MatchCase
+    private IEnumerable<string> GetResults()
     {
-      get { return EverythingWrapper.Everything_GetMatchCase(); }
-
-      set { EverythingWrapper.Everything_SetMatchCase(value); }
-    }
-
-    public bool MatchPath
-    {
-      get { return EverythingWrapper.Everything_GetMatchPath(); }
-
-      set { EverythingWrapper.Everything_SetMatchPath(value); }
-    }
-
-    public bool MatchWholeWord
-    {
-      get { return EverythingWrapper.Everything_GetMatchWholeWord(); }
-
-      set { EverythingWrapper.Everything_SetMatchWholeWord(value); }
-    }
-
-    public ErrorCode Search(bool wait)
-    {
-      return this.Search(wait, IntPtr.Zero);
-    }
-
-    public ErrorCode Search(bool wait, IntPtr handle)
-    {
-      if (!wait && handle != IntPtr.Zero)
-        EverythingWrapper.Everything_SetReplyWindow(handle);
-
-      EverythingWrapper.Everything_QueryA(wait);
-
-      return GetError();
-    }
-
-    public SearchResult DisposeSearch(IntPtr handle, bool wait)
-    {
-      if (!wait && handle != IntPtr.Zero)
-        EverythingWrapper.Everything_SetReplyWindow(handle);
-
-      EverythingWrapper.Everything_QueryA(wait);
-
-      return new SearchResult(GetError());
-    }
-
-    public IEnumerable<string> GetResults()
-    {
-      //int totResults = EverythingWrapper.Everything_GetTotResults();
-
       var builder = new StringBuilder(260);
       var numResults = EverythingWrapper.Everything_GetNumResults();
 
@@ -85,7 +64,7 @@ namespace EverythingNet.Core
       EverythingWrapper.Everything_Reset();
     }
 
-    public ErrorCode GetError()
+    private ErrorCode GetError()
     {
       var error = EverythingWrapper.Everything_GetLastError();
 

@@ -2,15 +2,14 @@
 
 namespace EverythingNet.Tests
 {
-  using System;
-  using System.Collections.Generic;
   using System.IO;
   using System.Linq;
   using System.Reflection;
 
   using NUnit.Framework;
 
-  [TestFixture, Ignore("Everything service don't run on Appveyor")]
+  [TestFixture]
+  [Ignore("Everything service don't run on Appveyor")]
   public class EverythingTests
   {
     private Everything everyThing;
@@ -80,13 +79,11 @@ namespace EverythingNet.Tests
       this.everyThing.MatchWholeWord = true;
 
       // Act
-      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
-
-      IEnumerable<string> results = this.everyThing.GetResults().ToList();
+      ISearchResult results = this.everyThing.Search(true);
 
       // Assert
-      Assert.AreEqual(ErrorCode.Ok, errorCode);
-      CollectionAssert.IsNotEmpty(results);
+      Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
+      CollectionAssert.IsNotEmpty(results.Results);
     }
 
     [TestCase("*.cr2")]
@@ -100,13 +97,11 @@ namespace EverythingNet.Tests
       this.everyThing.MatchWholeWord = true;
 
       // Act
-      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
-
-      IEnumerable<string> results = this.everyThing.GetResults().ToList();
+      ISearchResult results = this.everyThing.Search(true);
 
       // Assert
-      Assert.AreEqual(ErrorCode.Ok, errorCode);
-      CollectionAssert.IsNotEmpty(results);
+      Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
+      CollectionAssert.IsNotEmpty(results.Results);
     }
 
     [TestCase("child:cr2|nef|srw|arw|crw|mrw|raf|pef|orf|rw2|nrw|dng")]
@@ -116,13 +111,12 @@ namespace EverythingNet.Tests
       this.everyThing.SearchText = searchText;
 
       // Act
-      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
-      List<string> results = this.everyThing.GetResults().ToList();
+      ISearchResult results = this.everyThing.Search(true);
 
       // Assert
-      Assert.AreEqual(ErrorCode.Ok, errorCode);
-      CollectionAssert.IsNotEmpty(results);
-      results.ForEach(x => Directory.Exists(x));
+      Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
+      CollectionAssert.IsNotEmpty(results.Results);
+      results.Results.ToList().ForEach(x => Directory.Exists(x));
     }
 
     [TestCase("parents:0")]
@@ -132,13 +126,12 @@ namespace EverythingNet.Tests
       this.everyThing.SearchText = searchText;
 
       // Act
-      ErrorCode errorCode = this.everyThing.Search(true, IntPtr.Zero);
-      List<string> results = this.everyThing.GetResults().ToList();
+      ISearchResult results = this.everyThing.Search(true);
 
       // Assert
-      Assert.AreEqual(ErrorCode.Ok, errorCode);
-      CollectionAssert.IsNotEmpty(results);
-      results.ForEach(x => Directory.Exists(x));
+      Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
+      CollectionAssert.IsNotEmpty(results.Results);
+      results.Results.ToList().ForEach(x => Directory.Exists(x));
     }
   }
 }

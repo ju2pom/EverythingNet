@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EverythingNet.Core
+﻿namespace EverythingNet.Core
 {
   public enum ErrorCode
   {
@@ -25,14 +22,6 @@ namespace EverythingNet.Core
 
     bool MatchWholeWord { get; set; }
 
-    ErrorCode Search(bool wait);
-
-    ErrorCode Search(bool wait, IntPtr handle);
-
-    SearchResult DisposeSearch(IntPtr handle, bool wait);
-
-    ErrorCode GetError();
-
-    IEnumerable<string> GetResults();
+    ISearchResult Search(bool wait);
   }
 }

@@ -6,6 +6,6 @@ namespace EverythingNet.Core
   {
     ErrorCode ErrorCode { get; }
 
-    IEnumerable<string> GetResults();
+    IEnumerable<string> Results { get; }
   }
 }
