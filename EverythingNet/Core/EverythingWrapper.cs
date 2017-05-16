@@ -46,6 +46,17 @@ namespace EverythingNet.Core
       return new Locker(locker);
     }
 
+    [DllImport(EverythingDLL)]
+    public static extern bool Everything_IsDBLoaded();
+    [DllImport(EverythingDLL)]
+    public static extern int Everything_GetMajorVersion();
+    [DllImport(EverythingDLL)]
+    public static extern int Everything_GetMinorVersion();
+    [DllImport(EverythingDLL)]
+    public static extern int Everything_GetRevision();
+    [DllImport(EverythingDLL)]
+    public static extern int Everything_GetBuildNumber();
+
     [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
     public static extern int Everything_SetSearchW(string lpSearchString);
     [DllImport(EverythingDLL)]

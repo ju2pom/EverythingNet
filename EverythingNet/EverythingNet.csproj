@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Everything.cs" />
+    <Compile Include="Core\EverythingState.cs" />
     <Compile Include="Core\EverythingWrapper.cs" />
     <Compile Include="Core\IEverything.cs" />
     <Compile Include="Core\ISearchResult.cs" />
