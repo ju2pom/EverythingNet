@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
-  [Ignore("Need Everything service to be running")]
+  //[Ignore("Need Everything service to be running")]
   [TestFixture]
   public class AcceptanceTests
   {

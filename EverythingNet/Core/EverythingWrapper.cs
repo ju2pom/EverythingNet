@@ -23,7 +23,6 @@ namespace EverythingNet.Core
       public void Dispose()
       {
         this.locker.ExitWriteLock();
-        this.locker.Dispose();
       }
     }
 
