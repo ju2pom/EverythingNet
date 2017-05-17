@@ -13,5 +13,4 @@ before_build:
 build:
   verbosity: minimal
 before_test:
-  - cmd: everything.exe -install-service
-  - cmd: START /B everything.exe
+  - cmd: everything.exe -install-service -config Everything.ini -startup
