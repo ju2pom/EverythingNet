@@ -86,10 +86,10 @@ namespace EverythingNet.Tests
       CollectionAssert.IsNotEmpty(results.Results);
     }
 
-    [TestCase("*.cr2")]
-    [TestCase("*.nef")]
-    [TestCase("*.jpg")]
-    [TestCase("*.srw")]
+    [TestCase("*.cs")]
+    [TestCase("*.sln")]
+    [TestCase("*.csproj")]
+    [TestCase("packages.config")]
     public void Search_Images(string searchText)
     {
       // Arrange
