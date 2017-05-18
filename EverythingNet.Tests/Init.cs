@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using EverythingNet.Core;
 using NUnit.Framework;
@@ -13,7 +15,11 @@ namespace EverythingNet.Tests
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
     {
-      Assert.Pass($"Everything version: {EverythingState.GetVersion()}");
+      string path = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+      string exePath = Path.GetFullPath(Path.Combine(path, @"Everything.exe"));
+      Process.Start(exePath, "-startup");
+
+      Assert.Warn($"Everything version: {EverythingState.GetVersion()}");
 
       Stopwatch stopwatch = new Stopwatch();
       stopwatch.Start();
