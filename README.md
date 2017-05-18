@@ -1,6 +1,6 @@
 ![](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at?svg=true)
 
-# EverythingNet
+# EverythingNet ![](http://www.voidtools.com/forum/styles/prosilver/theme/images/site_logo.gif)
 
 ## What
 
@@ -14,11 +14,30 @@ EverythingNet provides a simple .NET api to search for file using indexing. The 
 
 ## How
 
-Let's have a look at a simplep piece of code:
+The library exposes a fluent API that lets you for instance use logical operators:
 
 ```csharp
 Everything everything = new Everything();
-everything.SearchText = "a_file_name.txt";
-everything.MatchWholeWord = true;
-ErrorCode errorCode = everything.Search(true);
+var searchResult = everyThing
+ .Is("John")
+ .And()
+ .Is("Doe")
+ .Search(true);
 ```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Is("*.jpg")
+ .Or()
+ .Is("*.png")
+ .Search(true);
+```
+
+The fluent API provides specific methods to easily handle
+- [x] logical operators
+- [x] file size
+- [x] picture files (standard format and properties)
+- [ ] music files (ID3 Tags)
+- [ ] file dates (soon)
+- [ ] file content (soon)
