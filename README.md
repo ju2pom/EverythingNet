@@ -34,7 +34,10 @@ var searchResult = everyThing
  .Search(true);
 ```
 
+## Roadmap
+
 The fluent API provides specific methods to easily handle
+- [x] thread safety
 - [x] logical operators
 - [x] file size
 - [x] picture files (standard format and properties)
