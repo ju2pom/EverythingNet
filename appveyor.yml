@@ -12,5 +12,3 @@ before_build:
   - cmd: nuget restore
 build:
   verbosity: minimal
-before_test:
-  - cmd: everything.exe -startup
