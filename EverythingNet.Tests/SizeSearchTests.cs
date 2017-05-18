@@ -49,7 +49,7 @@ namespace EverythingNet.Tests
 
       everything
         .Size()
-        .Greater(value)
+        .GreaterThan(value)
         .Unit(unit);
 
       return everything.SearchText;

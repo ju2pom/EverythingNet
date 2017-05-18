@@ -69,7 +69,7 @@ namespace EverythingNet.Tests
     [TestCase(2002, ExpectedResult = "year:>=2002")]
     public string GreaterOrEqual(int value)
     {
-      this.everyThing.Is("year:").GreaterOrEqual(value);
+      this.everyThing.Is("year:").GreaterOrEqualThan(value);
 
       return everyThing.SearchText;
     }
@@ -77,7 +77,7 @@ namespace EverythingNet.Tests
     [TestCase(2002, ExpectedResult = "year:<=2002")]
     public string LessOrEqual(int value)
     {
-      this.everyThing.Is("year:").LessOrEqual(value);
+      this.everyThing.Is("year:").LessOrEqualThan(value);
 
       return everyThing.SearchText;
     }
@@ -85,7 +85,7 @@ namespace EverythingNet.Tests
     [TestCase(2002, ExpectedResult = "year:>2002")]
     public string Greater(int value)
     {
-      this.everyThing.Is("year:").Greater(value);
+      this.everyThing.Is("year:").GreaterThan(value);
 
       return everyThing.SearchText;
     }
@@ -93,7 +93,7 @@ namespace EverythingNet.Tests
     [TestCase(2002, ExpectedResult = "year:<2002")]
     public string Less(int value)
     {
-      this.everyThing.Is("year:").Less(value);
+      this.everyThing.Is("year:").LessThan(value);
 
       return everyThing.SearchText;
     }

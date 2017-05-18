@@ -96,6 +96,7 @@
     <Compile Include="Core\ISearchResult.cs" />
     <Compile Include="Extensions\LogicSearch.cs" />
     <Compile Include="Extensions\MacroSearch.cs" />
+    <Compile Include="Extensions\DateSearch.cs" />
     <Compile Include="Extensions\SizeSearch.cs" />
     <Compile Include="Extensions\MucisSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

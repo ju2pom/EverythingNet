@@ -12,28 +12,28 @@ namespace EverythingNet.Extensions
       return everything;
     }
 
-    public static IEverything Greater(this IEverything everything, int value)
+    public static IEverything GreaterThan(this IEverything everything, int value)
     {
       everything.SearchText += $">{value}";
 
       return everything;
     }
 
-    public static IEverything GreaterOrEqual(this IEverything everything, int value)
+    public static IEverything GreaterOrEqualThan(this IEverything everything, int value)
     {
       everything.SearchText += $">={value}";
 
       return everything;
     }
 
-    public static IEverything Less(this IEverything everything, int value)
+    public static IEverything LessThan(this IEverything everything, int value)
     {
       everything.SearchText += $"<{value}";
 
       return everything;
     }
 
-    public static IEverything LessOrEqual(this IEverything everything, int value)
+    public static IEverything LessOrEqualThan(this IEverything everything, int value)
     {
       everything.SearchText += $"<={value}";
 

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptanceTests.cs" />
+    <Compile Include="DateSearchTests.cs" />
     <Compile Include="EverythingTests.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
