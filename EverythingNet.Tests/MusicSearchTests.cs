@@ -23,7 +23,7 @@ namespace EverythingNet.Tests
 
     [TestCase(null, ExpectedResult = "album:")]
     [TestCase("", ExpectedResult = "album:")]
-    [TestCase("The Wall", ExpectedResult = "album:The Wall")]
+    [TestCase("The Wall", ExpectedResult = "album:\"The Wall\"")]
     public string Album(string album)
     {
       IEverything everything = new Everything();
@@ -45,7 +45,7 @@ namespace EverythingNet.Tests
 
     [TestCase(null, ExpectedResult = "artist:")]
     [TestCase("", ExpectedResult = "artist:")]
-    [TestCase("Pink Floyed", ExpectedResult = "artist:Pink Floyed")]
+    [TestCase("Pink Floyed", ExpectedResult = "artist:\"Pink Floyed\"")]
     public string Artist(string artist)
     {
       IEverything everything = new Everything();
@@ -89,7 +89,7 @@ namespace EverythingNet.Tests
 
     [TestCase(null, ExpectedResult = "comment:")]
     [TestCase("", ExpectedResult = "comment:")]
-    [TestCase("great music", ExpectedResult = "comment:great music")]
+    [TestCase("great music", ExpectedResult = "comment:\"great music\"")]
     public string Comment(string comment)
     {
       IEverything everything = new Everything();
@@ -113,7 +113,7 @@ namespace EverythingNet.Tests
 
     [TestCase(null, ExpectedResult = "genre:")]
     [TestCase("", ExpectedResult = "genre:")]
-    [TestCase("The Wall", ExpectedResult = "genre:The Wall")]
+    [TestCase("Rock", ExpectedResult = "genre:Rock")]
     public string Genre(string genre)
     {
       IEverything everything = new Everything();

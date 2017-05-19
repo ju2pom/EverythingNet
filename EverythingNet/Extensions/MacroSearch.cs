@@ -4,44 +4,39 @@ namespace EverythingNet.Extensions
 {
   public static class MacroSearch
   {
-    public static IEverything Audio(this IEverything everything)
+    public static IEverything Audio(this IEverything everything, string search = null)
     {
-      everything.SearchText += "audio:";
-
-      return everything;
+      return Macro(everything, "audio:", search);
     }
 
-    public static IEverything Zip(this IEverything everything)
+    public static IEverything Zip(this IEverything everything, string search = null)
     {
-      everything.SearchText += "zip:";
-
-      return everything;
+      return Macro(everything, "zip:", search);
     }
 
-    public static IEverything Video(this IEverything everything)
+    public static IEverything Video(this IEverything everything, string search = null)
     {
-      everything.SearchText += "video:";
-
-      return everything;
+      return Macro(everything, "video:", search);
     }
 
-    public static IEverything Picture(this IEverything everything)
+    public static IEverything Picture(this IEverything everything, string search = null)
     {
-      everything.SearchText += "pic:";
-
-      return everything;
+      return Macro(everything, "pic:", search);
     }
 
-    public static IEverything Exe(this IEverything everything)
+    public static IEverything Exe(this IEverything everything, string search = null)
     {
-      everything.SearchText += "exe:";
-
-      return everything;
+      return Macro(everything, "exe:", search);
     }
 
-    public static IEverything Document(this IEverything everything)
+    public static IEverything Document(this IEverything everything, string search = null)
     {
-      everything.SearchText += "doc:";
+      return Macro(everything, "doc:", search);
+    }
+
+    private static IEverything Macro(IEverything everything, string tag, string search)
+    {
+      everything.SearchText += tag + LogicSearch.QuoteIfNeeded(search);
 
       return everything;
     }

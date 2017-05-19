@@ -31,14 +31,29 @@ namespace EverythingNet.Extensions
       return Date(everything, "dc:");
     }
 
+    public static IEverything DateCreated(this IEverything everything, DateTime date)
+    {
+      return Date(everything, $"dc:{date.ToShortDateString()}");
+    }
+
     public static IEverything DateAccess(this IEverything everything)
     {
       return Date(everything, "da:");
     }
 
+    public static IEverything DateAccess(this IEverything everything, DateTime date)
+    {
+      return Date(everything, $"da:{date.ToShortDateString()}");
+    }
+
     public static IEverything DateModified(this IEverything everything)
     {
       return Date(everything, "dm:");
+    }
+
+    public static IEverything DateModified(this IEverything everything, DateTime date)
+    {
+      return Date(everything, $"dm:{date.ToShortDateString()}");
     }
 
     public static IEverything DateRun(this IEverything everything)

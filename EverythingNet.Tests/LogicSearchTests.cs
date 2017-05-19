@@ -22,7 +22,7 @@ namespace EverythingNet.Tests
     }
 
     [TestCase("*.abc", ExpectedResult = "*.abc")]
-    [TestCase("Any value", ExpectedResult = "Any value")]
+    [TestCase("Any value", ExpectedResult = "\"Any value\"")]
     public string Is(string search)
     {
       this.everyThing.Is(search);

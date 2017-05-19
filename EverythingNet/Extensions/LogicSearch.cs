@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using EverythingNet.Core;
 
 namespace EverythingNet.Extensions
@@ -7,14 +8,14 @@ namespace EverythingNet.Extensions
   {
     public static IEverything Is(this IEverything everything, string value)
     {
-      everything.SearchText += value;
+      everything.SearchText += QuoteIfNeeded(value);
 
       return everything;
     }
 
     public static IEverything Is(this IEverything everything, object value)
     {
-      everything.SearchText += value.ToString();
+      everything.SearchText += QuoteIfNeeded(value.ToString());
 
       return everything;
     }
@@ -82,6 +83,21 @@ namespace EverythingNet.Extensions
       everything.SearchText += $"{min}{u}-{max}{u}";
 
       return everything;
+    }
+
+    internal static string QuoteIfNeeded(string text)
+    {
+      if (text == null)
+      {
+        return String.Empty;
+      }
+
+      if (text.Contains(" ") && text.First() != '\"' && text.Last() != '\"')
+      {
+        return $"\"{text}\"";
+      }
+
+      return text;
     }
   }
 }

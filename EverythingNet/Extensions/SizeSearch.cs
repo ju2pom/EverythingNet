@@ -26,9 +26,12 @@ namespace EverythingNet.Extensions
 
     public static IEverything Size(this IEverything everything)
     {
-      everything.SearchText += "size:";
+      return Size(everything, "size:");
+    }
 
-      return everything;
+    public static IEverything Size(this IEverything everything, int size)
+    {
+      return Size(everything, $"size:{size}");
     }
 
     public static IEverything Kb(this IEverything everything)
@@ -48,14 +51,17 @@ namespace EverythingNet.Extensions
 
     public static IEverything Unit(this IEverything everything, SizeUnit unit)
     {
-      everything.SearchText += unit.ToString().ToLower();
-
-      return everything;
+      return Size(everything, unit.ToString().ToLower());
     }
 
     public static IEverything Standard(this IEverything everything, SizeStandard size)
     {
-      everything.SearchText += size.ToString().ToLower();
+      return Size(everything, size.ToString().ToLower());
+    }
+
+    private static IEverything Size(IEverything everything, string text)
+    {
+      everything.SearchText += text;
 
       return everything;
     }
