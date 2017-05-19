@@ -14,7 +14,9 @@ EverythingNet provides a simple .NET api to search for file using indexing. The 
 
 ## How
 
-The library exposes a fluent API that lets you for instance use logical operators:
+The library exposes a fluent API that ease access to specific search functions.
+
+1. Logic
 
 ```csharp
 Everything everything = new Everything();
@@ -34,6 +36,66 @@ var searchResult = everyThing
  .Search(true);
 ```
 
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Is("*.jpg")
+ .And().Not()
+ .Is("test.png")
+ .Search(true);
+```
+
+2. File size
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Size()
+ .Is(100) // By default the unit is kb
+ .Search(true);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Size()
+ .GreaterThan(100).Mb()
+ .Search(true);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Size()
+ .Between(100, 200, SizeUnit.Mb)
+ .Search(true);
+```
+
+3. Music files
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Artist("RadioHead")
+ .Search(true);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Genre("Rock")
+ .Search(true);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everyThing
+ .Artist("RadioHead")
+ .Album("Pablo Honey")
+ .Track().Between(1, 3)
+ .Search(true);
+```
+
 ## Roadmap
 
 The fluent API provides specific methods to easily handle
@@ -41,6 +103,6 @@ The fluent API provides specific methods to easily handle
 - [x] logical operators
 - [x] file size
 - [x] picture files (standard format and properties)
-- [ ] music files (ID3 Tags)
-- [ ] file dates (soon)
+- [x] music files (ID3 Tags)
+- [x] file dates (soon)
 - [ ] file content (soon)
