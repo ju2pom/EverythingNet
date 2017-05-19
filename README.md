@@ -1,4 +1,5 @@
 ![](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at?svg=true)
+[![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=master)](https://coveralls.io/github/ju2pom/EverythingNet?branch=master)
 
 # EverythingNet ![](http://www.voidtools.com/forum/styles/prosilver/theme/images/site_logo.gif)
 
