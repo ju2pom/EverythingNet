@@ -1,4 +1,5 @@
-﻿using EverythingNet.Core;
+﻿using System.Runtime.CompilerServices;
+using EverythingNet.Core;
 
 namespace EverythingNet.Extensions
 {
@@ -28,6 +29,21 @@ namespace EverythingNet.Extensions
       everything.SearchText += "size:";
 
       return everything;
+    }
+
+    public static IEverything Kb(this IEverything everything)
+    {
+      return everything.Unit(SizeUnit.Kb);
+    }
+
+    public static IEverything Mb(this IEverything everything)
+    {
+      return everything.Unit(SizeUnit.Mb);
+    }
+
+    public static IEverything Gb(this IEverything everything)
+    {
+      return everything.Unit(SizeUnit.Gb);
     }
 
     public static IEverything Unit(this IEverything everything, SizeUnit unit)

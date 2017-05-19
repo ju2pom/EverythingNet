@@ -12,6 +12,13 @@ namespace EverythingNet.Extensions
       return everything;
     }
 
+    public static IEverything Is(this IEverything everything, object value)
+    {
+      everything.SearchText += value.ToString();
+
+      return everything;
+    }
+
     public static IEverything GreaterThan(this IEverything everything, int value)
     {
       everything.SearchText += $">{value}";
