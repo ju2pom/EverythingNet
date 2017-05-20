@@ -10,16 +10,23 @@ namespace EverythingNet.Tests
   [SetUpFixture]
   public class Init
   {
-    private static int Timeout = 120 * 1000; // 2 min
+    private static int Timeout = 60 * 1000; // 1 min
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
     {
+      if (!EverythingState.IsStarted())
+      {
+        EverythingState.StartService(false, EverythingState.StartMode.Service);
+      }
+
       Stopwatch stopwatch = new Stopwatch();
       stopwatch.Start();
 
       while (!EverythingState.IsReady() && stopwatch.ElapsedMilliseconds < Timeout)
       {
+        var lastError = EverythingState.GetLastError();
+        Assert.Warn($"Current Everything error code: {lastError}");
         Thread.Sleep(200);
       }
 
@@ -27,10 +34,10 @@ namespace EverythingNet.Tests
 
       if (stopwatch.ElapsedMilliseconds > Timeout)
       {
-        string path = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
-        string exePath = Path.GetFullPath(Path.Combine(path, @"Everything.exe"));
-        Process.Start(exePath, "-startup");
-
+        Assert.Fail("Could not start Everything process");
+      }
+      else
+      {
         Assert.Warn($"Everything version: {EverythingState.GetVersion()}");
       }
     }
