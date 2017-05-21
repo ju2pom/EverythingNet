@@ -12,6 +12,10 @@ namespace EverythingNet.Core
     public Everything()
     {
       this.replyId = Convert.ToUInt32(this.GetHashCode());
+      if (!EverythingState.IsStarted())
+      {
+        throw new InvalidOperationException("Everything service must be started");
+      }
     }
 
     public string SearchText { get; set; }

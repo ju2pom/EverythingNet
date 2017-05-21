@@ -16,11 +16,6 @@ namespace EverythingNet.Core
 
     private static Process everythingProcess;
 
-    static EverythingState()
-    {
-      everythingProcess = GetEverythingProcess();
-    }
-
     public static bool IsStarted()
     {
       return everythingProcess != null;
@@ -30,6 +25,12 @@ namespace EverythingNet.Core
     {
       if (everythingProcess == null)
       {
+        everythingProcess = GetEverythingProcess();
+        if (everythingProcess != null)
+        {
+          return everythingProcess.HasExited;
+        }
+
         string option = admin ? "-admin" : string.Empty;
 
         switch (mode)
@@ -42,12 +43,12 @@ namespace EverythingNet.Core
             break;
         }
 
-        StartProcess(option);
+        everythingProcess = StartProcess(option);
 
         return true;
       }
 
-      return false;
+      return !everythingProcess.HasExited;
     }
 
     public static bool IsReady()
@@ -72,14 +73,15 @@ namespace EverythingNet.Core
 
     private static Process GetEverythingProcess()
     {
-      return Process.GetProcessesByName("everything.exe").SingleOrDefault();
+      // TODO: Check if it's the correct process
+      return Process.GetProcessesByName("Everything").First();
     }
 
-    private static void StartProcess(string options)
+    private static Process StartProcess(string options)
     {
       string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       string exePath = Path.GetFullPath(Path.Combine(path, @"Everything.exe"));
-      everythingProcess = Process.Start(exePath, options);
+      return Process.Start(exePath, options);
     }
   }
 }

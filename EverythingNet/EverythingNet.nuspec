@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>EverythingNet</id>
+        <version>1.0.0</version>
+        <title>EverythingNet</title>
+        <authors>jamsellem</authors>
+        <owners>jamsellem</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>.NET library that wraps Everything Search excellent tool that allows to instantly search for files.</description>
+        <copyright>Copyright ©  2017</copyright>
+    </metadata>
+    <files>
+        <file src="bin\debug\EverythingNet.dll" target="lib\net462\EverythingNet.dll" />
+        <file src="..\Everything.exe" target="tools\Everything.exe" />
+    </files>
+</package>
