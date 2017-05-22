@@ -74,7 +74,7 @@ namespace EverythingNet.Core
     private static Process GetEverythingProcess()
     {
       // TODO: Check if it's the correct process
-      return Process.GetProcessesByName("Everything").First();
+      return Process.GetProcessesByName("Everything").FirstOrDefault();
     }
 
     private static Process StartProcess(string options)
