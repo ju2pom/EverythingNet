@@ -1,4 +1,7 @@
-﻿namespace EverythingNet.Core
+﻿using System.Collections.Generic;
+using EverythingNet.Interfaces;
+
+namespace EverythingNet.Core
 {
   public enum ErrorCode
   {
@@ -14,14 +17,17 @@
 
   public interface IEverything
   {
-    string SearchText { get; set; }
-
     bool MatchCase { get; set; }
 
     bool MatchPath { get; set; }
 
     bool MatchWholeWord { get; set; }
 
-    ISearchResult Search(bool wait);
+    IQuery Search(bool wait);
+  }
+
+  internal interface IEverythingInternal
+  {
+    IEnumerable<string> SendSearch(string searchPattern);
   }
 }

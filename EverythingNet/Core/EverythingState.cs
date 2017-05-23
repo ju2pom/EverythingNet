@@ -14,23 +14,15 @@ namespace EverythingNet.Core
       Service
     }
 
-    private static Process everythingProcess;
-
     public static bool IsStarted()
     {
-      return everythingProcess != null;
+      return GetEverythingProcess() != null;
     }
 
     public static bool StartService(bool admin, StartMode mode)
     {
-      if (everythingProcess == null)
+      if (GetEverythingProcess() == null)
       {
-        everythingProcess = GetEverythingProcess();
-        if (everythingProcess != null)
-        {
-          return everythingProcess.HasExited;
-        }
-
         string option = admin ? "-admin" : string.Empty;
 
         switch (mode)
@@ -43,12 +35,12 @@ namespace EverythingNet.Core
             break;
         }
 
-        everythingProcess = StartProcess(option);
+        StartProcess(option);
 
-        return true;
+        return GetEverythingProcess() != null;
       }
 
-      return !everythingProcess.HasExited;
+      return true;
     }
 
     public static bool IsReady()
@@ -77,11 +69,12 @@ namespace EverythingNet.Core
       return Process.GetProcessesByName("Everything").FirstOrDefault();
     }
 
-    private static Process StartProcess(string options)
+    private static void StartProcess(string options)
     {
       string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       string exePath = Path.GetFullPath(Path.Combine(path, @"Everything.exe"));
-      return Process.Start(exePath, options);
+
+      Process.Start(exePath, options);
     }
   }
 }

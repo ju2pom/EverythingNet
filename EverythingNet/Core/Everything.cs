@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using EverythingNet.Interfaces;
 
 namespace EverythingNet.Core
 {
-  public class Everything : IEverything
+  public class Everything : IEverything, IEverythingInternal, IDisposable
   {
     private readonly uint replyId;
 
@@ -18,19 +18,22 @@ namespace EverythingNet.Core
       }
     }
 
-    public string SearchText { get; set; }
-
     public bool MatchCase { get; set; }
 
     public bool MatchPath { get; set; }
 
     public bool MatchWholeWord { get; set; }
 
-    public ISearchResult Search(bool wait)
-    {
-      ErrorCode errorCode;
-      string[] results;
+    public ErrorCode LastErrorCode { get; set; }
 
+    public IQuery Search(bool wait)
+    {
+      return new Query.Query(this);
+
+    }
+
+    IEnumerable<string> IEverythingInternal.SendSearch(string searchPattern)
+    {
       using (EverythingWrapper.Lock())
       {
         EverythingWrapper.Everything_SetReplyID(this.replyId);
@@ -39,15 +42,13 @@ namespace EverythingNet.Core
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
 
-        EverythingWrapper.Everything_SetSearchA(this.SearchText);
-        EverythingWrapper.Everything_QueryA(wait);
+        EverythingWrapper.Everything_SetSearchA(searchPattern);
+        EverythingWrapper.Everything_QueryA(true);
 
-        errorCode = this.GetError();
-        results = this.GetResults().ToArray();
+        this.LastErrorCode = this.GetError();
+
+        return this.GetResults();
       }
-
-      return new SearchResult(errorCode, results);
-
     }
 
     private IEnumerable<string> GetResults()
@@ -63,7 +64,7 @@ namespace EverythingNet.Core
       }
     }
 
-    public void CleanUp()
+    public void Dispose()
     {
       EverythingWrapper.Everything_Reset();
     }

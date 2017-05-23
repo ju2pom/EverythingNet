@@ -45,13 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptanceTests.cs" />
-    <Compile Include="DateSearchTests.cs" />
-    <Compile Include="EverythingTests.cs" />
     <Compile Include="Init.cs" />
-    <Compile Include="LogicSearchTests.cs" />
-    <Compile Include="MusicSearchTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SizeSearchTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Everything\Everything64.dll">

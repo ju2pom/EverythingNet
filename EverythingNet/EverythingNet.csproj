@@ -44,15 +44,21 @@
     <Compile Include="Core\Everything.cs" />
     <Compile Include="Core\EverythingState.cs" />
     <Compile Include="Core\EverythingWrapper.cs" />
-    <Compile Include="Core\IEverything.cs" />
-    <Compile Include="Core\ISearchResult.cs" />
+    <Compile Include="Interfaces\IEverything.cs" />
+    <Compile Include="Interfaces\ISearchResult.cs" />
     <Compile Include="Core\SearchResult.cs" />
-    <Compile Include="Extensions\DateSearch.cs" />
-    <Compile Include="Extensions\LogicSearch.cs" />
-    <Compile Include="Extensions\MacroSearch.cs" />
-    <Compile Include="Extensions\MucisSearch.cs" />
-    <Compile Include="Extensions\SizeSearch.cs" />
+    <Compile Include="Interfaces\IQuery.cs" />
+    <Compile Include="Interfaces\IQueryable.cs" />
+    <Compile Include="Interfaces\IQueryGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\LogicalQuery.cs" />
+    <Compile Include="Query\NameQuery.cs" />
+    <Compile Include="Query\Query.cs" />
+    <Compile Include="Query\Queryable.cs" />
+    <Compile Include="Query\SizeQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

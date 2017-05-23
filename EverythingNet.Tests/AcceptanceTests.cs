@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using EverythingNet.Core;
+using EverythingNet.Interfaces;
 using NUnit.Framework;
 
 namespace EverythingNet.Tests
@@ -20,9 +21,24 @@ namespace EverythingNet.Tests
     [TearDown]
     public void TearDown()
     {
-      this.everyThing.CleanUp();
+      this.everyThing.Dispose();
     }
 
+    [Test]
+    public void Query()
+    {
+      var queryable = new Everything()
+        .Search(true)
+        .Name("AcceptanceTests.cs")
+        .Or
+        .Name("SearchResult.cs");
+
+      foreach (var s in queryable)
+      {
+        Assert.That(s, Is.Not.Empty);
+      }
+    }
+    /*
     [Test, Repeat(100)]
     public void StressTest()
     {
@@ -72,5 +88,6 @@ namespace EverythingNet.Tests
 
       return resetEvent;
     }
+    */
   }
 }
