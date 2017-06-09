@@ -53,9 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\LogicalQuery.cs" />
     <Compile Include="Query\NameQuery.cs" />
+    <Compile Include="Query\SizeQueryable.cs" />
     <Compile Include="Query\Query.cs" />
     <Compile Include="Query\Queryable.cs" />
-    <Compile Include="Query\SizeQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />

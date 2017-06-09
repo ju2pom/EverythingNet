@@ -1,12 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using EverythingNet.Core;
-using EverythingNet.Interfaces;
 using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
-  //[Ignore("Need Everything service to be running")]
   [TestFixture]
   public class AcceptanceTests
   {
@@ -38,26 +36,24 @@ namespace EverythingNet.Tests
         Assert.That(s, Is.Not.Empty);
       }
     }
-    /*
     [Test, Repeat(100)]
     public void StressTest()
     {
-      this.everyThing.SearchText = "AcceptanceTests.cs";
-      
-      // Act
-      var results = this.everyThing.Search(true);
+      // Arrange
+      var queryable = this.everyThing.Search(true).Name("AcceptanceTests.cs");
 
       // Assert
-      Assert.That(results, Is.Not.Null);
-      Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
-      Assert.That(results.Results, Is.Not.Empty);
+      Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+      Assert.That(queryable, Is.Not.Null);
+      Assert.That(queryable, Is.Not.Empty);
     }
 
-    [Test]
+
+    [Test, Ignore("Not yet ready")]
     public void ThreadSafety()
     {
       ManualResetEventSlim resetEvent1 = this.StartSearchInBackground("Everything.cs");
-      ManualResetEventSlim resetEvent2 = this.StartSearchInBackground("SearchResult.cs");
+      ManualResetEventSlim resetEvent2 = this.StartSearchInBackground("AcceptanceTests.cs");
 
       Assert.That(resetEvent1.Wait(15000), Is.True);
       Assert.That(resetEvent2.Wait(15000), Is.True);
@@ -71,15 +67,14 @@ namespace EverythingNet.Tests
       {
         IEverything everything = new Everything();
         everything.MatchWholeWord = true;
-        everything.SearchText = searchString;
        
         // Act
-        var results = everything.Search(true);
+        var results = everything.Search(true).Name(searchString);
 
         // Assert
-        Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
-        Assert.That(results.Results, Is.Not.Empty);
-        foreach (var result in results.Results)
+        Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+        Assert.That(results, Is.Not.Empty);
+        foreach (var result in results)
         {
           StringAssert.Contains(searchString, result);
         }
@@ -88,6 +83,5 @@ namespace EverythingNet.Tests
 
       return resetEvent;
     }
-    */
   }
 }

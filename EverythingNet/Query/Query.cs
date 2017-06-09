@@ -2,7 +2,6 @@
 using System.Linq;
 using EverythingNet.Core;
 using EverythingNet.Interfaces;
-using IQueryable = EverythingNet.Interfaces.IQueryable;
 
 namespace EverythingNet.Query
 {
@@ -17,14 +16,21 @@ namespace EverythingNet.Query
       this.parent = parent;
     }
 
-    public IQueryable Name(string namePattern)
+    public IQuery Not => new LogicalQuery(this.everything, this, "!");
+
+    public INameQueryable Name()
+    {
+      return new NameQuery(this.everything, this);
+    }
+
+    public INameQueryable Name(string namePattern)
     {
       return new NameQuery(this.everything, this, namePattern);
     }
 
-    public IQueryable Size(string sizePattern)
+    public ISizeQueryable Size()
     {
-      return new SizeQuery(this.everything, this, sizePattern);
+      return new SizeQueryable(this.everything, this);
     }
 
     public virtual IEnumerable<string> GetQueryParts()

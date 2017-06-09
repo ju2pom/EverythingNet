@@ -1,11 +1,15 @@
-﻿using System.Linq;
+﻿using EverythingNet.Query;
 
 namespace EverythingNet.Interfaces
 {
   public interface IQuery
   {
-    IQueryable Name(string namePattern);
+    IQuery Not { get; }
 
-    IQueryable Size(string sizePattern);
+    INameQueryable Name();
+
+    INameQueryable Name(string namePattern);
+
+    ISizeQueryable Size();
   }
 }

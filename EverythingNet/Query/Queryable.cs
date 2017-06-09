@@ -18,6 +18,11 @@ namespace EverythingNet.Query
       this.parent = parent;
     }
 
+    public override string ToString()
+    {
+      return string.Join("", this.GetQueryParts());
+    }
+
     public IEnumerator<string> GetEnumerator()
     {
       var search = this.everything.SendSearch(string.Join("", this.GetQueryParts()));
@@ -33,10 +38,6 @@ namespace EverythingNet.Query
     public IQuery And => new LogicalQuery(this.everything, this, " ");
 
     public IQuery Or => new LogicalQuery(this.everything, this, "|");
-
-    public IQuery Less => new LogicalQuery(this.everything, this, "<");
-
-    public IQuery LessOrEqual => new LogicalQuery(this.everything, this, "<=");
 
     public virtual IEnumerable<string> GetQueryParts()
     {

@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="AcceptanceTests.cs" />
     <Compile Include="Init.cs" />
+    <Compile Include="NameQueryableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SizeSearchTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Everything\Everything64.dll">
