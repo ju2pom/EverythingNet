@@ -20,17 +20,37 @@ namespace EverythingNet.Query
 
     public INameQueryable Name()
     {
-      return new NameQuery(this.everything, this);
+      return new NameQueryable(this.everything, this);
     }
 
     public INameQueryable Name(string namePattern)
     {
-      return new NameQuery(this.everything, this, namePattern);
+      return new NameQueryable(this.everything, this, namePattern);
     }
 
     public ISizeQueryable Size()
     {
       return new SizeQueryable(this.everything, this);
+    }
+
+    public IDateQueryable CreationDate()
+    {
+      return new DateQueryable(this.everything, this, "dc:");
+    }
+
+    public IDateQueryable ModificationDate()
+    {
+      return new DateQueryable(this.everything, this, "dm:");
+    }
+
+    public IDateQueryable AccessDate()
+    {
+      return new DateQueryable(this.everything, this, "da:");
+    }
+
+    public IDateQueryable RunDate()
+    {
+      return new DateQueryable(this.everything, this, "dr:");
     }
 
     public virtual IEnumerable<string> GetQueryParts()

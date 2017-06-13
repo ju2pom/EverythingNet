@@ -51,8 +51,11 @@
     <Compile Include="Interfaces\IQueryable.cs" />
     <Compile Include="Interfaces\IQueryGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\DateQueryable.cs" />
+    <Compile Include="Interfaces\ISizeQueryable.cs" />
+    <Compile Include="Interfaces\IDateQueryable.cs" />
     <Compile Include="Query\LogicalQuery.cs" />
-    <Compile Include="Query\NameQuery.cs" />
+    <Compile Include="Query\NameQueryable.cs" />
     <Compile Include="Query\SizeQueryable.cs" />
     <Compile Include="Query\Query.cs" />
     <Compile Include="Query\Queryable.cs" />

@@ -11,5 +11,13 @@ namespace EverythingNet.Interfaces
     INameQueryable Name(string namePattern);
 
     ISizeQueryable Size();
+
+    IDateQueryable CreationDate();
+
+    IDateQueryable ModificationDate();
+
+    IDateQueryable AccessDate();
+
+    IDateQueryable RunDate();
   }
 }

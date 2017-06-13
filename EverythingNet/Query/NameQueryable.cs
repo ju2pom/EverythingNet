@@ -8,19 +8,19 @@ using IQueryable = EverythingNet.Interfaces.IQueryable;
 
 namespace EverythingNet.Query
 {
-  internal class NameQuery : Queryable, INameQueryable
+  internal class NameQueryable : Queryable, INameQueryable
   {
     private readonly string pattern;
 
     private string startWith;
     private string endWith;
 
-    public NameQuery(IEverythingInternal everything, IQueryGenerator parent)
+    public NameQueryable(IEverythingInternal everything, IQueryGenerator parent)
       : this(everything, parent, null)
     {
     }
 
-    public NameQuery(IEverythingInternal everything, IQueryGenerator parent, string pattern)
+    public NameQueryable(IEverythingInternal everything, IQueryGenerator parent, string pattern)
       : base(everything, parent)
     {
       this.pattern = this.QuoteIfNeeded(pattern);
