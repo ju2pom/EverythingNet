@@ -19,5 +19,7 @@ namespace EverythingNet.Interfaces
     IDateQueryable AccessDate();
 
     IDateQueryable RunDate();
+
+    IMusicQueryable Music();
   }
 }

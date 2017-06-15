@@ -1,5 +1,4 @@
 ﻿using EverythingNet.Core;
-using EverythingNet.Extensions;
 using NUnit.Framework;
 
 namespace EverythingNet.Tests
@@ -18,64 +17,51 @@ namespace EverythingNet.Tests
     [TearDown]
     public void TearDown()
     {
-      this.everyThing.CleanUp();
+      this.everyThing.Dispose();
     }
 
-    [TestCase(null, ExpectedResult = "album:")]
-    [TestCase("", ExpectedResult = "album:")]
     [TestCase("The Wall", ExpectedResult = "album:\"The Wall\"")]
     public string Album(string album)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everyThing.Search(true).Music().Album(album);
 
-      everything.Album(album);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [Test(ExpectedResult = "album:")]
-    public string Album2()
+    [TestCase(null)]
+    [TestCase("")]
+    public void Album_Throws(string album)
     {
-      IEverything everything = new Everything();
-
-      everything.Album();
-
-      return everything.SearchText;
+      Assert.That(() => this.everyThing.Search(true).Music().Album(album), Throws.ArgumentNullException);
     }
 
-    [TestCase(null, ExpectedResult = "artist:")]
-    [TestCase("", ExpectedResult = "artist:")]
+
     [TestCase("Pink Floyed", ExpectedResult = "artist:\"Pink Floyed\"")]
     public string Artist(string artist)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everyThing.Search(true).Music().Artist(artist);
 
-      everything.Artist(artist);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [Test(ExpectedResult = "artist:")]
-    public string Artist2()
+
+    [TestCase(null)]
+    [TestCase("")]
+    public void Artist_Throws(string artist)
     {
-      IEverything everything = new Everything();
-
-      everything.Artist();
-
-      return everything.SearchText;
+      Assert.That(() => this.everyThing.Search(true).Music().Artist(artist), Throws.ArgumentNullException);
     }
 
     [TestCase(0, ExpectedResult = "track:0")]
     [TestCase(2, ExpectedResult = "track:2")]
     public string Track(int track)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everyThing.Search(true).Music().Track(track);
 
-      everything.Track(track);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
+    /*
     [TestCase(0, 5, ExpectedResult = "track:0-5")]
     [TestCase(2, 7, ExpectedResult = "track:2-7")]
     public string TrackBetween(int min, int max)
@@ -122,5 +108,6 @@ namespace EverythingNet.Tests
 
       return everything.SearchText;
     }
+    */
   }
 }

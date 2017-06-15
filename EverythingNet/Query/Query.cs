@@ -53,6 +53,11 @@ namespace EverythingNet.Query
       return new DateQueryable(this.everything, this, "dr:");
     }
 
+    public IMusicQueryable Music()
+    {
+      return new MusicQueryable(this.everything, this);
+    }
+
     public virtual IEnumerable<string> GetQueryParts()
     {
       return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();

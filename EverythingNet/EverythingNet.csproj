@@ -54,7 +54,10 @@
     <Compile Include="Query\DateQueryable.cs" />
     <Compile Include="Interfaces\ISizeQueryable.cs" />
     <Compile Include="Interfaces\IDateQueryable.cs" />
+    <Compile Include="Interfaces\INameQueryable.cs" />
+    <Compile Include="Interfaces\IMusicQueryable.cs" />
     <Compile Include="Query\LogicalQuery.cs" />
+    <Compile Include="Query\MusicQueryable.cs" />
     <Compile Include="Query\NameQueryable.cs" />
     <Compile Include="Query\SizeQueryable.cs" />
     <Compile Include="Query\Query.cs" />

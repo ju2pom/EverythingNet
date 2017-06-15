@@ -1,10 +1,7 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using EverythingNet.Core;
 using EverythingNet.Interfaces;
-using IQueryable = EverythingNet.Interfaces.IQueryable;
 
 namespace EverythingNet.Query
 {
@@ -62,27 +59,5 @@ namespace EverythingNet.Query
 
       return this;
     }
-
-    private string QuoteIfNeeded(string text)
-    {
-      if (text == null)
-      {
-        return String.Empty;
-      }
-
-      if (text.Contains(" ") && text.First() != '\"' && text.Last() != '\"')
-      {
-        return $"\"{text}\"";
-      }
-
-      return text;
-    }
-  }
-
-  public interface INameQueryable : IQueryable
-  {
-    INameQueryable StartWith(string pattern);
-
-    INameQueryable EndWith(string pattern);
   }
 }

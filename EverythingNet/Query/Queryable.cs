@@ -43,5 +43,20 @@ namespace EverythingNet.Query
     {
       return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
     }
+
+    protected string QuoteIfNeeded(string text)
+    {
+      if (text == null)
+      {
+        return string.Empty;
+      }
+
+      if (text.Contains(" ") && text.First() != '\"' && text.Last() != '\"')
+      {
+        return $"\"{text}\"";
+      }
+
+      return text;
+    }
   }
 }
