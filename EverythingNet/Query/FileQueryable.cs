@@ -95,9 +95,9 @@ namespace EverythingNet.Query
       return this.Macro("ext:", string.Join(";", extensions));
     }
 
-    public IQueryable Duplicates()
+    public IQueryable Duplicates(string search = null)
     {
-      return this.Macro("dupe:", string.Empty);
+      return this.Macro("dupe:", search);
     }
 
     private IQueryable Macro(string tag, string search)

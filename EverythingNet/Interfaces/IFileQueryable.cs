@@ -22,6 +22,6 @@ namespace EverythingNet.Interfaces
 
     IQueryable Extensions(IEnumerable<string> extensions);
 
-    IQueryable Duplicates();
+    IQueryable Duplicates(string search = null);
   }
 }
