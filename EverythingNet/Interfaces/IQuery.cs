@@ -21,5 +21,7 @@ namespace EverythingNet.Interfaces
     IDateQueryable RunDate();
 
     IMusicQueryable Music();
+
+    IFileQueryable File();
   }
 }

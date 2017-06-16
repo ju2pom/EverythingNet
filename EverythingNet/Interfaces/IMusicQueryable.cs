@@ -10,6 +10,7 @@
 
     IMusicQueryable Title(string title);
 
+    // TODO: Add a way to nicely support constraints on track value (<, >, between)
     IMusicQueryable Track(int track);
 
     IMusicQueryable Comment(string comment);

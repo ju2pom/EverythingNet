@@ -61,53 +61,29 @@ namespace EverythingNet.Tests
       return queryable.ToString();
     }
 
-    /*
-    [TestCase(0, 5, ExpectedResult = "track:0-5")]
-    [TestCase(2, 7, ExpectedResult = "track:2-7")]
-    public string TrackBetween(int min, int max)
-    {
-      IEverything everything = new Everything();
 
-      everything.Track().Between(min, max);
-
-      return everything.SearchText;
-    }
-
-    [TestCase(null, ExpectedResult = "comment:")]
-    [TestCase("", ExpectedResult = "comment:")]
     [TestCase("great music", ExpectedResult = "comment:\"great music\"")]
     public string Comment(string comment)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everyThing.Search(true).Music().Comment(comment);
 
-      everything.Comment(comment);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [TestCase(null, ExpectedResult = "title:")]
-    [TestCase("", ExpectedResult = "title:")]
     [TestCase("Intro", ExpectedResult = "title:Intro")]
     public string Title(string title)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everyThing.Search(true).Music().Title(title);
 
-      everything.Title(title);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [TestCase(null, ExpectedResult = "genre:")]
-    [TestCase("", ExpectedResult = "genre:")]
     [TestCase("Rock", ExpectedResult = "genre:Rock")]
     public string Genre(string genre)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everyThing.Search(true).Music().Genre(genre);
 
-      everything.Genre(genre);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
-    */
   }
 }

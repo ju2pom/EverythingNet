@@ -18,6 +18,11 @@ namespace EverythingNet.Query
 
     public IQuery Not => new LogicalQuery(this.everything, this, "!");
 
+    public virtual IEnumerable<string> GetQueryParts()
+    {
+      return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
+    }
+
     public INameQueryable Name()
     {
       return new NameQueryable(this.everything, this);
@@ -58,9 +63,9 @@ namespace EverythingNet.Query
       return new MusicQueryable(this.everything, this);
     }
 
-    public virtual IEnumerable<string> GetQueryParts()
+    public IFileQueryable File()
     {
-      return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
+      return new FileQueryable(this.everything, this);
     }
   }
 }
