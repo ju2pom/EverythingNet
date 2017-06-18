@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at/branch/master?svg=true)](https://ci.appveyor.com/project/ju2pom/everythingnet/branch/query)
+[![Build status](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at/branch/Query?svg=true)](https://ci.appveyor.com/project/ju2pom/everythingnet/branch/Query)
 [![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=Query)](https://coveralls.io/github/ju2pom/EverythingNet?branch=Query)
 
 # EverythingNet ![](http://www.voidtools.com/forum/styles/prosilver/theme/images/site_logo.gif)
