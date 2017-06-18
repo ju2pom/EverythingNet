@@ -1,5 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at?svg=true)](https://ci.appveyor.com/project/ju2pom/everythingnet)
-[![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=master)](https://coveralls.io/github/ju2pom/EverythingNet?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/dosd2rd023jgl8at/branch/master?svg=true)](https://ci.appveyor.com/project/ju2pom/everythingnet/branch/query)
+[![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=Query)](https://coveralls.io/github/ju2pom/EverythingNet?branch=Query)
 
 # EverythingNet ![](http://www.voidtools.com/forum/styles/prosilver/theme/images/site_logo.gif)
 
@@ -21,80 +21,150 @@ The library exposes a fluent API that ease access to specific search functions.
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
- .Is("John")
- .And()
- .Is("Doe")
- .Search(true);
-```
-
-```csharp
-Everything everything = new Everything();
-var searchResult = everyThing
- .Is("*.jpg")
+var searchResult = everything.Search()
+ .Name("Report")
  .Or()
- .Is("*.png")
- .Search(true);
+ .Name("Results");
 ```
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
- .Is("*.jpg")
- .And().Not()
- .Is("test.png")
- .Search(true);
+var searchResult = everything.Search()
+ .Not.Name("temp")
+ .And()
+ .Not.Name("tmp");
 ```
 
-2. File size
+2. Name
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
+var searchResult = everything.Search()
+ .Name()
+ .StartWith("progra");
+```
+
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .Name()
+ .EndstWith("result");
+```
+
+3. Date
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .ModificationDate() // Can be AccessDate, RunDate, CreationDate
+ .Equal(Dates.Today);  // Can be many many values !
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .CreationDate()
+ .Before(Dates.Yesterday);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .CreationDate()
+ .Equal(Dates.ThisMonth);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .CreationDate()
+ .Last(Dates.Week);
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .AccessDate()
+ .Between(Dates.LastWeek, Dates.ThisWeek);
+```
+
+4. File size
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
  .Size()
- .Is(100) // By default the unit is kb
- .Search(true);
+ .Equal(100); // By default the unit is kb
 ```
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
+var searchResult = everything.Search()
  .Size()
- .GreaterThan(100).Mb()
- .Search(true);
+ .GreaterThan(100, SizeUnit.Mb); // Unit is optional
 ```
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
+var searchResult = everything.Search()
  .Size()
- .Between(100, 200, SizeUnit.Mb)
- .Search(true);
+ .Between(100, 200, SizeUnit.Mb); // Unit is optional
 ```
 
-3. Music files
+5. Music files
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
- .Artist("RadioHead")
- .Search(true);
-```
-
-```csharp
-Everything everything = new Everything();
-var searchResult = everyThing
- .Genre("Rock")
- .Search(true);
+var searchResult = everything.Search()
+ .Music()
+ .Artist("RadioHead");
 ```
 
 ```csharp
 Everything everything = new Everything();
-var searchResult = everyThing
+var searchResult = everything.Search()
+ .Music()
+ .Genre("Rock");
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything.Search()
+ .Music()
  .Artist("RadioHead")
  .Album("Pablo Honey")
- .Track().Between(1, 3)
- .Search(true);
+ .Track().Between(1, 3);
+```
+
+6. File info
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything
+ .File()
+ .Only();
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything
+ .File()
+ .Audio(); // Can be zip, video, picture, executable, document
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything
+ .File()
+ .Extension("csproj");
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything
+ .File()
+ .Extensions(new string[] {"csproj", "cs", "xaml"});
 ```
 
 ## Roadmap
