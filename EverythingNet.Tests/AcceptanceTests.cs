@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using EverythingNet.Core;
+using EverythingNet.Interfaces;
 using NUnit.Framework;
 
 namespace EverythingNet.Tests
@@ -26,7 +27,7 @@ namespace EverythingNet.Tests
     public void Query()
     {
       var queryable = new Everything()
-        .Search(true)
+        .Search()
         .Name("AcceptanceTests.cs")
         .Or
         .Name("SearchResult.cs");
@@ -40,7 +41,7 @@ namespace EverythingNet.Tests
     public void StressTest()
     {
       // Arrange
-      var queryable = this.everyThing.Search(true).Name("AcceptanceTests.cs");
+      var queryable = this.everyThing.Search().Name("AcceptanceTests.cs");
 
       // Assert
       Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
@@ -69,7 +70,7 @@ namespace EverythingNet.Tests
         everything.MatchWholeWord = true;
        
         // Act
-        var results = everything.Search(true).Name(searchString);
+        var results = everything.Search().Name(searchString);
 
         // Assert
         Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));

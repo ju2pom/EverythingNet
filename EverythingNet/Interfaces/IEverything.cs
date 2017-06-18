@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using EverythingNet.Interfaces;
 
-namespace EverythingNet.Core
+namespace EverythingNet.Interfaces
 {
   public enum ErrorCode
   {
@@ -23,7 +22,7 @@ namespace EverythingNet.Core
 
     bool MatchWholeWord { get; set; }
 
-    IQuery Search(bool wait);
+    IQuery Search();
   }
 
   internal interface IEverythingInternal

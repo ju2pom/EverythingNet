@@ -26,7 +26,7 @@ namespace EverythingNet.Core
 
     public ErrorCode LastErrorCode { get; set; }
 
-    public IQuery Search(bool wait)
+    public IQuery Search()
     {
       return new Query.Query(this);
 

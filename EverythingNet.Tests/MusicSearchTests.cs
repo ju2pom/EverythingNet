@@ -6,24 +6,24 @@ namespace EverythingNet.Tests
   [TestFixture]
   public class MusicSearchTests
   {
-    private Everything everyThing;
+    private Everything everything;
 
     [SetUp]
     public void Setup()
     {
-      this.everyThing = new Everything();
+      this.everything = new Everything();
     }
 
     [TearDown]
     public void TearDown()
     {
-      this.everyThing.Dispose();
+      this.everything.Dispose();
     }
 
     [TestCase("The Wall", ExpectedResult = "album:\"The Wall\"")]
     public string Album(string album)
     {
-      var queryable = this.everyThing.Search(true).Music().Album(album);
+      var queryable = this.everything.Search().Music().Album(album);
 
       return queryable.ToString();
     }
@@ -32,14 +32,14 @@ namespace EverythingNet.Tests
     [TestCase("")]
     public void Album_Throws(string album)
     {
-      Assert.That(() => this.everyThing.Search(true).Music().Album(album), Throws.ArgumentNullException);
+      Assert.That(() => this.everything.Search().Music().Album(album), Throws.ArgumentNullException);
     }
 
 
     [TestCase("Pink Floyed", ExpectedResult = "artist:\"Pink Floyed\"")]
     public string Artist(string artist)
     {
-      var queryable = this.everyThing.Search(true).Music().Artist(artist);
+      var queryable = this.everything.Search().Music().Artist(artist);
 
       return queryable.ToString();
     }
@@ -49,14 +49,14 @@ namespace EverythingNet.Tests
     [TestCase("")]
     public void Artist_Throws(string artist)
     {
-      Assert.That(() => this.everyThing.Search(true).Music().Artist(artist), Throws.ArgumentNullException);
+      Assert.That(() => this.everything.Search().Music().Artist(artist), Throws.ArgumentNullException);
     }
 
     [TestCase(0, ExpectedResult = "track:0")]
     [TestCase(2, ExpectedResult = "track:2")]
     public string Track(int track)
     {
-      var queryable = this.everyThing.Search(true).Music().Track(track);
+      var queryable = this.everything.Search().Music().Track(track);
 
       return queryable.ToString();
     }
@@ -65,7 +65,7 @@ namespace EverythingNet.Tests
     [TestCase("great music", ExpectedResult = "comment:\"great music\"")]
     public string Comment(string comment)
     {
-      var queryable = this.everyThing.Search(true).Music().Comment(comment);
+      var queryable = this.everything.Search().Music().Comment(comment);
 
       return queryable.ToString();
     }
@@ -73,7 +73,7 @@ namespace EverythingNet.Tests
     [TestCase("Intro", ExpectedResult = "title:Intro")]
     public string Title(string title)
     {
-      var queryable = this.everyThing.Search(true).Music().Title(title);
+      var queryable = this.everything.Search().Music().Title(title);
 
       return queryable.ToString();
     }
@@ -81,7 +81,7 @@ namespace EverythingNet.Tests
     [TestCase("Rock", ExpectedResult = "genre:Rock")]
     public string Genre(string genre)
     {
-      var queryable = this.everyThing.Search(true).Music().Genre(genre);
+      var queryable = this.everything.Search().Music().Genre(genre);
 
       return queryable.ToString();
     }

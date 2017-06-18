@@ -23,7 +23,7 @@ namespace EverythingNet.Tests
     [Test]
     public void Only()
     {
-      var queryable = this.everyThing.Search(true).File().Only();
+      var queryable = this.everyThing.Search().File().Only();
 
       Assert.That(queryable.ToString(), Is.EqualTo("file:"));
     }
@@ -33,7 +33,7 @@ namespace EverythingNet.Tests
     [TestCase("music.mp3", ExpectedResult = "audio:music.mp3")]
     public string Audio(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Audio(search);
+      var queryable = this.everyThing.Search().File().Audio(search);
 
       return queryable.ToString();
     }
@@ -43,7 +43,7 @@ namespace EverythingNet.Tests
     [TestCase("archive.zip", ExpectedResult = "zip:archive.zip")]
     public string Zip(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Zip(search);
+      var queryable = this.everyThing.Search().File().Zip(search);
 
       return queryable.ToString();
     }
@@ -54,7 +54,7 @@ namespace EverythingNet.Tests
     [TestCase("movie.avi", ExpectedResult = "video:movie.avi")]
     public string Video(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Video(search);
+      var queryable = this.everyThing.Search().File().Video(search);
 
       return queryable.ToString();
     }
@@ -64,7 +64,7 @@ namespace EverythingNet.Tests
     [TestCase("image.jpg", ExpectedResult = "pic:image.jpg")]
     public string Picture(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Picture(search);
+      var queryable = this.everyThing.Search().File().Picture(search);
 
       return queryable.ToString();
     }
@@ -74,7 +74,7 @@ namespace EverythingNet.Tests
     [TestCase("application.exe", ExpectedResult = "exe:application.exe")]
     public string Exe(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Exe(search);
+      var queryable = this.everyThing.Search().File().Exe(search);
 
       return queryable.ToString();
     }
@@ -84,7 +84,7 @@ namespace EverythingNet.Tests
     [TestCase("report.doc", ExpectedResult = "doc:report.doc")]
     public string Document(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Document(search);
+      var queryable = this.everyThing.Search().File().Document(search);
 
       return queryable.ToString();
     }
@@ -93,7 +93,7 @@ namespace EverythingNet.Tests
     [TestCase("xaml", ExpectedResult = "ext:xaml")]
     public string Extension(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Extension(search);
+      var queryable = this.everyThing.Search().File().Extension(search);
 
       return queryable.ToString();
     }
@@ -103,7 +103,7 @@ namespace EverythingNet.Tests
     public string Extensions(string search)
     {
       var extensions = search.Split(' ');
-      var queryable = this.everyThing.Search(true).File().Extensions(extensions);
+      var queryable = this.everyThing.Search().File().Extensions(extensions);
 
       return queryable.ToString();
     }
@@ -113,7 +113,7 @@ namespace EverythingNet.Tests
     [TestCase("main.cs", ExpectedResult = "dupe:main.cs")]
     public string Duplicates(string search)
     {
-      var queryable = this.everyThing.Search(true).File().Duplicates(search);
+      var queryable = this.everyThing.Search().File().Duplicates(search);
 
       return queryable.ToString();
     }

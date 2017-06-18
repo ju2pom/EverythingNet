@@ -31,7 +31,7 @@ namespace EverythingNet.Tests
       string expectedResult = Path.Combine(Directory.GetCurrentDirectory(), filename);
 
       // Act
-      var results = this.everyThing.Search(true)
+      var results = this.everyThing.Search()
         .CreationDate()
         .Equal(Dates.Today);
 
@@ -91,7 +91,7 @@ namespace EverythingNet.Tests
     public string AccessDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search(true)
+      var queryable = this.everyThing.Search()
         .AccessDate()
         .Equal(date);
 
@@ -151,7 +151,7 @@ namespace EverythingNet.Tests
     public string ModificationDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search(true)
+      var queryable = this.everyThing.Search()
         .ModificationDate()
         .Equal(date);
 
@@ -212,7 +212,7 @@ namespace EverythingNet.Tests
     public string CreationDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search(true)
+      var queryable = this.everyThing.Search()
         .CreationDate()
         .Equal(date);
 
@@ -273,7 +273,7 @@ namespace EverythingNet.Tests
     public string RunDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search(true)
+      var queryable = this.everyThing.Search()
         .RunDate()
         .Equal(date);
 
@@ -290,7 +290,7 @@ namespace EverythingNet.Tests
     public string LastDate(int count, CountableDates date)
     {
       // Act
-      var queryable = this.everyThing.Search(true).ModificationDate().Last(count, date);
+      var queryable = this.everyThing.Search().ModificationDate().Last(count, date);
 
       // Assert
       return queryable.ToString().ToLower();

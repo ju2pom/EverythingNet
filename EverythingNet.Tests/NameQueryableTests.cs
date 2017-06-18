@@ -24,7 +24,7 @@ namespace EverythingNet.Tests
     [TestCase("Any value", ExpectedResult = "\"Any value\"")]
     public string Is(string name)
     {
-      var queryable = this.everyThing.Search(true).Name(name);
+      var queryable = this.everyThing.Search().Name(name);
 
       return queryable.ToString();
     }
@@ -33,7 +33,7 @@ namespace EverythingNet.Tests
     [TestCase("\"Any value\"", "\"another value\"", ExpectedResult = "\"Any value\"|\"another value\"")]
     public string Or(string search1, string search2)
     {
-      var queryable = this.everyThing.Search(true).Name(search1).Or.Name(search2);
+      var queryable = this.everyThing.Search().Name(search1).Or.Name(search2);
 
       return queryable.ToString();
     }
@@ -43,7 +43,7 @@ namespace EverythingNet.Tests
 
     public string And(string search1, string search2)
     {
-      var queryable = this.everyThing.Search(true).Name(search1).And.Name(search2);
+      var queryable = this.everyThing.Search().Name(search1).And.Name(search2);
 
       return queryable.ToString();
     }
@@ -51,7 +51,7 @@ namespace EverythingNet.Tests
     [TestCase("*.abc", "*.def", ExpectedResult = "*.abc !*.def")]
     public string Not(string search1, string search2)
     {
-      var queryable = this.everyThing.Search(true).Name(search1).And.Not.Name(search2);
+      var queryable = this.everyThing.Search().Name(search1).And.Not.Name(search2);
 
       return queryable.ToString();
     }
@@ -59,7 +59,7 @@ namespace EverythingNet.Tests
     [TestCase("prefix", ExpectedResult = "startwith:prefix")]
     public string StartWith(string pattern)
     {
-      var queryable = this.everyThing.Search(true).Name().StartWith(pattern);
+      var queryable = this.everyThing.Search().Name().StartWith(pattern);
 
       return queryable.ToString();
     }
@@ -67,7 +67,7 @@ namespace EverythingNet.Tests
     [TestCase("postfix", ExpectedResult = "endwith:postfix")]
     public string EndWith(string pattern)
     {
-      var queryable = this.everyThing.Search(true).Name().EndWith(pattern);
+      var queryable = this.everyThing.Search().Name().EndWith(pattern);
 
       return queryable.ToString();
     }
