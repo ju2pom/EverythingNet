@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverythingNet", "EverythingNet\EverythingNet.csproj", "{C6CC7352-F58B-4274-B629-A15A7F3C69CD}"
 EndProject
@@ -10,17 +10,23 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Debug|x64.ActiveCfg = Debug|x64
+		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Debug|x64.Build.0 = Debug|x64
+		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Release|Any CPU.ActiveCfg = Release|x64
+		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Release|x64.ActiveCfg = Release|x64
+		{C6CC7352-F58B-4274-B629-A15A7F3C69CD}.Release|x64.Build.0 = Release|x64
+		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Debug|x64.ActiveCfg = Debug|x64
+		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Debug|x64.Build.0 = Debug|x64
+		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Release|Any CPU.ActiveCfg = Release|x64
+		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Release|x64.ActiveCfg = Release|x64
+		{47039D9A-1F54-49D3-B19C-274840EEFDE6}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
