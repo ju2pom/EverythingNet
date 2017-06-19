@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,7 +50,6 @@
     <Compile Include="Core\EverythingWrapper.cs" />
     <Compile Include="Interfaces\IEverything.cs" />
     <Compile Include="Interfaces\ISearchResult.cs" />
-    <Compile Include="Core\SearchResult.cs" />
     <Compile Include="Interfaces\IQuery.cs" />
     <Compile Include="Interfaces\IQueryable.cs" />
     <Compile Include="Interfaces\IQueryGenerator.cs" />
@@ -69,5 +71,11 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)packages\NuGet.CommandLine.4.1.0\tools\NuGet.exe pack $(ProjectDir)EverythingNet.nuspec -Properties Configuration=$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

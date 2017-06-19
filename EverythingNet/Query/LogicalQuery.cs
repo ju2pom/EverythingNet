@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using EverythingNet.Core;
 using EverythingNet.Interfaces;
 
 namespace EverythingNet.Query
