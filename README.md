@@ -4,6 +4,10 @@
 
 # EverythingNet ![](http://www.voidtools.com/forum/styles/prosilver/theme/images/site_logo.gif)
 
+## Check demo app
+
+https://github.com/ju2pom/EverythingNetDemo
+
 ## What
 
 EverythingNet is a C# library that wraps the great library from voidtools name SearchEverything.
@@ -176,5 +180,5 @@ The fluent API provides specific methods to easily handle
 - [x] file size
 - [x] picture files (standard format and properties)
 - [x] music files (ID3 Tags)
-- [x] file dates (soon)
+- [x] file dates
 - [ ] file content (soon)
