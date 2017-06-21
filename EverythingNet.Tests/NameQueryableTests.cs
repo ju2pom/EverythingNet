@@ -71,5 +71,24 @@ namespace EverythingNet.Tests
 
       return queryable.ToString();
     }
+
+    [TestCase("cs", ExpectedResult = "ext:cs")]
+    [TestCase("xaml", ExpectedResult = "ext:xaml")]
+    public string Extension(string search)
+    {
+      var queryable = this.everyThing.Search().Name().Extension(search);
+
+      return queryable.ToString();
+    }
+
+    [TestCase("cs csproj xaml", ExpectedResult = "ext:cs;csproj;xaml")]
+    [TestCase("jpg png tif", ExpectedResult = "ext:jpg;png;tif")]
+    public string Extensions(string search)
+    {
+      var extensions = search.Split(' ');
+      var queryable = this.everyThing.Search().Name().Extensions(extensions);
+
+      return queryable.ToString();
+    }
   }
 }

@@ -65,36 +65,6 @@ namespace EverythingNet.Query
       return this.Macro("doc:", search);
     }
 
-    public IQueryable Extension(string extension)
-    {
-      if (extension.Contains("."))
-      {
-        throw new ArgumentException("Do not specify the dot character when specifying an extension");
-      }
-
-      return this.Macro("ext:", extension);
-    }
-
-    public IQueryable Extensions(IEnumerable<string> extensions)
-    {
-      if (extensions == null)
-      {
-        throw new ArgumentNullException(nameof(extensions));
-      }
-
-      if (!extensions.Any())
-      {
-        throw new ArgumentException("The list of exceptions must not be empty");
-      }
-
-      if (extensions.Any(x => x.Contains(".")))
-      {
-        throw new ArgumentException("Do not specify the dot character when specifying an extension");
-      }
-
-      return this.Macro("ext:", string.Join(";", extensions));
-    }
-
     public IQueryable Duplicates(string search = null)
     {
       return this.Macro("dupe:", search);

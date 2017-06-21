@@ -1,7 +1,10 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
-using EverythingNet.Core;
 using EverythingNet.Interfaces;
+
+using IQueryable = EverythingNet.Interfaces.IQueryable;
 
 namespace EverythingNet.Query
 {
@@ -11,6 +14,7 @@ namespace EverythingNet.Query
 
     private string startWith;
     private string endWith;
+    private string extensions;
 
     public NameQueryable(IEverythingInternal everything, IQueryGenerator parent)
       : this(everything, parent, null)
@@ -44,6 +48,11 @@ namespace EverythingNet.Query
       {
         yield return $"endwith:{this.endWith}";
       }
+
+      if (!string.IsNullOrEmpty(this.extensions))
+      {
+        yield return $"ext:{this.extensions}";
+      }
     }
 
     public INameQueryable StartWith(string pattern)
@@ -58,6 +67,40 @@ namespace EverythingNet.Query
       this.endWith = this.QuoteIfNeeded(pattern);
 
       return this;
+    }
+
+    public IQueryable Extension(string extension)
+    {
+      if (extension.Contains("."))
+      {
+        throw new ArgumentException("Do not specify the dot character when specifying an extension");
+      }
+
+      this.extensions = string.IsNullOrEmpty(this.extensions)
+        ? extension
+        : $"{this.extensions};{extension}";
+
+      return this;
+    }
+
+    public IQueryable Extensions(IEnumerable<string> newExtensions)
+    {
+      if (newExtensions == null)
+      {
+        throw new ArgumentNullException(nameof(newExtensions));
+      }
+
+      if (!newExtensions.Any())
+      {
+        throw new ArgumentException("The list of exceptions must not be empty");
+      }
+
+      if (newExtensions.Any(x => x.Contains(".")))
+      {
+        throw new ArgumentException("Do not specify the dot character when specifying an extension");
+      }
+
+      return this.Extension(string.Join(";", newExtensions));
     }
   }
 }

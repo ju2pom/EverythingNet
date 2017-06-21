@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EverythingNet.Interfaces
+﻿namespace EverythingNet.Interfaces
 {
   public interface IFileQueryable
   {
@@ -17,10 +15,6 @@ namespace EverythingNet.Interfaces
     IQueryable Exe(string search = null);
 
     IQueryable Document(string search = null);
-
-    IQueryable Extension(string extension);
-
-    IQueryable Extensions(IEnumerable<string> extensions);
 
     IQueryable Duplicates(string search = null);
   }
