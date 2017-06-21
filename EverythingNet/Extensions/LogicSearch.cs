@@ -84,20 +84,5 @@ namespace EverythingNet.Extensions
 
       return everything;
     }
-
-    internal static string QuoteIfNeeded(string text)
-    {
-      if (text == null)
-      {
-        return String.Empty;
-      }
-
-      if (text.Contains(" ") && text.First() != '\"' && text.Last() != '\"')
-      {
-        return $"\"{text}\"";
-      }
-
-      return text;
-    }
   }
 }

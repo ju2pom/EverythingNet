@@ -1,5 +1,4 @@
 ﻿using EverythingNet.Core;
-using EverythingNet.Extensions;
 using NUnit.Framework;
 
 namespace EverythingNet.Tests
@@ -7,120 +6,84 @@ namespace EverythingNet.Tests
   [TestFixture]
   public class MusicSearchTests
   {
-    private Everything everyThing;
+    private Everything everything;
 
     [SetUp]
     public void Setup()
     {
-      this.everyThing = new Everything();
+      this.everything = new Everything();
     }
 
     [TearDown]
     public void TearDown()
     {
-      this.everyThing.CleanUp();
+      this.everything.Dispose();
     }
 
-    [TestCase(null, ExpectedResult = "album:")]
-    [TestCase("", ExpectedResult = "album:")]
     [TestCase("The Wall", ExpectedResult = "album:\"The Wall\"")]
     public string Album(string album)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everything.Search().Music().Album(album);
 
-      everything.Album(album);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [Test(ExpectedResult = "album:")]
-    public string Album2()
+    [TestCase(null)]
+    [TestCase("")]
+    public void Album_Throws(string album)
     {
-      IEverything everything = new Everything();
-
-      everything.Album();
-
-      return everything.SearchText;
+      Assert.That(() => this.everything.Search().Music().Album(album), Throws.ArgumentNullException);
     }
 
-    [TestCase(null, ExpectedResult = "artist:")]
-    [TestCase("", ExpectedResult = "artist:")]
+
     [TestCase("Pink Floyed", ExpectedResult = "artist:\"Pink Floyed\"")]
     public string Artist(string artist)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everything.Search().Music().Artist(artist);
 
-      everything.Artist(artist);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [Test(ExpectedResult = "artist:")]
-    public string Artist2()
+
+    [TestCase(null)]
+    [TestCase("")]
+    public void Artist_Throws(string artist)
     {
-      IEverything everything = new Everything();
-
-      everything.Artist();
-
-      return everything.SearchText;
+      Assert.That(() => this.everything.Search().Music().Artist(artist), Throws.ArgumentNullException);
     }
 
     [TestCase(0, ExpectedResult = "track:0")]
     [TestCase(2, ExpectedResult = "track:2")]
     public string Track(int track)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everything.Search().Music().Track(track);
 
-      everything.Track(track);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [TestCase(0, 5, ExpectedResult = "track:0-5")]
-    [TestCase(2, 7, ExpectedResult = "track:2-7")]
-    public string TrackBetween(int min, int max)
-    {
-      IEverything everything = new Everything();
 
-      everything.Track().Between(min, max);
-
-      return everything.SearchText;
-    }
-
-    [TestCase(null, ExpectedResult = "comment:")]
-    [TestCase("", ExpectedResult = "comment:")]
     [TestCase("great music", ExpectedResult = "comment:\"great music\"")]
     public string Comment(string comment)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everything.Search().Music().Comment(comment);
 
-      everything.Comment(comment);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [TestCase(null, ExpectedResult = "title:")]
-    [TestCase("", ExpectedResult = "title:")]
     [TestCase("Intro", ExpectedResult = "title:Intro")]
     public string Title(string title)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everything.Search().Music().Title(title);
 
-      everything.Title(title);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
 
-    [TestCase(null, ExpectedResult = "genre:")]
-    [TestCase("", ExpectedResult = "genre:")]
     [TestCase("Rock", ExpectedResult = "genre:Rock")]
     public string Genre(string genre)
     {
-      IEverything everything = new Everything();
+      var queryable = this.everything.Search().Music().Genre(genre);
 
-      everything.Genre(genre);
-
-      return everything.SearchText;
+      return queryable.ToString();
     }
   }
 }

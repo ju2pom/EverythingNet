@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>EverythingNet</id>
         <version>1.0.0</version>
@@ -11,7 +11,9 @@
         <copyright>Copyright ©  2017</copyright>
     </metadata>
     <files>
-        <file src="bin\debug\EverythingNet.dll" target="lib\net462\EverythingNet.dll" />
-        <file src="..\Everything.exe" target="tools\Everything.exe" />
+        <file src="bin\x64\release\EverythingNet.dll" target="lib" />
+        <file src="install.ps1" target="tools" />
+        <file src="..\Everything\Everything.exe" target="content" />
+        <file src="..\Everything\Everything64.dll" target="content" />
     </files>
 </package>

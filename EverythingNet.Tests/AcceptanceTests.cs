@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using EverythingNet.Core;
+using EverythingNet.Interfaces;
 using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
-  //[Ignore("Need Everything service to be running")]
   [TestFixture]
   public class AcceptanceTests
   {
@@ -20,28 +20,41 @@ namespace EverythingNet.Tests
     [TearDown]
     public void TearDown()
     {
-      this.everyThing.CleanUp();
-    }
-
-    [Test, Repeat(100)]
-    public void StressTest()
-    {
-      this.everyThing.SearchText = "AcceptanceTests.cs";
-      
-      // Act
-      var results = this.everyThing.Search(true);
-
-      // Assert
-      Assert.That(results, Is.Not.Null);
-      Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
-      Assert.That(results.Results, Is.Not.Empty);
+      this.everyThing.Dispose();
     }
 
     [Test]
+    public void Query()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs")
+        .Or
+        .Name("SearchResult.cs");
+
+      foreach (var s in queryable)
+      {
+        Assert.That(s, Is.Not.Empty);
+      }
+    }
+    [Test, Repeat(100)]
+    public void StressTest()
+    {
+      // Arrange
+      var queryable = this.everyThing.Search().Name("AcceptanceTests.cs");
+
+      // Assert
+      Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+      Assert.That(queryable, Is.Not.Null);
+      Assert.That(queryable, Is.Not.Empty);
+    }
+
+
+    [Test, Ignore("Not yet ready")]
     public void ThreadSafety()
     {
       ManualResetEventSlim resetEvent1 = this.StartSearchInBackground("Everything.cs");
-      ManualResetEventSlim resetEvent2 = this.StartSearchInBackground("SearchResult.cs");
+      ManualResetEventSlim resetEvent2 = this.StartSearchInBackground("AcceptanceTests.cs");
 
       Assert.That(resetEvent1.Wait(15000), Is.True);
       Assert.That(resetEvent2.Wait(15000), Is.True);
@@ -55,15 +68,14 @@ namespace EverythingNet.Tests
       {
         IEverything everything = new Everything();
         everything.MatchWholeWord = true;
-        everything.SearchText = searchString;
        
         // Act
-        var results = everything.Search(true);
+        var results = everything.Search().Name(searchString);
 
         // Assert
-        Assert.That(results.ErrorCode, Is.EqualTo(ErrorCode.Ok));
-        Assert.That(results.Results, Is.Not.Empty);
-        foreach (var result in results.Results)
+        Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+        Assert.That(results, Is.Not.Empty);
+        foreach (var result in results)
         {
           StringAssert.Contains(searchString, result);
         }

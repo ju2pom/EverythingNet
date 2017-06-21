@@ -15,7 +15,7 @@ namespace EverythingNet.Tests
     {
       if (!EverythingState.IsStarted())
       {
-        EverythingState.StartService(false, EverythingState.StartMode.Service);
+        EverythingState.StartService(true, EverythingState.StartMode.Service);
       }
 
       Stopwatch stopwatch = new Stopwatch();
