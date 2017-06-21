@@ -4,8 +4,9 @@
         <id>EverythingNet</id>
         <version>1.0.0</version>
         <title>EverythingNet</title>
-        <authors>jamsellem</authors>
-        <owners>jamsellem</owners>
+        <authors>ju2pom</authors>
+        <owners>ju2pom</owners>
+        <projectUrl>https://github.com/ju2pom/EverythingNet</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>.NET library that wraps Everything Search excellent tool that allows to instantly search for files.</description>
         <copyright>Copyright ©  2017</copyright>

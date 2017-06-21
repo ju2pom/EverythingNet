@@ -11,7 +11,7 @@ ForEach ($c in $project.ConfigurationManager)
 	robocopy $src $dest /XO
 }
 
-$project.Properties.Item("PostBuildEvent").Value = "xcopy `"$($src)`" `"$($dest)`""
+$project.Properties.Item("PostBuildEvent").Value = "xcopy `"$($src)`" `"$($dest)`" /Y" 
 
 
 # Write-Host 
