@@ -49,12 +49,18 @@ var searchResult = everything.Search()
  .StartWith("progra");
 ```
 
-
 ```csharp
 Everything everything = new Everything();
 var searchResult = everything.Search()
  .Name()
  .EndstWith("result");
+```
+
+```csharp
+Everything everything = new Everything();
+var searchResult = everything
+ .Name()
+ .Extensions(new string[] {"csproj", "cs", "xaml"});
 ```
 
 3. Date
@@ -163,13 +169,6 @@ Everything everything = new Everything();
 var searchResult = everything
  .File()
  .Extension("csproj");
-```
-
-```csharp
-Everything everything = new Everything();
-var searchResult = everything
- .File()
- .Extensions(new string[] {"csproj", "cs", "xaml"});
 ```
 
 ## Roadmap
