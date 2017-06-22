@@ -23,5 +23,7 @@ namespace EverythingNet.Interfaces
     IMusicQueryable Music();
 
     IFileQueryable File();
+
+    IImageQueryable Image();
   }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using EverythingNet.Core;
 using EverythingNet.Interfaces;
 using IQueryable = EverythingNet.Interfaces.IQueryable;
 

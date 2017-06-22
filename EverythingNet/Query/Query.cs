@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using EverythingNet.Core;
 using EverythingNet.Interfaces;
 
 namespace EverythingNet.Query
@@ -66,6 +65,11 @@ namespace EverythingNet.Query
     public IFileQueryable File()
     {
       return new FileQueryable(this.everything, this);
+    }
+
+    public IImageQueryable Image()
+    {
+      return new ImageQueryable(this.everything, this);
     }
   }
 }
