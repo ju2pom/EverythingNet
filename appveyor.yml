@@ -31,7 +31,7 @@ artifacts:
     name: EverythingNet nuget package
     type: NuGetPackage
 
-deploy:
-  provider: NuGet
-  api_key:
-    secure: yJDVT5OnmUa9yNyNi3kDiYilytCOalBDZ5Pvz0jqmRc40WhBi8kHwNIvVcv5YzRU
+# deploy:
+#   provider: NuGet
+#   api_key:
+#     secure: yJDVT5OnmUa9yNyNi3kDiYilytCOalBDZ5Pvz0jqmRc40WhBi8kHwNIvVcv5YzRU
