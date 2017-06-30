@@ -13,8 +13,8 @@
     </metadata>
     <files>
         <file src="bin\x64\release\EverythingNet.dll" target="lib" />
-        <file src="install.ps1" target="tools" />
         <file src="..\Everything\Everything.exe" target="content" />
         <file src="..\Everything\Everything64.dll" target="content" />
+        <file src="EverythingNet.targets" target="build" />
     </files>
 </package>
