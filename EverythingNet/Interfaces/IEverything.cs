@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EverythingNet.Core;
+using System.Collections.Generic;
 
 namespace EverythingNet.Interfaces
 {
@@ -16,6 +17,8 @@ namespace EverythingNet.Interfaces
 
   public interface IEverything
   {
+    ResultKind ResulKind { get; set; }
+
     bool MatchCase { get; set; }
 
     bool MatchPath { get; set; }

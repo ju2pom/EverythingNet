@@ -11,12 +11,15 @@ namespace EverythingNet.Core
 
     public Everything()
     {
+      this.ResulKind = ResultKind.Both;
       this.replyId = Convert.ToUInt32(this.GetHashCode());
       if (!EverythingState.IsStarted())
       {
         throw new InvalidOperationException("Everything service must be started");
       }
     }
+
+    public ResultKind ResulKind { get; set; }
 
     public bool MatchCase { get; set; }
 
@@ -42,12 +45,26 @@ namespace EverythingNet.Core
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
 
+        searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearchA(searchPattern);
         EverythingWrapper.Everything_QueryA(true);
 
         this.LastErrorCode = this.GetError();
 
         return this.GetResults();
+      }
+    }
+
+    private string ApplySearchResultKind(string searchPatten)
+    {
+      switch(this.ResulKind)
+      {
+        case ResultKind.FilesOnly:
+          return $"files: {searchPatten}";
+        case ResultKind.FoldersOnly:
+          return $"folders: {searchPatten}";
+        default:
+          return searchPatten;
       }
     }
 
