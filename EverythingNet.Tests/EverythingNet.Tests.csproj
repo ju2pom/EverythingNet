@@ -69,6 +69,7 @@
     <Compile Include="DateSearchTests.cs" />
     <Compile Include="FileSearchTests.cs" />
     <Compile Include="Init.cs" />
+    <Compile Include="LogicalQueryTests.cs" />
     <Compile Include="MusicSearchTests.cs" />
     <Compile Include="NameQueryableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

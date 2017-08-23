@@ -2,6 +2,8 @@
 using System.Linq;
 using EverythingNet.Interfaces;
 
+using IQueryable = EverythingNet.Interfaces.IQueryable;
+
 namespace EverythingNet.Query
 {
   internal class Query : IQuery, IQueryGenerator
@@ -70,6 +72,13 @@ namespace EverythingNet.Query
     public IImageQueryable Image()
     {
       return new ImageQueryable(this.everything, this);
+    }
+
+    public IQueryable Queryable(IQueryable queryable)
+    {
+      ((Queryable)queryable).SetParent(this);
+
+      return queryable;
     }
   }
 }

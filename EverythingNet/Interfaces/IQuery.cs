@@ -1,6 +1,4 @@
-﻿using EverythingNet.Query;
-
-namespace EverythingNet.Interfaces
+﻿namespace EverythingNet.Interfaces
 {
   public interface IQuery
   {
@@ -25,5 +23,7 @@ namespace EverythingNet.Interfaces
     IFileQueryable File();
 
     IImageQueryable Image();
+
+    IQueryable Queryable(IQueryable queryable);
   }
 }

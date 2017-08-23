@@ -9,7 +9,7 @@ namespace EverythingNet.Query
   internal abstract class Queryable : IQueryable, IQueryGenerator
   {
     private readonly IEverythingInternal everything;
-    private readonly IQueryGenerator parent;
+    private IQueryGenerator parent;
 
     protected Queryable(IEverythingInternal everything, IQueryGenerator parent)
     {
@@ -41,6 +41,11 @@ namespace EverythingNet.Query
     public virtual IEnumerable<string> GetQueryParts()
     {
       return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
+    }
+
+    internal void SetParent(IQueryGenerator onTheFlyparent)
+    {
+      this.parent = onTheFlyparent;
     }
 
     protected string QuoteIfNeeded(string text)
