@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using EverythingNet.Interfaces;
 
@@ -35,7 +36,7 @@ namespace EverythingNet.Core
 
     }
 
-    IEnumerable<string> IEverythingInternal.SendSearch(string searchPattern)
+    IEnumerable<ISearchResult> IEverythingInternal.SendSearch(string searchPattern)
     {
       using (EverythingWrapper.Lock())
       {
@@ -44,7 +45,7 @@ namespace EverythingNet.Core
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
-
+        EverythingWrapper.Everything_SetRequestFlags((uint)RequestFlags.EVERYTHING_REQUEST_SIZE);
         searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearchA(searchPattern);
         EverythingWrapper.Everything_QueryA(true);
@@ -68,17 +69,11 @@ namespace EverythingNet.Core
       }
     }
 
-    private IEnumerable<string> GetResults()
+    private IEnumerable<ISearchResult> GetResults()
     {
-      var builder = new StringBuilder(260);
       var numResults = EverythingWrapper.Everything_GetNumResults();
 
-      for (var i = 0; i < numResults; i++)
-      {
-        EverythingWrapper.Everything_GetResultFullPathNameW(i, builder, 260);
-
-        yield return builder.ToString();
-      }
+      return Enumerable.Range(0, numResults).Select(x => new SearchResult(x));
     }
 
     public void Dispose()

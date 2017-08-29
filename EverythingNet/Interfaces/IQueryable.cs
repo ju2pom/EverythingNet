@@ -2,7 +2,7 @@
 
 namespace EverythingNet.Interfaces
 {
-  public interface IQueryable : IEnumerable<string>
+  public interface IQueryable : IEnumerable<ISearchResult>
   {
     IQuery And { get; }
 

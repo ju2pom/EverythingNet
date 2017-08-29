@@ -22,7 +22,7 @@ namespace EverythingNet.Query
       return string.Join("", this.GetQueryParts());
     }
 
-    public IEnumerator<string> GetEnumerator()
+    public IEnumerator<ISearchResult> GetEnumerator()
     {
       var search = this.everything.SendSearch(string.Join("", this.GetQueryParts()));
 

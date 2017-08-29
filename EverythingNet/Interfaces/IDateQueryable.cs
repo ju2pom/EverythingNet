@@ -4,20 +4,20 @@ namespace EverythingNet.Interfaces
 {
   public enum Dates
   {
-    Yesterday, Today,
-    LastYear, LastMonth, LastWeek,
-    ThisYear, ThisMonth, ThisWeek,
-    NextYear, NextMonth, NextWeek,
-    LastJanuary, LastFebuary, LastMarch, LastApril, LastMay, LastJune, LastJuly, LastAugust, LastSeptember, LastOctober, LastNovember, LastDecember,
+    Today, Yesterday,
+    ThisWeek, ThisMonth, ThisYear,
+    ThisSunday, ThisMonday, ThisTuesday, ThisWednesday, ThisThursday, ThisFriday, ThisSaturday,
     ThisJanuary, ThisFebuary, ThisMarch, ThisApril, ThisMay, ThisJune, ThisJuly, ThisAugust, ThisSeptember, ThisOctober, ThisNovember, ThisDecember,
     LastSunday, LastMonday, LastTuesday, LastWednesday, LastThursday, LastFriday, LastSaturday,
-    ThisSunday, ThisMonday, ThisTuesday, ThisWednesday, ThisThursday, ThisFriday, ThisSaturday,
+    LastWeek, LastMonth, LastYear,
+    LastJanuary, LastFebuary, LastMarch, LastApril, LastMay, LastJune, LastJuly, LastAugust, LastSeptember, LastOctober, LastNovember, LastDecember,
+    NextYear, NextMonth, NextWeek,
   }
 
   public enum CountableDates
   {
-    Years, Months, Weeks,
-    Hours, Minutes, Seconds,
+    Seconds, Minutes, Hours,
+    Weeks, Months, Years,
   }
 
   public interface IDateQueryable

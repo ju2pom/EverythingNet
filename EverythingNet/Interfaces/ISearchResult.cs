@@ -1,12 +1,23 @@
-using System.Collections.Generic;
-using EverythingNet.Interfaces;
+using System;
 
-namespace EverythingNet.Core
+namespace EverythingNet.Interfaces
 {
   public interface ISearchResult
   {
-    ErrorCode ErrorCode { get; }
+    string FullPath { get; }
 
-    IEnumerable<string> Results { get; }
+    string Path { get; }
+
+    string FileName { get; }
+
+    long Size { get; }
+
+    DateTime Created { get; }
+
+    DateTime Modified { get; }
+
+    DateTime Accessed { get; }
+
+    DateTime Executed { get; }
   }
 }

@@ -77,7 +77,7 @@ namespace EverythingNet.Tests
         Assert.That(results, Is.Not.Empty);
         foreach (var result in results)
         {
-          StringAssert.Contains(searchString, result);
+          StringAssert.Contains(searchString, result.FileName);
         }
         resetEvent.Set();
       });

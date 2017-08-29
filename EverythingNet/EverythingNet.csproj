@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\ResultKind.cs" />
     <Compile Include="Interfaces\IEverything.cs" />
     <Compile Include="Interfaces\IImageQueryable.cs" />
+    <Compile Include="Core\SearchResult.cs" />
     <Compile Include="Query\ImageQueryable.cs" />
     <Compile Include="Interfaces\ISearchResult.cs" />
     <Compile Include="Interfaces\IQuery.cs" />

@@ -125,9 +125,22 @@ namespace EverythingNet.Core
     public static extern bool Everything_IsFolderResult(int nIndex);
     [DllImport(EverythingDLL)]
     public static extern bool Everything_IsFileResult(int nIndex);
-    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-    public static extern void Everything_GetResultFullPathNameW(int nIndex, StringBuilder lpString, int nMaxCount);
+
+    [DllImport(EverythingDLL)]
+    public static extern void Everything_SetRequestFlags(uint flags);
+
     [DllImport(EverythingDLL)]
     public static extern void Everything_GetResultFullPathNameA(int nIndex, StringBuilder lpString, int nMaxCount);
+
+    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
+    public static extern void Everything_GetResultFullPathNameW(int nIndex, StringBuilder lpString, int nMaxCount);
+    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
+    public static extern void Everything_GetResultFileName(int nIndex, StringBuilder lpString, int nMaxCount);
+    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
+    public static extern IntPtr Everything_GetResultPath(int nIndex);
+    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
+    public static extern IntPtr Everything_GetResultSize(int nIndex, IntPtr size);
+    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
+    public static extern IntPtr Everything_GetResultDateModified(int nIndex, IntPtr date);
   }
 }
