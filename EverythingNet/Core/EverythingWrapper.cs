@@ -134,12 +134,17 @@ namespace EverythingNet.Core
 
     [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
     public static extern void Everything_GetResultFullPathNameW(int nIndex, StringBuilder lpString, int nMaxCount);
+
     [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
-    public static extern void Everything_GetResultFileName(int nIndex, StringBuilder lpString, int nMaxCount);
+    [return: MarshalAs(UnmanagedType.LPStr)]
+    public static extern string Everything_GetResultFileNameW(int nIndex);
+
     [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
     public static extern IntPtr Everything_GetResultPath(int nIndex);
-    [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
+
+    [DllImport(EverythingDLL)]
     public static extern IntPtr Everything_GetResultSize(int nIndex, IntPtr size);
+
     [DllImport(EverythingDLL, CharSet = CharSet.Unicode)]
     public static extern IntPtr Everything_GetResultDateModified(int nIndex, IntPtr date);
   }

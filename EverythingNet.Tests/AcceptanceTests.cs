@@ -37,6 +37,33 @@ namespace EverythingNet.Tests
         Assert.That(s, Is.Not.Empty);
       }
     }
+
+    [Test]
+    public void SearchGetSize()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs");
+
+      foreach (var result in queryable)
+      {
+        Assert.That(result.Size, Is.GreaterThan(0));
+      }
+    }
+
+    [Test]
+    public void SearchGetFileName()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs");
+
+      foreach (var result in queryable)
+      {
+        Assert.That(result.FileName, Is.EqualTo("AcceptanceTests"));
+      }
+    }
+
     [Test, Repeat(100)]
     public void StressTest()
     {

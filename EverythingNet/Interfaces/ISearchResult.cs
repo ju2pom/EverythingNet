@@ -10,7 +10,7 @@ namespace EverythingNet.Interfaces
 
     string FileName { get; }
 
-    long Size { get; }
+    UInt64 Size { get; }
 
     DateTime Created { get; }
 

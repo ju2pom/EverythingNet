@@ -45,7 +45,9 @@ namespace EverythingNet.Core
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
-        EverythingWrapper.Everything_SetRequestFlags((uint)RequestFlags.EVERYTHING_REQUEST_SIZE);
+        EverythingWrapper.Everything_SetRequestFlags((uint)
+          (RequestFlags.EVERYTHING_REQUEST_SIZE
+          |RequestFlags.EVERYTHING_REQUEST_FILE_NAME));
         searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearchA(searchPattern);
         EverythingWrapper.Everything_QueryA(true);
