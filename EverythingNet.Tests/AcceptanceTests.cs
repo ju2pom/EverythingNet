@@ -64,6 +64,19 @@ namespace EverythingNet.Tests
       }
     }
 
+    [Test]
+    public void SearchGetFullPath()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs");
+
+      foreach (var result in queryable)
+      {
+        Assert.That(result.FullPath, Does.Contain("EverythingNet\\EverythingNet.Tests\\AcceptanceTests.cs"));
+      }
+    }
+
     [Test, Repeat(100)]
     public void StressTest()
     {
