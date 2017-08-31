@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using EverythingNet.Core;
 using EverythingNet.Interfaces;
@@ -65,6 +66,19 @@ namespace EverythingNet.Tests
     }
 
     [Test]
+    public void SearchGetPath()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs");
+
+      foreach (var result in queryable)
+      {
+        Assert.That(result.Path, Is.Not.Empty.And.Not.Null);
+      }
+    }
+
+    [Test]
     public void SearchGetFullPath()
     {
       var queryable = new Everything()
@@ -74,6 +88,35 @@ namespace EverythingNet.Tests
       foreach (var result in queryable)
       {
         Assert.That(result.FullPath, Does.Contain("EverythingNet\\EverythingNet.Tests\\AcceptanceTests.cs"));
+      }
+    }
+
+    [Test]
+    public void SearchGetDate()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs");
+
+      foreach (var result in queryable)
+      {
+        Assert.That(result.Created.Year, Is.GreaterThanOrEqualTo(2017));
+        Assert.That(result.Modified.Year, Is.GreaterThanOrEqualTo(2017));
+        Assert.That(result.Accessed.Year, Is.GreaterThanOrEqualTo(2017));
+        Assert.That(result.Executed, Is.EqualTo(DateTime.MinValue));
+      }
+    }
+
+    [Test]
+    public void SearchGetAttributes()
+    {
+      var queryable = new Everything()
+        .Search()
+        .Name("AcceptanceTests.cs");
+
+      foreach (var result in queryable)
+      {
+        Assert.That(result.Attributes, Is.GreaterThan(0));
       }
     }
 

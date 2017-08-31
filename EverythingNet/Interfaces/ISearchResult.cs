@@ -1,7 +1,7 @@
-using System;
-
 namespace EverythingNet.Interfaces
 {
+  using System;
+
   public interface ISearchResult
   {
     string FullPath { get; }
@@ -10,7 +10,9 @@ namespace EverythingNet.Interfaces
 
     string FileName { get; }
 
-    UInt64 Size { get; }
+    long Size { get; }
+
+    uint Attributes { get; }
 
     DateTime Created { get; }
 

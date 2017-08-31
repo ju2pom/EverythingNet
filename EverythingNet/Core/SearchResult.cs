@@ -1,17 +1,19 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Text;
-using EverythingNet.Interfaces;
-
 namespace EverythingNet.Core
 {
+  using System;
+  using System.Text;
+
+  using EverythingNet.Interfaces;
+
   internal class SearchResult : ISearchResult
   {
-    private readonly int index;
+    private delegate bool MyDelegate(uint index, out long date);
+
+    private readonly uint index;
 
     public SearchResult(int index)
     {
-      this.index = index;
+      this.index = Convert.ToUInt32(index);
     }
 
     public string FullPath
@@ -28,43 +30,60 @@ namespace EverythingNet.Core
 
     public string Path
     {
-      get
-      {
-        IntPtr ptr = EverythingWrapper.Everything_GetResultPath(this.index);
-
-        return Marshal.PtrToStringAuto(ptr);
-      }
+      get { return EverythingWrapper.Everything_GetResultPath(this.index); }
     }
 
     public string FileName
     {
-      get
-      {
-        string ptr = EverythingWrapper.Everything_GetResultFileNameW(this.index);
-
-        return ptr.ToString();
-      }
+      get { return EverythingWrapper.Everything_GetResultFileName(this.index); }
     }
 
-    public UInt64 Size
+    public long Size
     {
       get
       {
-        UInt64 size = 0;
+        long size;
 
-        unsafe
-        {
-          IntPtr ptr = new IntPtr(&size);
-          EverythingWrapper.Everything_GetResultSize(this.index, ptr);
-        }
+        EverythingWrapper.Everything_GetResultSize(this.index, out size);
 
         return size;
       }
     }
 
-    public DateTime Created { get; }
-    public DateTime Modified { get; }
-    public DateTime Accessed { get; }
-    public DateTime Executed { get; }
+    public uint Attributes
+    {
+      get { return EverythingWrapper.Everything_GetResultAttributes(this.index); }
+    }
+
+    public DateTime Created
+    {
+      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateCreated); }
+    }
+
+    public DateTime Modified
+    {
+      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateModified); }
+    }
+
+    public DateTime Accessed
+    {
+      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateAccessed); }
+    }
+
+    public DateTime Executed
+    {
+      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateRun); }
+    }
+
+    private DateTime GenericDate(MyDelegate func)
+    {
+      long date;
+      if (func(this.index, out date) && date >= 0)
+      {
+        return DateTime.FromFileTime(date);
+      }
+
+      return DateTime.MinValue;
+    }
   }
 }
