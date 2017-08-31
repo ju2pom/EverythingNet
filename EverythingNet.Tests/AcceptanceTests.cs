@@ -87,7 +87,7 @@ namespace EverythingNet.Tests
 
       foreach (var result in queryable)
       {
-        Assert.That(result.FullPath, Does.Contain("EverythingNet\\EverythingNet.Tests\\AcceptanceTests.cs"));
+        Assert.That(result.FullPath, Does.Contain("EverythingNet\\EverythingNet.Tests\\AcceptanceTests.cs").IgnoreCase);
       }
     }
 
