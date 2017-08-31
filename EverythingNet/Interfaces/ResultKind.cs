@@ -4,6 +4,6 @@
   {
     Both,
     FilesOnly,
-    FoldersOnly,
+    FoldersOnly
   }
 }

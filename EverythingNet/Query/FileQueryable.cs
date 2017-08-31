@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using EverythingNet.Core;
-using EverythingNet.Interfaces;
-
-using IQueryable = EverythingNet.Interfaces.IQueryable;
-
-namespace EverythingNet.Query
+﻿namespace EverythingNet.Query
 {
+  using System.Collections.Generic;
+
+  using EverythingNet.Interfaces;
+
   internal class FileQueryable : Queryable, IFileQueryable
   {
     private string searchPattern;

@@ -1,9 +1,8 @@
-﻿using System;
-using EverythingNet.Core;
-using System.Collections.Generic;
-
-namespace EverythingNet.Interfaces
+﻿namespace EverythingNet.Interfaces
 {
+  using System;
+  using System.Collections.Generic;
+
   public enum ErrorCode
   {
     Ok = 0,
@@ -13,7 +12,7 @@ namespace EverythingNet.Interfaces
     CreateWindow,
     CreateThread,
     InvalidIndex,
-    Invalidcall,
+    Invalidcall
   }
 
   [Flags]
@@ -34,7 +33,7 @@ namespace EverythingNet.Interfaces
     EVERYTHING_REQUEST_DATE_RECENTLY_CHANGED = 0x00001000,
     EVERYTHING_REQUEST_HIGHLIGHTED_FILE_NAME = 0x00002000,
     EVERYTHING_REQUEST_HIGHLIGHTED_PATH = 0x00004000,
-    EVERYTHING_REQUEST_HIGHLIGHTED_FULL_PATH_AND_FILE_NAME = 0x00008000,
+    EVERYTHING_REQUEST_HIGHLIGHTED_FULL_PATH_AND_FILE_NAME = 0x00008000
   }
 
   public interface IEverything

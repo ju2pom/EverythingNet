@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EverythingNet.Interfaces;
-
-using IQueryable = EverythingNet.Interfaces.IQueryable;
-
-namespace EverythingNet.Query
+﻿namespace EverythingNet.Query
 {
+  using System.Collections.Generic;
+  using System.Linq;
+
+  using EverythingNet.Interfaces;
+
+  using IQueryable = EverythingNet.Interfaces.IQueryable;
+
   internal class Query : IQuery, IQueryGenerator
   {
     private readonly IEverythingInternal everything;

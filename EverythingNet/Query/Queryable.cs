@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using EverythingNet.Interfaces;
-using IQueryable = EverythingNet.Interfaces.IQueryable;
-
-namespace EverythingNet.Query
+﻿namespace EverythingNet.Query
 {
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  using EverythingNet.Interfaces;
+
+  using IQueryable = EverythingNet.Interfaces.IQueryable;
+
   internal abstract class Queryable : IQueryable, IQueryGenerator
   {
     private readonly IEverythingInternal everything;
@@ -16,6 +18,10 @@ namespace EverythingNet.Query
       this.everything = everything;
       this.parent = parent;
     }
+
+    public IQuery And => new LogicalQuery(this.everything, this, " ");
+
+    public IQuery Or => new LogicalQuery(this.everything, this, "|");
 
     public override string ToString()
     {
@@ -29,23 +35,9 @@ namespace EverythingNet.Query
       return search.GetEnumerator();
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
-    public IQuery And => new LogicalQuery(this.everything, this, " ");
-
-    public IQuery Or => new LogicalQuery(this.everything, this, "|");
-
     public virtual IEnumerable<string> GetQueryParts()
     {
       return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
-    }
-
-    internal void SetParent(IQueryGenerator onTheFlyparent)
-    {
-      this.parent = onTheFlyparent;
     }
 
     protected string QuoteIfNeeded(string text)
@@ -61,6 +53,16 @@ namespace EverythingNet.Query
       }
 
       return text;
+    }
+
+    internal void SetParent(IQueryGenerator onTheFlyparent)
+    {
+      this.parent = onTheFlyparent;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return this.GetEnumerator();
     }
   }
 }

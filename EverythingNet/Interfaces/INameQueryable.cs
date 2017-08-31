@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EverythingNet.Interfaces
 {
+  using System.Collections.Generic;
+
   public interface INameQueryable : IQueryable
   {
     INameQueryable StartWith(string pattern);

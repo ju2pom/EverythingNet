@@ -1,13 +1,13 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-using EverythingNet.Interfaces;
-
-using IQueryable = EverythingNet.Interfaces.IQueryable;
-
 namespace EverythingNet.Query
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  using EverythingNet.Interfaces;
+
+  using IQueryable = EverythingNet.Interfaces.IQueryable;
+
   internal class NameQueryable : Queryable, INameQueryable
   {
     private readonly string pattern;

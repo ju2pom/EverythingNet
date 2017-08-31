@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace EverythingNet.Interfaces
+﻿namespace EverythingNet.Interfaces
 {
+  using System.Collections.Generic;
+
   public interface IQueryable : IEnumerable<ISearchResult>
   {
     IQuery And { get; }
