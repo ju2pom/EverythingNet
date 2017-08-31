@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
+  using System.Linq;
+
   [TestFixture]
   public class AcceptanceTests
   {
@@ -33,10 +35,8 @@ namespace EverythingNet.Tests
         .Or
         .Name("SearchResult.cs");
 
-      foreach (var s in queryable)
-      {
-        Assert.That(s, Is.Not.Empty);
-      }
+      Assert.That(queryable.Where(x => x.FileName == "AcceptanceTests.cs"), Is.Not.Empty);
+      Assert.That(queryable.Where(x => x.FileName == "SearchResult.cs"), Is.Not.Empty);
     }
 
     [Test]
@@ -61,7 +61,7 @@ namespace EverythingNet.Tests
 
       foreach (var result in queryable)
       {
-        Assert.That(result.FileName, Is.EqualTo("AcceptanceTests"));
+        Assert.That(result.FileName, Is.EqualTo("AcceptanceTests.cs"));
       }
     }
 

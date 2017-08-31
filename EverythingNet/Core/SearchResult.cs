@@ -30,12 +30,24 @@ namespace EverythingNet.Core
 
     public string Path
     {
-      get { return EverythingWrapper.Everything_GetResultPath(this.index); }
+      get
+      {
+        //return EverythingWrapper.Everything_GetResultPath(this.index);
+
+        // Temporary implementation until the native function works as expected
+        return System.IO.Path.GetDirectoryName(this.FullPath);
+      }
     }
 
     public string FileName
     {
-      get { return EverythingWrapper.Everything_GetResultFileName(this.index); }
+      get
+      {
+        //return EverythingWrapper.Everything_GetResultFileName(this.index);
+
+        // Temporary implementation until the native function works as expected
+        return System.IO.Path.GetFileName(this.FullPath);
+      }
     }
 
     public long Size
