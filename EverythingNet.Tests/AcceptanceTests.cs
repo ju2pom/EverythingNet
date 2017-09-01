@@ -12,6 +12,9 @@ namespace EverythingNet.Tests
   [TestFixture]
   public class AcceptanceTests
   {
+    private const string FileToSearchA = "EverythingState.cs";
+    private const string FileToSearchB = "DateSearchTests.cs";
+
     private Everything everyThing;
 
     [SetUp]
@@ -31,12 +34,12 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs")
+        .Name(FileToSearchA)
         .Or
-        .Name("SearchResult.cs");
+        .Name(FileToSearchB);
 
-      Assert.That(queryable.Where(x => x.FileName == "AcceptanceTests.cs"), Is.Not.Empty);
-      Assert.That(queryable.Where(x => x.FileName == "SearchResult.cs"), Is.Not.Empty);
+      Assert.That(queryable.Where(x => x.FileName == FileToSearchA), Is.Not.Empty);
+      Assert.That(queryable.Where(x => x.FileName == FileToSearchB), Is.Not.Empty);
     }
 
     [Test]
@@ -44,7 +47,7 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs");
+        .Name(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -57,11 +60,11 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs");
+        .Name(FileToSearchA);
 
       foreach (var result in queryable)
       {
-        Assert.That(result.FileName, Is.EqualTo("AcceptanceTests.cs"));
+        Assert.That(result.FileName, Is.EqualTo(FileToSearchA));
       }
     }
 
@@ -70,7 +73,7 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs");
+        .Name(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -83,11 +86,11 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs");
+        .Name(FileToSearchA);
 
       foreach (var result in queryable)
       {
-        Assert.That(result.FullPath, Does.Contain("EverythingNet\\EverythingNet.Tests\\AcceptanceTests.cs").IgnoreCase);
+        Assert.That(result.FullPath, Does.Contain($"EverythingNet\\core\\{FileToSearchA}").IgnoreCase);
       }
     }
 
@@ -96,7 +99,7 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs");
+        .Name(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -112,7 +115,7 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name("AcceptanceTests.cs");
+        .Name(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -124,10 +127,10 @@ namespace EverythingNet.Tests
     public void StressTest()
     {
       // Arrange
-      var queryable = this.everyThing.Search().Name("AcceptanceTests.cs");
+      var queryable = this.everyThing.Search().Name(FileToSearchA);
 
       // Assert
-      Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+      Assert.That(this.everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
       Assert.That(queryable, Is.Not.Null);
       Assert.That(queryable, Is.Not.Empty);
     }
@@ -136,8 +139,8 @@ namespace EverythingNet.Tests
     [Test, Ignore("Not yet ready")]
     public void ThreadSafety()
     {
-      ManualResetEventSlim resetEvent1 = this.StartSearchInBackground("Everything.cs");
-      ManualResetEventSlim resetEvent2 = this.StartSearchInBackground("AcceptanceTests.cs");
+      ManualResetEventSlim resetEvent1 = this.StartSearchInBackground(FileToSearchA);
+      ManualResetEventSlim resetEvent2 = this.StartSearchInBackground(FileToSearchB);
 
       Assert.That(resetEvent1.Wait(15000), Is.True);
       Assert.That(resetEvent2.Wait(15000), Is.True);
@@ -151,12 +154,12 @@ namespace EverythingNet.Tests
       {
         IEverything everything = new Everything();
         everything.MatchWholeWord = true;
-       
+
         // Act
         var results = everything.Search().Name(searchString);
 
         // Assert
-        Assert.That(everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+        Assert.That(this.everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
         Assert.That(results, Is.Not.Empty);
         foreach (var result in results)
         {

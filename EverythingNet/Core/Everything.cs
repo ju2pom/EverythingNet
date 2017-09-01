@@ -63,8 +63,8 @@
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
         EverythingWrapper.Everything_SetRequestFlags((uint)requestFlags);
         searchPattern = this.ApplySearchResultKind(searchPattern);
-        EverythingWrapper.Everything_SetSearchA(searchPattern);
-        EverythingWrapper.Everything_QueryA(true);
+        EverythingWrapper.Everything_SetSearch(searchPattern);
+        EverythingWrapper.Everything_Query(true);
 
         /*        uint flags = EverythingWrapper.Everything_GetResultListRequestFlags();
                 Debug.Assert((RequestFlags)flags == requestFlags);*/
@@ -92,7 +92,7 @@
     {
       var numResults = EverythingWrapper.Everything_GetNumResults();
 
-      return Enumerable.Range(0, numResults).Select(x => new SearchResult(x));
+      return Enumerable.Range(0, (int)numResults).Select(x => new SearchResult(x));
     }
 
     private ErrorCode GetError()

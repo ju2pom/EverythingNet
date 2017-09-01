@@ -22,7 +22,7 @@ namespace EverythingNet.Core
       {
         var builder = new StringBuilder(260);
 
-        EverythingWrapper.Everything_GetResultFullPathNameW(this.index, builder, 260);
+        EverythingWrapper.Everything_GetResultFullPathName(this.index, builder, 260);
 
         return builder.ToString();
       }
