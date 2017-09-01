@@ -4,3 +4,9 @@ EverythingNet\.Tests/obj/
 EverythingNet/bin/x64/
 EverythingNet/obj/
 packages/
+
+\.vs/
+
+*.user
+
+*.nupkg
