@@ -16,6 +16,11 @@ namespace EverythingNet.Core
       this.index = Convert.ToUInt32(index);
     }
 
+    public bool IsFile
+    {
+      get { return EverythingWrapper.Everything_IsFileResult(this.index); }
+    }
+
     public string FullPath
     {
       get

@@ -4,6 +4,8 @@ namespace EverythingNet.Interfaces
 
   public interface ISearchResult
   {
+    bool IsFile { get; }
+
     string FullPath { get; }
 
     string Path { get; }

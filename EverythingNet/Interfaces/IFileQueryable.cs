@@ -1,6 +1,6 @@
 ﻿namespace EverythingNet.Interfaces
 {
-  public interface IFileQueryable
+  public interface IFileQueryable : IQueryable
   {
     IQueryable Only();
 

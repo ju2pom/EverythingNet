@@ -13,27 +13,27 @@
     {
     }
 
-    public IQueryable Width(int width)
+    public IImageQueryable Width(int width)
     {
       return this.Search($"width:{width}");
     }
 
-    public IQueryable Height(int height)
+    public IImageQueryable Height(int height)
     {
       return this.Search($"height:{height}");
     }
 
-    public IQueryable Portrait()
+    public IImageQueryable Portrait()
     {
       return this.Search("orienation:portrait");
     }
 
-    public IQueryable Landscape()
+    public IImageQueryable Landscape()
     {
       return this.Search("orienation:landscape");
     }
 
-    public IQueryable BitDepth(Bpp bpp)
+    public IImageQueryable BitDepth(Bpp bpp)
     {
       return this.Search($"bitdepth:{(int)bpp}");
     }
@@ -48,7 +48,7 @@
       yield return this.pattern;
     }
 
-    private IQueryable Search(string search)
+    private IImageQueryable Search(string search)
     {
       this.pattern = search;
 

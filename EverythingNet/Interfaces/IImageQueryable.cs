@@ -12,16 +12,16 @@
   /// <summary>
   ///   Only jpg, png, gif and bmp file are supported with these queries
   /// </summary>
-  public interface IImageQueryable
+  public interface IImageQueryable : IQueryable
   {
-    IQueryable Width(int width);
+    IImageQueryable Width(int width);
 
-    IQueryable Height(int height);
+    IImageQueryable Height(int height);
 
-    IQueryable Portrait();
+    IImageQueryable Portrait();
 
-    IQueryable Landscape();
+    IImageQueryable Landscape();
 
-    IQueryable BitDepth(Bpp bpp);
+    IImageQueryable BitDepth(Bpp bpp);
   }
 }
