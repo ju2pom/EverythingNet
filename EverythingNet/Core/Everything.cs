@@ -46,8 +46,9 @@
       using (EverythingWrapper.Lock())
       {
         RequestFlags requestFlags =
-            RequestFlags.EVERYTHING_REQUEST_SIZE
+              RequestFlags.EVERYTHING_REQUEST_SIZE
             | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
+            | RequestFlags.EVERYTHING_REQUEST_EXTENSION
             | RequestFlags.EVERYTHING_REQUEST_ATTRIBUTES
             | RequestFlags.EVERYTHING_REQUEST_PATH
             | RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME
@@ -57,7 +58,6 @@
             | RequestFlags.EVERYTHING_REQUEST_DATE_RUN;
 
         EverythingWrapper.Everything_SetReplyID(this.replyId);
-
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
@@ -65,9 +65,6 @@
         searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearch(searchPattern);
         EverythingWrapper.Everything_Query(true);
-
-        /*        uint flags = EverythingWrapper.Everything_GetResultListRequestFlags();
-                Debug.Assert((RequestFlags)flags == requestFlags);*/
 
         this.LastErrorCode = this.GetError();
 

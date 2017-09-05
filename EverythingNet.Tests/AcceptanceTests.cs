@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
+  using System.IO;
   using System.Linq;
 
   [TestFixture]
@@ -121,6 +122,25 @@ namespace EverythingNet.Tests
       {
         Assert.That(result.Attributes, Is.GreaterThan(0));
       }
+    }
+
+    [Test]
+    public void Zip_Succeeds()
+    {
+      // Arrange
+      string zipFile = "acceptanceTest.zip";
+      File.Create(zipFile).Close();
+      Thread.Sleep(1000);
+
+      var queryable = new Everything()
+          .Search()
+          .File()
+          .Zip();
+
+      // Assert
+      Assert.That(queryable.Where(x => x.FileName == zipFile), Is.Not.Empty);
+
+      File.Delete(zipFile);
     }
 
     [Test, Repeat(100)]
