@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using EverythingNet.Core;
-using EverythingNet.Interfaces;
-
-namespace EverythingNet.Query
+﻿namespace EverythingNet.Query
 {
+  using System;
+  using System.Collections.Generic;
+
+  using EverythingNet.Interfaces;
+
   internal class MusicQueryable : Queryable, IMusicQueryable
   {
     private string artistPattern;

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EverythingNet.Interfaces;
-
-namespace EverythingNet.Core
+﻿namespace EverythingNet.Core
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  using EverythingNet.Interfaces;
+  using EverythingNet.Query;
+
   public class Everything : IEverything, IEverythingInternal, IDisposable
   {
     private readonly uint replyId;
@@ -31,23 +33,38 @@ namespace EverythingNet.Core
 
     public IQuery Search()
     {
-      return new Query.Query(this);
-
+      return new Query(this);
     }
 
-    IEnumerable<string> IEverythingInternal.SendSearch(string searchPattern)
+    public void Dispose()
+    {
+      EverythingWrapper.Everything_Reset();
+    }
+
+    IEnumerable<ISearchResult> IEverythingInternal.SendSearch(string searchPattern)
     {
       using (EverythingWrapper.Lock())
       {
-        EverythingWrapper.Everything_SetReplyID(this.replyId);
+        RequestFlags requestFlags =
+              RequestFlags.EVERYTHING_REQUEST_SIZE
+            | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
+            | RequestFlags.EVERYTHING_REQUEST_EXTENSION
+            | RequestFlags.EVERYTHING_REQUEST_ATTRIBUTES
+            | RequestFlags.EVERYTHING_REQUEST_PATH
+            | RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME
+            | RequestFlags.EVERYTHING_REQUEST_DATE_CREATED
+            | RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED
+            | RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED
+            | RequestFlags.EVERYTHING_REQUEST_DATE_RUN;
 
+        EverythingWrapper.Everything_SetReplyID(this.replyId);
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
-
+        EverythingWrapper.Everything_SetRequestFlags((uint)requestFlags);
         searchPattern = this.ApplySearchResultKind(searchPattern);
-        EverythingWrapper.Everything_SetSearchA(searchPattern);
-        EverythingWrapper.Everything_QueryA(true);
+        EverythingWrapper.Everything_SetSearch(searchPattern);
+        EverythingWrapper.Everything_Query(true);
 
         this.LastErrorCode = this.GetError();
 
@@ -57,7 +74,7 @@ namespace EverythingNet.Core
 
     private string ApplySearchResultKind(string searchPatten)
     {
-      switch(this.ResulKind)
+      switch (this.ResulKind)
       {
         case ResultKind.FilesOnly:
           return $"files: {searchPatten}";
@@ -68,29 +85,18 @@ namespace EverythingNet.Core
       }
     }
 
-    private IEnumerable<string> GetResults()
+    private IEnumerable<ISearchResult> GetResults()
     {
-      var builder = new StringBuilder(260);
       var numResults = EverythingWrapper.Everything_GetNumResults();
 
-      for (var i = 0; i < numResults; i++)
-      {
-        EverythingWrapper.Everything_GetResultFullPathNameW(i, builder, 260);
-
-        yield return builder.ToString();
-      }
-    }
-
-    public void Dispose()
-    {
-      EverythingWrapper.Everything_Reset();
+      return Enumerable.Range(0, (int)numResults).Select(x => new SearchResult(x));
     }
 
     private ErrorCode GetError()
     {
       var error = EverythingWrapper.Everything_GetLastError();
 
-      return (ErrorCode) error;
+      return (ErrorCode)error;
     }
   }
 }

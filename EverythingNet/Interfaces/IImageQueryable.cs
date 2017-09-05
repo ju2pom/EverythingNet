@@ -1,6 +1,7 @@
 ﻿namespace EverythingNet.Interfaces
 {
-  public enum Bpp {
+  public enum Bpp
+  {
     Bpp1 = 1,
     Bpp8 = 8,
     Bpp16 = 16,
@@ -9,18 +10,18 @@
   }
 
   /// <summary>
-  /// Only jpg, png, gif and bmp file are supported with these queries
+  ///   Only jpg, png, gif and bmp file are supported with these queries
   /// </summary>
-  public interface IImageQueryable
+  public interface IImageQueryable : IQueryable
   {
-    IQueryable Width(int width);
+    IImageQueryable Width(int width);
 
-    IQueryable Height(int height);
+    IImageQueryable Height(int height);
 
-    IQueryable Portrait();
+    IImageQueryable Portrait();
 
-    IQueryable Landscape();
+    IImageQueryable Landscape();
 
-    IQueryable BitDepth(Bpp bpp);
+    IImageQueryable BitDepth(Bpp bpp);
   }
 }

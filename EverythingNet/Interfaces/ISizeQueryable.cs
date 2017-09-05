@@ -1,7 +1,7 @@
-using EverythingNet.Query;
-
 namespace EverythingNet.Interfaces
 {
+  using EverythingNet.Query;
+
   public interface ISizeQueryable : IQueryable
   {
     IQueryable Equal(int value);

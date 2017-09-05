@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using EverythingNet.Core;
-using EverythingNet.Interfaces;
-
 namespace EverythingNet.Query
 {
+  using System;
+  using System.Collections.Generic;
+
+  using EverythingNet.Interfaces;
+
   public enum SizeUnit
   {
-    Kb=1,
+    Kb = 1,
     Mb,
     Gb
   }
@@ -21,71 +21,12 @@ namespace EverythingNet.Query
     Medium,
     Large,
     Huge,
-    Gigantic,
+    Gigantic
   }
 
   internal class SizeQueryable : Queryable, ISizeQueryable
   {
     private ISizeRef sizeRef;
-
-    private interface ISizeRef
-    {
-    }
-
-    private class DefaultSize : ISizeRef
-    {
-      private readonly Sizes sizes;
-
-      public DefaultSize(Sizes sizes)
-      {
-        this.sizes = sizes;
-      }
-
-      public override string ToString()
-      {
-        return $"size:{this.sizes.ToString().ToLower()}";
-      }
-    }
-
-    private class SizeComparison : ISizeRef
-    {
-      private readonly int size;
-      private readonly string comparison;
-      private readonly SizeUnit unit;
-
-      public SizeComparison(int size, string comparison, SizeUnit u = SizeUnit.Kb)
-      {
-        this.size = size;
-        this.comparison = comparison;
-        this.unit = u;
-      }
-
-      public override string ToString()
-      {
-        return $"size:{this.comparison}{this.size}{this.unit.ToString().ToLower()}";
-      }
-    }
-
-    private class BetweenSize : ISizeRef
-    {
-      private readonly int minimum;
-      private readonly SizeUnit minimumUnit;
-      private readonly int maximum;
-      private readonly SizeUnit maximumUnit;
-
-      public BetweenSize(int min, SizeUnit minUnit, int max, SizeUnit maxUnit)
-      {
-        this.minimum = min;
-        this.minimumUnit = minUnit;
-        this.maximum = max;
-        this.maximumUnit = maxUnit;
-      }
-
-      public override string ToString()
-      {
-        return $"size:{this.minimum}{this.minimumUnit}-{this.maximum}{this.maximumUnit}";
-      }
-    }
 
     public SizeQueryable(IEverythingInternal everything, IQueryGenerator parent)
       : base(everything, parent)
@@ -177,6 +118,7 @@ namespace EverythingNet.Query
       {
         throw new InvalidOperationException($"Minimum value must be lower or equal to max value: min={min}{u1} max={max}{u2}");
       }
+
       this.sizeRef = new BetweenSize(min, u1, max, u2);
 
       return this;
@@ -187,6 +129,65 @@ namespace EverythingNet.Query
       this.sizeRef = new SizeComparison(value, comparison, unit);
 
       return this;
+    }
+
+    private interface ISizeRef
+    {
+    }
+
+    private class DefaultSize : ISizeRef
+    {
+      private readonly Sizes sizes;
+
+      public DefaultSize(Sizes sizes)
+      {
+        this.sizes = sizes;
+      }
+
+      public override string ToString()
+      {
+        return $"size:{this.sizes.ToString().ToLower()}";
+      }
+    }
+
+    private class SizeComparison : ISizeRef
+    {
+      private readonly int size;
+      private readonly string comparison;
+      private readonly SizeUnit unit;
+
+      public SizeComparison(int size, string comparison, SizeUnit u = SizeUnit.Kb)
+      {
+        this.size = size;
+        this.comparison = comparison;
+        this.unit = u;
+      }
+
+      public override string ToString()
+      {
+        return $"size:{this.comparison}{this.size}{this.unit.ToString().ToLower()}";
+      }
+    }
+
+    private class BetweenSize : ISizeRef
+    {
+      private readonly int minimum;
+      private readonly SizeUnit minimumUnit;
+      private readonly int maximum;
+      private readonly SizeUnit maximumUnit;
+
+      public BetweenSize(int min, SizeUnit minUnit, int max, SizeUnit maxUnit)
+      {
+        this.minimum = min;
+        this.minimumUnit = minUnit;
+        this.maximum = max;
+        this.maximumUnit = maxUnit;
+      }
+
+      public override string ToString()
+      {
+        return $"size:{this.minimum}{this.minimumUnit}-{this.maximum}{this.maximumUnit}";
+      }
     }
   }
 }

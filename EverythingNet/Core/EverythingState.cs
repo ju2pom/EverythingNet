@@ -1,12 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using EverythingNet.Interfaces;
-
-namespace EverythingNet.Core
+﻿namespace EverythingNet.Core
 {
+  using System;
+  using System.Diagnostics;
+  using System.IO;
+  using System.Linq;
+  using System.Reflection;
+
+  using EverythingNet.Interfaces;
+
   public static class EverythingState
   {
     public enum StartMode
@@ -51,10 +52,10 @@ namespace EverythingNet.Core
 
     public static Version GetVersion()
     {
-      int major = EverythingWrapper.Everything_GetMajorVersion();
-      int minor = EverythingWrapper.Everything_GetMinorVersion();
-      int build = EverythingWrapper.Everything_GetBuildNumber();
-      int revision = EverythingWrapper.Everything_GetRevision();
+      UInt32 major = EverythingWrapper.Everything_GetMajorVersion();
+      UInt32 minor = EverythingWrapper.Everything_GetMinorVersion();
+      UInt32 build = EverythingWrapper.Everything_GetBuildNumber();
+      UInt32 revision = EverythingWrapper.Everything_GetRevision();
 
       return new Version(Convert.ToInt32(major), Convert.ToInt32(minor), Convert.ToInt32(build), Convert.ToInt32(revision));
     }

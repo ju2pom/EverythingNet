@@ -1,39 +1,41 @@
-﻿using System.Collections.Generic;
-using EverythingNet.Interfaces;
-
-namespace EverythingNet.Query
+﻿namespace EverythingNet.Query
 {
+  using System.Collections.Generic;
+
+  using EverythingNet.Interfaces;
+
   internal class ImageQueryable : Queryable, IImageQueryable
   {
     private string pattern;
 
-    public ImageQueryable(IEverythingInternal everything, IQueryGenerator parent) : base(everything, parent)
+    public ImageQueryable(IEverythingInternal everything, IQueryGenerator parent)
+      : base(everything, parent)
     {
     }
 
-    public IQueryable Width(int width)
+    public IImageQueryable Width(int width)
     {
-      return Search($"width:{width}");
+      return this.Search($"width:{width}");
     }
 
-    public IQueryable Height(int height)
+    public IImageQueryable Height(int height)
     {
-      return Search($"height:{height}");
+      return this.Search($"height:{height}");
     }
 
-    public IQueryable Portrait()
+    public IImageQueryable Portrait()
     {
-      return Search("orienation:portrait");
+      return this.Search("orienation:portrait");
     }
 
-    public IQueryable Landscape()
+    public IImageQueryable Landscape()
     {
-      return Search("orienation:landscape");
+      return this.Search("orienation:landscape");
     }
 
-    public IQueryable BitDepth(Bpp bpp)
+    public IImageQueryable BitDepth(Bpp bpp)
     {
-      return Search($"bitdepth:{(int) bpp}");
+      return this.Search($"bitdepth:{(int)bpp}");
     }
 
     public override IEnumerable<string> GetQueryParts()
@@ -46,9 +48,9 @@ namespace EverythingNet.Query
       yield return this.pattern;
     }
 
-    private IQueryable Search(string search)
+    private IImageQueryable Search(string search)
     {
-      pattern = search;
+      this.pattern = search;
 
       return this;
     }
