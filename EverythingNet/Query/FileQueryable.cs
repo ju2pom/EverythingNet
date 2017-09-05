@@ -70,7 +70,9 @@
 
     public IQueryable Duplicates(string search = null)
     {
-      return this.Macro("dupe:", search);
+      this.searchPattern = $"dupe:{this.QuoteIfNeeded(search)}";
+
+      return this;
     }
 
     private IQueryable Macro(string tag, string search)
