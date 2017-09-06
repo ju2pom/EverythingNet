@@ -16,10 +16,7 @@ namespace EverythingNet.Core
       this.index = Convert.ToUInt32(index);
     }
 
-    public bool IsFile
-    {
-      get { return EverythingWrapper.Everything_IsFileResult(this.index); }
-    }
+    public bool IsFile => EverythingWrapper.Everything_IsFileResult(this.index);
 
     public string FullPath
     {
@@ -40,7 +37,16 @@ namespace EverythingNet.Core
         //return EverythingWrapper.Everything_GetResultPath(this.index);
 
         // Temporary implementation until the native function works as expected
-        return System.IO.Path.GetDirectoryName(this.FullPath);
+        try
+        {
+          return System.IO.Path.GetDirectoryName(this.FullPath);
+        }
+        catch (Exception e)
+        {
+          this.LastException = e;
+
+          return this.FullPath;
+        }
       }
     }
 
@@ -51,7 +57,16 @@ namespace EverythingNet.Core
         //return EverythingWrapper.Everything_GetResultFileName(this.index);
 
         // Temporary implementation until the native function works as expected
-        return System.IO.Path.GetFileName(this.FullPath);
+        try
+        {
+          return System.IO.Path.GetFileName(this.FullPath);
+        }
+        catch (Exception e)
+        {
+          this.LastException = e;
+
+          return this.FullPath;
+        }
       }
     }
 
@@ -59,43 +74,27 @@ namespace EverythingNet.Core
     {
       get
       {
-        long size;
-
-        EverythingWrapper.Everything_GetResultSize(this.index, out size);
+        EverythingWrapper.Everything_GetResultSize(this.index, out var size);
 
         return size;
       }
     }
 
-    public uint Attributes
-    {
-      get { return EverythingWrapper.Everything_GetResultAttributes(this.index); }
-    }
+    public uint Attributes => EverythingWrapper.Everything_GetResultAttributes(this.index);
 
-    public DateTime Created
-    {
-      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateCreated); }
-    }
+    public DateTime Created => this.GenericDate(EverythingWrapper.Everything_GetResultDateCreated);
 
-    public DateTime Modified
-    {
-      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateModified); }
-    }
+    public DateTime Modified => this.GenericDate(EverythingWrapper.Everything_GetResultDateModified);
 
-    public DateTime Accessed
-    {
-      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateAccessed); }
-    }
+    public DateTime Accessed => this.GenericDate(EverythingWrapper.Everything_GetResultDateAccessed);
 
-    public DateTime Executed
-    {
-      get { return this.GenericDate(EverythingWrapper.Everything_GetResultDateRun); }
-    }
+    public DateTime Executed => this.GenericDate(EverythingWrapper.Everything_GetResultDateRun);
+
+    public Exception LastException { get; private set; }
 
     private DateTime GenericDate(MyDelegate func)
     {
-      long date;
-      if (func(this.index, out date) && date >= 0)
+      if (func(this.index, out var date) && date >= 0)
       {
         return DateTime.FromFileTime(date);
       }

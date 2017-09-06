@@ -23,5 +23,7 @@ namespace EverythingNet.Interfaces
     DateTime Accessed { get; }
 
     DateTime Executed { get; }
+
+    Exception LastException { get; }
   }
 }
