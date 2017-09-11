@@ -6,17 +6,28 @@
 
   using EverythingNet.Interfaces;
 
-  using IQueryable = EverythingNet.Interfaces.IQueryable;
+  using IQueryable = Interfaces.IQueryable;
 
   internal abstract class Queryable : IQueryable, IQueryGenerator
   {
     private readonly IEverythingInternal everything;
     private IQueryGenerator parent;
+    private IEnumerable<ISearchResult> results;
 
     protected Queryable(IEverythingInternal everything, IQueryGenerator parent)
     {
       this.everything = everything;
       this.parent = parent;
+    }
+
+    public long Count
+    {
+      get
+      {
+        this.ExecuteIfNeeded();
+
+        return this.everything.Count;
+      }
     }
 
     public IQuery And => new LogicalQuery(this.everything, this, " ");
@@ -30,9 +41,9 @@
 
     public IEnumerator<ISearchResult> GetEnumerator()
     {
-      var search = this.everything.SendSearch(string.Join("", this.GetQueryParts()));
+      this.ExecuteIfNeeded();
 
-      return search.GetEnumerator();
+      return this.results.GetEnumerator();
     }
 
     public virtual IEnumerable<string> GetQueryParts()
@@ -63,6 +74,14 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return this.GetEnumerator();
+    }
+
+    private void ExecuteIfNeeded()
+    {
+      if (this.results == null)
+      {
+        this.results = this.everything.SendSearch(string.Join("", this.GetQueryParts()));
+      }
     }
   }
 }

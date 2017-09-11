@@ -9,6 +9,17 @@
 
   public class Everything : IEverything, IEverythingInternal, IDisposable
   {
+    private const uint SearchFlags = (uint)(RequestFlags.EVERYTHING_REQUEST_SIZE
+                                      | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
+                                      | RequestFlags.EVERYTHING_REQUEST_EXTENSION
+                                      | RequestFlags.EVERYTHING_REQUEST_ATTRIBUTES
+                                      | RequestFlags.EVERYTHING_REQUEST_PATH
+                                      | RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME
+                                      | RequestFlags.EVERYTHING_REQUEST_DATE_CREATED
+                                      | RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED
+                                      | RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED
+                                      | RequestFlags.EVERYTHING_REQUEST_DATE_RUN);
+
     private readonly uint replyId;
 
     public Everything()
@@ -31,37 +42,32 @@
 
     public ErrorCode LastErrorCode { get; set; }
 
+    public long Count => EverythingWrapper.Everything_GetNumResults();
+
     public IQuery Search()
     {
       return new Query(this);
     }
 
-    public void Dispose()
+    public void Reset()
     {
       EverythingWrapper.Everything_Reset();
+    }
+
+    public void Dispose()
+    {
+      this.Reset();
     }
 
     IEnumerable<ISearchResult> IEverythingInternal.SendSearch(string searchPattern)
     {
       using (EverythingWrapper.Lock())
       {
-        RequestFlags requestFlags =
-              RequestFlags.EVERYTHING_REQUEST_SIZE
-            | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
-            | RequestFlags.EVERYTHING_REQUEST_EXTENSION
-            | RequestFlags.EVERYTHING_REQUEST_ATTRIBUTES
-            | RequestFlags.EVERYTHING_REQUEST_PATH
-            | RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME
-            | RequestFlags.EVERYTHING_REQUEST_DATE_CREATED
-            | RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED
-            | RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED
-            | RequestFlags.EVERYTHING_REQUEST_DATE_RUN;
-
         EverythingWrapper.Everything_SetReplyID(this.replyId);
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
-        EverythingWrapper.Everything_SetRequestFlags((uint)requestFlags);
+        EverythingWrapper.Everything_SetRequestFlags(SearchFlags);
         searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearch(searchPattern);
         EverythingWrapper.Everything_Query(true);

@@ -4,6 +4,8 @@
 
   public interface IQueryable : IEnumerable<ISearchResult>
   {
+    long Count { get; }
+
     IQuery And { get; }
 
     IQuery Or { get; }

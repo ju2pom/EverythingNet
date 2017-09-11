@@ -47,10 +47,14 @@
     bool MatchWholeWord { get; set; }
 
     IQuery Search();
+
+    void Reset();
   }
 
   internal interface IEverythingInternal
   {
+    long Count { get; }
+
     IEnumerable<ISearchResult> SendSearch(string searchPattern);
   }
 }
