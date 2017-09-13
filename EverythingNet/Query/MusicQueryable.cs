@@ -1,6 +1,5 @@
 ﻿namespace EverythingNet.Query
 {
-  using System;
   using System.Collections.Generic;
 
   using EverythingNet.Interfaces;
@@ -10,7 +9,7 @@
     private string artistPattern;
     private string genrePattern;
     private string titlePattern;
-    private int? trackNumber;
+    private uint? trackNumber;
     private string commentPattern;
     private string albumPattern;
 
@@ -21,11 +20,6 @@
 
     public IMusicQueryable Album(string album)
     {
-      if (string.IsNullOrEmpty(album))
-      {
-        throw new ArgumentNullException(nameof(album));
-      }
-
       this.albumPattern = this.QuoteIfNeeded(album);
 
       return this;
@@ -33,11 +27,6 @@
 
     public IMusicQueryable Artist(string artist)
     {
-      if (string.IsNullOrEmpty(artist))
-      {
-        throw new ArgumentNullException(nameof(artist));
-      }
-
       this.artistPattern = this.QuoteIfNeeded(artist);
 
       return this;
@@ -45,11 +34,6 @@
 
     public IMusicQueryable Genre(string genre)
     {
-      if (string.IsNullOrEmpty(genre))
-      {
-        throw new ArgumentNullException(nameof(genre));
-      }
-
       this.genrePattern = this.QuoteIfNeeded(genre);
 
       return this;
@@ -57,17 +41,12 @@
 
     public IMusicQueryable Title(string title)
     {
-      if (string.IsNullOrEmpty(title))
-      {
-        throw new ArgumentNullException(nameof(title));
-      }
-
       this.titlePattern = this.QuoteIfNeeded(title);
 
       return this;
     }
 
-    public IMusicQueryable Track(int track)
+    public IMusicQueryable Track(uint? track)
     {
       this.trackNumber = track;
 
@@ -76,12 +55,10 @@
 
     public IMusicQueryable Comment(string comment)
     {
-      if (string.IsNullOrEmpty(comment))
+      if (!string.IsNullOrEmpty(comment))
       {
-        throw new ArgumentNullException(nameof(comment));
+        this.commentPattern = this.QuoteIfNeeded(comment);
       }
-
-      this.commentPattern = this.QuoteIfNeeded(comment);
 
       return this;
     }

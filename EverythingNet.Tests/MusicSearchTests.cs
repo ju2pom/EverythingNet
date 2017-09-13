@@ -30,9 +30,9 @@ namespace EverythingNet.Tests
 
     [TestCase(null)]
     [TestCase("")]
-    public void Album_Throws(string album)
+    public void Album_Null(string album)
     {
-      Assert.That(() => this.everything.Search().Music().Album(album), Throws.ArgumentNullException);
+      Assert.That(() => this.everything.Search().Music().Album(album).ToString(), Is.Empty);
     }
 
 
@@ -47,14 +47,14 @@ namespace EverythingNet.Tests
 
     [TestCase(null)]
     [TestCase("")]
-    public void Artist_Throws(string artist)
+    public void Artist_Null(string artist)
     {
-      Assert.That(() => this.everything.Search().Music().Artist(artist), Throws.ArgumentNullException);
+      Assert.That(() => this.everything.Search().Music().Artist(artist).ToString(), Is.Empty);
     }
 
-    [TestCase(0, ExpectedResult = "track:0")]
-    [TestCase(2, ExpectedResult = "track:2")]
-    public string Track(int track)
+    [TestCase(0u, ExpectedResult = "track:0")]
+    [TestCase(2u, ExpectedResult = "track:2")]
+    public string Track(uint? track)
     {
       var queryable = this.everything.Search().Music().Track(track);
 
