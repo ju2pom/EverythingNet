@@ -1,3 +1,5 @@
+image:
+  - Visual Studio 2017
 environment:
    COVERALLS_REPO_TOKEN:  
        secure: biV61oNW1Heo5wiOkUWFLyMF8lk+O50x+qH98xrSnAmS7OzwDdAFa521/qiAq4Cz
