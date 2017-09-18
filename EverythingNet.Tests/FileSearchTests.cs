@@ -98,5 +98,13 @@ namespace EverythingNet.Tests
 
       return queryable.ToString();
     }
+
+    [Test]
+    public void Roots()
+    {
+      var queryable = this.everyThing.Search().File().Roots();
+
+      Assert.That(queryable.ToString(), Is.EqualTo("root:"));
+    }
   }
 }

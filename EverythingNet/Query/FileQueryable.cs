@@ -38,6 +38,11 @@
       return this.Macro("file:", string.Empty);
     }
 
+    public IQueryable Roots()
+    {
+      return this.Macro("root:", string.Empty);
+    }
+
     public IQueryable Audio(string search = null)
     {
       return this.Macro($"ext:{AudioExt}", search);
