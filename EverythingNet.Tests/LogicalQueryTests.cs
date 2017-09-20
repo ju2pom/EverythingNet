@@ -1,10 +1,5 @@
 ﻿using EverythingNet.Core;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EverythingNet.Tests
 {
@@ -40,6 +35,24 @@ namespace EverythingNet.Tests
       var queryable = this.everything.Search().Name().StartWith("prefix").And.Queryable(sizeQuery);
 
       Assert.That(queryable.ToString(), Is.EqualTo("startwith:prefix size:<=100kb"));
+    }
+
+
+    [Test]
+    public void FilesQuery()
+    {
+      var filesQuery = this.everything.Search().Files.Name();
+
+      Assert.That(filesQuery.ToString(), Is.EqualTo("files:"));
+    }
+
+
+    [Test]
+    public void FoldersQuery()
+    {
+      var foldersQuery = this.everything.Search().Folders.Name();
+
+      Assert.That(foldersQuery.ToString(), Is.EqualTo("folders:"));
     }
   }
 }

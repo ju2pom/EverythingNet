@@ -5,7 +5,7 @@
 
   using EverythingNet.Interfaces;
 
-  using IQueryable = EverythingNet.Interfaces.IQueryable;
+  using IQueryable = Interfaces.IQueryable;
 
   internal class Query : IQuery, IQueryGenerator
   {
@@ -19,6 +19,10 @@
     }
 
     public IQuery Not => new LogicalQuery(this.everything, this, "!");
+
+    public IQuery Files => new LogicalQuery(this.everything, this, "files:");
+
+    public IQuery Folders => new LogicalQuery(this.everything, this, "folders:");
 
     public virtual IEnumerable<string> GetQueryParts()
     {

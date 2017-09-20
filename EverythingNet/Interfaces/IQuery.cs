@@ -4,6 +4,10 @@
   {
     IQuery Not { get; }
 
+    IQuery Files { get; }
+
+    IQuery Folders { get; }
+
     INameQueryable Name();
 
     INameQueryable Name(string namePattern);
