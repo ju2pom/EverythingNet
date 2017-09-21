@@ -43,6 +43,11 @@
       return this.Macro("root:", string.Empty);
     }
 
+    public IQueryable Parent(string parentFolder)
+    {
+      return this.Macro($"parent:{parentFolder}", string.Empty);
+    }
+
     public IQueryable Audio(string search = null)
     {
       return this.Macro($"ext:{AudioExt}", search);

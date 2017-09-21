@@ -8,6 +8,8 @@
 
     IQuery Folders { get; }
 
+    IQuery NoSubFolder { get; }
+
     INameQueryable Name();
 
     INameQueryable Name(string namePattern);

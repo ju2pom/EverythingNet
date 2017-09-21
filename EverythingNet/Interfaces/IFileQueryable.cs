@@ -6,6 +6,8 @@
 
     IQueryable Roots();
 
+    IQueryable Parent(string parentFolder);
+
     IQueryable Audio(string search = null);
 
     IQueryable Zip(string search = null);

@@ -24,6 +24,8 @@
 
     public IQuery Folders => new LogicalQuery(this.everything, this, "folders:");
 
+    public IQuery NoSubFolder => new LogicalQuery(this.everything, this, "nosubfolders:");
+
     public virtual IEnumerable<string> GetQueryParts()
     {
       return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
