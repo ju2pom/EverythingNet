@@ -23,7 +23,10 @@ namespace EverythingNet.Tests
     [TestCase("The Wall", ExpectedResult = "album:\"The Wall\"")]
     public string Album(string album)
     {
-      var queryable = this.everything.Search().Music().Album(album);
+      var queryable = this.everything
+        .Search()
+        .Music
+        .Album(album);
 
       return queryable.ToString();
     }
@@ -32,14 +35,14 @@ namespace EverythingNet.Tests
     [TestCase("")]
     public void Album_Null(string album)
     {
-      Assert.That(() => this.everything.Search().Music().Album(album).ToString(), Is.Empty);
+      Assert.That(() => this.everything.Search().Music.Album(album).ToString(), Is.Empty);
     }
 
 
     [TestCase("Pink Floyed", ExpectedResult = "artist:\"Pink Floyed\"")]
     public string Artist(string artist)
     {
-      var queryable = this.everything.Search().Music().Artist(artist);
+      var queryable = this.everything.Search().Music.Artist(artist);
 
       return queryable.ToString();
     }
@@ -49,14 +52,14 @@ namespace EverythingNet.Tests
     [TestCase("")]
     public void Artist_Null(string artist)
     {
-      Assert.That(() => this.everything.Search().Music().Artist(artist).ToString(), Is.Empty);
+      Assert.That(() => this.everything.Search().Music.Artist(artist).ToString(), Is.Empty);
     }
 
     [TestCase(0u, ExpectedResult = "track:0")]
     [TestCase(2u, ExpectedResult = "track:2")]
     public string Track(uint? track)
     {
-      var queryable = this.everything.Search().Music().Track(track);
+      var queryable = this.everything.Search().Music.Track(track);
 
       return queryable.ToString();
     }
@@ -65,7 +68,7 @@ namespace EverythingNet.Tests
     [TestCase("great music", ExpectedResult = "comment:\"great music\"")]
     public string Comment(string comment)
     {
-      var queryable = this.everything.Search().Music().Comment(comment);
+      var queryable = this.everything.Search().Music.Comment(comment);
 
       return queryable.ToString();
     }
@@ -73,7 +76,7 @@ namespace EverythingNet.Tests
     [TestCase("Intro", ExpectedResult = "title:Intro")]
     public string Title(string title)
     {
-      var queryable = this.everything.Search().Music().Title(title);
+      var queryable = this.everything.Search().Music.Title(title);
 
       return queryable.ToString();
     }
@@ -81,7 +84,7 @@ namespace EverythingNet.Tests
     [TestCase("Rock", ExpectedResult = "genre:Rock")]
     public string Genre(string genre)
     {
-      var queryable = this.everything.Search().Music().Genre(genre);
+      var queryable = this.everything.Search().Music.Genre(genre);
 
       return queryable.ToString();
     }

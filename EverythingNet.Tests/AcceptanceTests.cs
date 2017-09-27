@@ -35,9 +35,9 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA)
+        .Name.Contains(FileToSearchA)
         .Or
-        .Name(FileToSearchB);
+        .Name.Contains(FileToSearchB);
 
       Assert.That(queryable.Where(x => x.FileName == FileToSearchA), Is.Not.Empty);
       Assert.That(queryable.Where(x => x.FileName == FileToSearchB), Is.Not.Empty);
@@ -48,7 +48,8 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA);
+        .Name
+        .Contains(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -61,7 +62,8 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA);
+        .Name
+        .Contains(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -74,7 +76,8 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA);
+        .Name
+        .Contains(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -87,7 +90,8 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA);
+        .Name
+        .Contains(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -100,7 +104,8 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA);
+        .Name
+        .Contains(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -116,7 +121,8 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
         .Search()
-        .Name(FileToSearchA);
+        .Name
+        .Contains(FileToSearchA);
 
       foreach (var result in queryable)
       {
@@ -134,7 +140,7 @@ namespace EverythingNet.Tests
 
       var queryable = new Everything()
           .Search()
-          .File()
+          .File
           .Zip();
 
       // Assert
@@ -147,7 +153,10 @@ namespace EverythingNet.Tests
     public void StressTest()
     {
       // Arrange
-      var queryable = this.everyThing.Search().Name(FileToSearchA);
+      var queryable = this.everyThing
+        .Search()
+        .Name
+        .Contains(FileToSearchA);
 
       // Assert
       Assert.That(this.everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
@@ -176,7 +185,10 @@ namespace EverythingNet.Tests
         everything.MatchWholeWord = true;
 
         // Act
-        var results = everything.Search().Name(searchString);
+        var results = everything
+          .Search()
+          .Name
+          .Contains(searchString);
 
         // Assert
         Assert.That(this.everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));

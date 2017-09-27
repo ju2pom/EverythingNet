@@ -32,7 +32,7 @@ namespace EverythingNet.Tests
 
       // Act
       var results = this.everyThing.Search()
-        .CreationDate()
+        .CreationDate
         .Equal(Dates.Today);
 
       // Assert
@@ -91,8 +91,9 @@ namespace EverythingNet.Tests
     public string AccessDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search()
-        .AccessDate()
+      var queryable = this.everyThing
+        .Search()
+        .AccessDate
         .Equal(date);
 
       // Assert
@@ -151,8 +152,9 @@ namespace EverythingNet.Tests
     public string ModificationDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search()
-        .ModificationDate()
+      var queryable = this.everyThing
+        .Search()
+        .ModificationDate
         .Equal(date);
 
       // Assert
@@ -212,8 +214,9 @@ namespace EverythingNet.Tests
     public string CreationDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search()
-        .CreationDate()
+      var queryable = this.everyThing
+        .Search()
+        .CreationDate
         .Equal(date);
 
       // Assert
@@ -273,8 +276,9 @@ namespace EverythingNet.Tests
     public string RunDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing.Search()
-        .RunDate()
+      var queryable = this.everyThing
+        .Search()
+        .RunDate
         .Equal(date);
 
       // Assert
@@ -290,7 +294,10 @@ namespace EverythingNet.Tests
     public string LastDate(int count, CountableDates date)
     {
       // Act
-      var queryable = this.everyThing.Search().ModificationDate().Last(count, date);
+      var queryable = this.everyThing
+        .Search()
+        .ModificationDate
+        .Last(count, date);
 
       // Assert
       return queryable.ToString().ToLower();

@@ -26,66 +26,34 @@
 
     public IQuery NoSubFolder => new LogicalQuery(this.everything, this, "nosubfolders:");
 
-    public virtual IEnumerable<string> GetQueryParts()
-    {
-      return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
-    }
+    public INameQueryable Name => new NameQueryable(this.everything, this);
 
-    public INameQueryable Name()
-    {
-      return new NameQueryable(this.everything, this);
-    }
+    public ISizeQueryable Size => new SizeQueryable(this.everything, this);
 
-    public INameQueryable Name(string namePattern)
-    {
-      return new NameQueryable(this.everything, this, namePattern);
-    }
+    public IDateQueryable CreationDate => new DateQueryable(this.everything, this, "dc:");
 
-    public ISizeQueryable Size()
-    {
-      return new SizeQueryable(this.everything, this);
-    }
+    public IDateQueryable ModificationDate => new DateQueryable(this.everything, this, "dm:");
 
-    public IDateQueryable CreationDate()
-    {
-      return new DateQueryable(this.everything, this, "dc:");
-    }
+    public IDateQueryable AccessDate => new DateQueryable(this.everything, this, "da:");
 
-    public IDateQueryable ModificationDate()
-    {
-      return new DateQueryable(this.everything, this, "dm:");
-    }
+    public IDateQueryable RunDate => new DateQueryable(this.everything, this, "dr:");
 
-    public IDateQueryable AccessDate()
-    {
-      return new DateQueryable(this.everything, this, "da:");
-    }
+    public IMusicQueryable Music => new MusicQueryable(this.everything, this);
 
-    public IDateQueryable RunDate()
-    {
-      return new DateQueryable(this.everything, this, "dr:");
-    }
+    public IFileQueryable File => new FileQueryable(this.everything, this);
 
-    public IMusicQueryable Music()
-    {
-      return new MusicQueryable(this.everything, this);
-    }
-
-    public IFileQueryable File()
-    {
-      return new FileQueryable(this.everything, this);
-    }
-
-    public IImageQueryable Image()
-    {
-      return new ImageQueryable(this.everything, this);
-    }
+    public IImageQueryable Image => new ImageQueryable(this.everything, this);
 
     public IQueryable Queryable(IQueryable queryable)
     {
       ((Queryable)queryable).SetParent(this);
 
       return queryable;
+    }
+
+    public virtual IEnumerable<string> GetQueryParts()
+    {
+      return this.parent?.GetQueryParts() ?? Enumerable.Empty<string>();
     }
   }
 }

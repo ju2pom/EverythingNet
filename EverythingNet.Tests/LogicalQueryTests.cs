@@ -23,7 +23,13 @@ namespace EverythingNet.Tests
     [Test]
     public void And()
     {
-      var queryable = this.everything.Search().Name().StartWith("prefix").And.Name().EndWith("suffix");
+      var queryable = this.everything
+        .Search()
+        .Name
+        .StartWith("prefix")
+        .And
+        .Name
+        .EndWith("suffix");
 
       Assert.That(queryable.ToString(), Is.EqualTo("startwith:prefix endwith:suffix"));
     }
@@ -31,8 +37,16 @@ namespace EverythingNet.Tests
     [Test]
     public void AndQuery()
     {
-      var sizeQuery = this.everything.Search().Size().LessOrEqualThan(100);
-      var queryable = this.everything.Search().Name().StartWith("prefix").And.Queryable(sizeQuery);
+      var sizeQuery = this.everything
+        .Search()
+        .Size
+        .LessOrEqualThan(100);
+      var queryable = this.everything
+        .Search()
+        .Name
+        .StartWith("prefix")
+        .And
+        .Queryable(sizeQuery);
 
       Assert.That(queryable.ToString(), Is.EqualTo("startwith:prefix size:<=100kb"));
     }
@@ -41,7 +55,10 @@ namespace EverythingNet.Tests
     [Test]
     public void FilesQuery()
     {
-      var filesQuery = this.everything.Search().Files.Name();
+      var filesQuery = this.everything
+        .Search()
+        .Files
+        .Name;
 
       Assert.That(filesQuery.ToString(), Is.EqualTo("files:"));
     }
@@ -50,7 +67,10 @@ namespace EverythingNet.Tests
     [Test]
     public void FoldersQuery()
     {
-      var foldersQuery = this.everything.Search().Folders.Name();
+      var foldersQuery = this.everything
+        .Search()
+        .Folders
+        .Name;
 
       Assert.That(foldersQuery.ToString(), Is.EqualTo("folders:"));
     }

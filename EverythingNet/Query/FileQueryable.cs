@@ -20,6 +20,53 @@
     {
     }
 
+    public IFileQueryable Roots()
+    {
+      return this.Macro("root:", string.Empty);
+    }
+
+    public IFileQueryable Parent(string parentFolder)
+    {
+      return this.Macro($"parent:{parentFolder}", string.Empty);
+    }
+
+    public IFileQueryable Audio(string search = null)
+    {
+      return this.Macro($"ext:{AudioExt}", search);
+    }
+
+    public IFileQueryable Zip(string search = null)
+    {
+      return this.Macro($"ext:{ZipExt}", search);
+    }
+
+    public IFileQueryable Video(string search = null)
+    {
+      return this.Macro($"ext:{VideoExt}", search);
+    }
+
+    public IFileQueryable Picture(string search = null)
+    {
+      return this.Macro($"ext:{PicsExt}", search);
+    }
+
+    public IFileQueryable Exe(string search = null)
+    {
+      return this.Macro($"ext:{ExeExt}", search);
+    }
+
+    public IFileQueryable Document(string search = null)
+    {
+      return this.Macro($"ext:{DocExt}", search);
+    }
+
+    public IFileQueryable Duplicates(string search = null)
+    {
+      this.searchPattern = $"dupe:{this.QuoteIfNeeded(search)}";
+
+      return this;
+    }
+
     public override IEnumerable<string> GetQueryParts()
     {
       foreach (var queryPart in base.GetQueryParts())
@@ -33,59 +80,7 @@
       }
     }
 
-    public IQueryable Only()
-    {
-      return this.Macro("file:", string.Empty);
-    }
-
-    public IQueryable Roots()
-    {
-      return this.Macro("root:", string.Empty);
-    }
-
-    public IQueryable Parent(string parentFolder)
-    {
-      return this.Macro($"parent:{parentFolder}", string.Empty);
-    }
-
-    public IQueryable Audio(string search = null)
-    {
-      return this.Macro($"ext:{AudioExt}", search);
-    }
-
-    public IQueryable Zip(string search = null)
-    {
-      return this.Macro($"ext:{ZipExt}", search);
-    }
-
-    public IQueryable Video(string search = null)
-    {
-      return this.Macro($"ext:{VideoExt}", search);
-    }
-
-    public IQueryable Picture(string search = null)
-    {
-      return this.Macro($"ext:{PicsExt}", search);
-    }
-
-    public IQueryable Exe(string search = null)
-    {
-      return this.Macro($"ext:{ExeExt}", search);
-    }
-
-    public IQueryable Document(string search = null)
-    {
-      return this.Macro($"ext:{DocExt}", search);
-    }
-
-    public IQueryable Duplicates(string search = null)
-    {
-      this.searchPattern = $"dupe:{this.QuoteIfNeeded(search)}";
-
-      return this;
-    }
-
-    private IQueryable Macro(string tag, string search)
+    private IFileQueryable Macro(string tag, string search)
     {
       this.searchPattern = string.IsNullOrEmpty(search)
         ? tag

@@ -10,25 +10,23 @@
 
     IQuery NoSubFolder { get; }
 
-    INameQueryable Name();
+    INameQueryable Name { get; }
 
-    INameQueryable Name(string namePattern);
+    ISizeQueryable Size { get; }
 
-    ISizeQueryable Size();
+    IDateQueryable CreationDate { get; }
 
-    IDateQueryable CreationDate();
+    IDateQueryable ModificationDate { get; }
 
-    IDateQueryable ModificationDate();
+    IDateQueryable AccessDate { get; }
 
-    IDateQueryable AccessDate();
+    IDateQueryable RunDate { get; }
 
-    IDateQueryable RunDate();
+    IMusicQueryable Music { get; }
 
-    IMusicQueryable Music();
+    IFileQueryable File { get; }
 
-    IFileQueryable File();
-
-    IImageQueryable Image();
+    IImageQueryable Image { get; }
 
     IQueryable Queryable(IQueryable queryable);
   }

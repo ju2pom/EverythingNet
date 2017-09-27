@@ -15,6 +15,56 @@
       this.searchPattern = kind;
     }
 
+    public IDateQueryable Before(DateTime date)
+    {
+      return this.DateSearch($"<{date.ToShortDateString()}");
+    }
+
+    public IDateQueryable After(DateTime date)
+    {
+      return this.DateSearch($">{date.ToShortDateString()}");
+    }
+
+    public IDateQueryable Equal(DateTime date)
+    {
+      return this.DateSearch($"={date.ToShortDateString()}");
+    }
+
+    public IDateQueryable Between(DateTime from, DateTime to)
+    {
+      return this.DateSearch($"{from.ToShortDateString()}-{to.ToShortDateString()}");
+    }
+
+    public IDateQueryable Before(Dates date)
+    {
+      return this.DateSearch($"<{date}");
+    }
+
+    public IDateQueryable After(Dates date)
+    {
+      return this.DateSearch($">{date}");
+    }
+
+    public IDateQueryable Equal(Dates date)
+    {
+      return this.DateSearch($"{date}");
+    }
+
+    public IDateQueryable Between(Dates from, Dates to)
+    {
+      return this.DateSearch($"{from}-{to}");
+    }
+
+    public IDateQueryable Last(int count, CountableDates date)
+    {
+      return this.DateSearch($"last{count}{date}");
+    }
+
+    public IDateQueryable Next(int count, CountableDates date)
+    {
+      return this.DateSearch($"next{count}{date}");
+    }
+
     public override IEnumerable<string> GetQueryParts()
     {
       foreach (var queryPart in base.GetQueryParts())
@@ -25,57 +75,7 @@
       yield return this.searchPattern;
     }
 
-    public IQueryable Before(DateTime date)
-    {
-      return this.DateSearch($"<{date.ToShortDateString()}");
-    }
-
-    public IQueryable After(DateTime date)
-    {
-      return this.DateSearch($">{date.ToShortDateString()}");
-    }
-
-    public IQueryable Equal(DateTime date)
-    {
-      return this.DateSearch($"={date.ToShortDateString()}");
-    }
-
-    public IQueryable Between(DateTime from, DateTime to)
-    {
-      return this.DateSearch($"{from.ToShortDateString()}-{to.ToShortDateString()}");
-    }
-
-    public IQueryable Before(Dates date)
-    {
-      return this.DateSearch($"<{date}");
-    }
-
-    public IQueryable After(Dates date)
-    {
-      return this.DateSearch($">{date}");
-    }
-
-    public IQueryable Equal(Dates date)
-    {
-      return this.DateSearch($"{date}");
-    }
-
-    public IQueryable Between(Dates from, Dates to)
-    {
-      return this.DateSearch($"{from}-{to}");
-    }
-
-    public IQueryable Last(int count, CountableDates date)
-    {
-      return this.DateSearch($"last{count}{date}");
-    }
-
-    public IQueryable Next(int count, CountableDates date)
-    {
-      return this.DateSearch($"next{count}{date}");
-    }
-
-    private IQueryable DateSearch(string pattern)
+    private IDateQueryable DateSearch(string pattern)
     {
       this.searchPattern += pattern;
 

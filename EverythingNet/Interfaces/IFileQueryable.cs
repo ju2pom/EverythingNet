@@ -2,24 +2,22 @@
 {
   public interface IFileQueryable : IQueryable
   {
-    IQueryable Only();
+    IFileQueryable Roots();
 
-    IQueryable Roots();
+    IFileQueryable Parent(string parentFolder);
 
-    IQueryable Parent(string parentFolder);
+    IFileQueryable Audio(string search = null);
 
-    IQueryable Audio(string search = null);
+    IFileQueryable Zip(string search = null);
 
-    IQueryable Zip(string search = null);
+    IFileQueryable Video(string search = null);
 
-    IQueryable Video(string search = null);
+    IFileQueryable Picture(string search = null);
 
-    IQueryable Picture(string search = null);
+    IFileQueryable Exe(string search = null);
 
-    IQueryable Exe(string search = null);
+    IFileQueryable Document(string search = null);
 
-    IQueryable Document(string search = null);
-
-    IQueryable Duplicates(string search = null);
+    IFileQueryable Duplicates(string search = null);
   }
 }

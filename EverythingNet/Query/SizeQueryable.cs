@@ -33,19 +33,19 @@ namespace EverythingNet.Query
     {
     }
 
-    public IQueryable Equal(int value)
+    public ISizeQueryable Equal(int value)
     {
       return this.Equal(value, SizeUnit.Kb);
     }
 
-    public IQueryable Equal(int value, SizeUnit u)
+    public ISizeQueryable Equal(int value, SizeUnit u)
     {
       this.sizeRef = new SizeComparison(value, string.Empty, u);
 
       return this;
     }
 
-    public IQueryable Equal(Sizes s)
+    public ISizeQueryable Equal(Sizes s)
     {
       this.sizeRef = new DefaultSize(s);
 
@@ -62,57 +62,57 @@ namespace EverythingNet.Query
       yield return this.sizeRef.ToString();
     }
 
-    public IQueryable GreaterThan(int value)
+    public ISizeQueryable GreaterThan(int value)
     {
       return this.GreaterThan(value, SizeUnit.Kb);
     }
 
-    public IQueryable GreaterThan(int value, SizeUnit u)
+    public ISizeQueryable GreaterThan(int value, SizeUnit u)
     {
       return this.Comparison(value, ">", u);
     }
 
-    public IQueryable GreaterOrEqualThan(int value)
+    public ISizeQueryable GreaterOrEqualThan(int value)
     {
       return this.GreaterOrEqualThan(value, SizeUnit.Kb);
     }
 
-    public IQueryable GreaterOrEqualThan(int value, SizeUnit unit)
+    public ISizeQueryable GreaterOrEqualThan(int value, SizeUnit unit)
     {
       return this.Comparison(value, ">=", unit);
     }
 
-    public IQueryable LessThan(int value)
+    public ISizeQueryable LessThan(int value)
     {
       return this.LessThan(value, SizeUnit.Kb);
     }
 
-    public IQueryable LessThan(int value, SizeUnit u)
+    public ISizeQueryable LessThan(int value, SizeUnit u)
     {
       return this.Comparison(value, "<", u);
     }
 
-    public IQueryable LessOrEqualThan(int value)
+    public ISizeQueryable LessOrEqualThan(int value)
     {
       return this.LessOrEqualThan(value, SizeUnit.Kb);
     }
 
-    public IQueryable LessOrEqualThan(int value, SizeUnit unit)
+    public ISizeQueryable LessOrEqualThan(int value, SizeUnit unit)
     {
       return this.Comparison(value, "<=", unit);
     }
 
-    public IQueryable Between(int min, int max)
+    public ISizeQueryable Between(int min, int max)
     {
       return this.Between(min, max, SizeUnit.Kb);
     }
 
-    public IQueryable Between(int min, int max, SizeUnit u)
+    public ISizeQueryable Between(int min, int max, SizeUnit u)
     {
       return this.Between(min, u, max, u);
     }
 
-    public IQueryable Between(int min, SizeUnit u1, int max, SizeUnit u2)
+    public ISizeQueryable Between(int min, SizeUnit u1, int max, SizeUnit u2)
     {
       if (min * Math.Pow(10, (int)u1) > max * Math.Pow(10, (int)u2))
       {
@@ -124,7 +124,7 @@ namespace EverythingNet.Query
       return this;
     }
 
-    private IQueryable Comparison(int value, string comparison, SizeUnit unit)
+    private ISizeQueryable Comparison(int value, string comparison, SizeUnit unit)
     {
       this.sizeRef = new SizeComparison(value, comparison, unit);
 

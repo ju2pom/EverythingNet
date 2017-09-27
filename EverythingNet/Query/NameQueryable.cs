@@ -6,25 +6,23 @@ namespace EverythingNet.Query
 
   using EverythingNet.Interfaces;
 
-  using IQueryable = EverythingNet.Interfaces.IQueryable;
-
   internal class NameQueryable : Queryable, INameQueryable
   {
-    private readonly string pattern;
-
+    private string pattern;
     private string startWith;
     private string endWith;
     private string extensions;
 
     public NameQueryable(IEverythingInternal everything, IQueryGenerator parent)
-      : this(everything, parent, null)
+      : base(everything, parent)
     {
     }
 
-    public NameQueryable(IEverythingInternal everything, IQueryGenerator parent, string pattern)
-      : base(everything, parent)
+    public INameQueryable Contains(string contains)
     {
-      this.pattern = this.QuoteIfNeeded(pattern);
+      this.pattern = this.QuoteIfNeeded(contains);
+
+      return this;
     }
 
     public override IEnumerable<string> GetQueryParts()
@@ -69,7 +67,7 @@ namespace EverythingNet.Query
       return this;
     }
 
-    public IQueryable Extension(string extension)
+    public INameQueryable Extension(string extension)
     {
       if (extension.Contains("."))
       {
@@ -83,7 +81,7 @@ namespace EverythingNet.Query
       return this;
     }
 
-    public IQueryable Extensions(IEnumerable<string> newExtensions)
+    public INameQueryable Extensions(IEnumerable<string> newExtensions)
     {
       if (newExtensions == null)
       {
