@@ -16,6 +16,20 @@ EverythingNet provides a simple .NET API that wraps aforementioned library (whic
 
 EverythingNet exposes a fluent API that ease access to specific search functions.
 
+## Features
+
+The fluent API provides the following set of features:
+- [x] thread safety
+- [x] search for files only or folders only or both
+- [x] name contains/start with/end with
+- [x] search by extension or list of extensions
+- [x] logical operators (Not, And, Or)
+- [x] size search criteria
+- [x] picture properties search criteria (format, dimensions)
+- [x] audio search criteria (ID3 Tags)
+- [x] dates search criteria (creation, modification, access, execution)
+- [ ] file content (maybe later)
+
 ## How
 
 The library exposes a fluent API that ease access to specific search functions.
@@ -28,14 +42,3 @@ var results = everything.Search().Name.Contains("temp");
 
 ## Wiki
 [Wiki](https://github.com/ju2pom/EverythingNet/wiki)
-
-## Roadmap
-
-The fluent API provides specific methods to easily handle
-- [x] thread safety
-- [x] logical operators
-- [x] file size
-- [x] picture files (format, dimensions)
-- [x] music files (ID3 Tags)
-- [x] file dates
-- [ ] file content (maybe later)
