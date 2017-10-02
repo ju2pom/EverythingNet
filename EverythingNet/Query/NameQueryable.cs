@@ -83,6 +83,16 @@ namespace EverythingNet.Query
 
     public INameQueryable Extensions(IEnumerable<string> newExtensions)
     {
+      return this.ExtensionCollection(newExtensions);
+    }
+
+    public INameQueryable Extensions(params string[] newExtensions)
+    {
+      return this.ExtensionCollection(newExtensions);
+    }
+
+    private INameQueryable ExtensionCollection(IEnumerable<string> newExtensions)
+    {
       if (newExtensions == null)
       {
         throw new ArgumentNullException(nameof(newExtensions));

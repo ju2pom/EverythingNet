@@ -9,7 +9,7 @@
     private string artistPattern;
     private string genrePattern;
     private string titlePattern;
-    private uint? trackNumber;
+    private int? trackNumber;
     private string commentPattern;
     private string albumPattern;
 
@@ -46,7 +46,7 @@
       return this;
     }
 
-    public IMusicQueryable Track(uint? track)
+    public IMusicQueryable Track(int? track)
     {
       this.trackNumber = track;
 

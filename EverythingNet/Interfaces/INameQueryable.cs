@@ -13,5 +13,7 @@ namespace EverythingNet.Interfaces
     INameQueryable Extension(string extension);
 
     INameQueryable Extensions(IEnumerable<string> extensions);
+
+    INameQueryable Extensions(params string[] extensions);
   }
 }

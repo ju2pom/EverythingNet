@@ -55,9 +55,9 @@ namespace EverythingNet.Tests
       Assert.That(() => this.everything.Search().Music.Artist(artist).ToString(), Is.Empty);
     }
 
-    [TestCase(0u, ExpectedResult = "track:0")]
-    [TestCase(2u, ExpectedResult = "track:2")]
-    public string Track(uint? track)
+    [TestCase(0, ExpectedResult = "track:0")]
+    [TestCase(2, ExpectedResult = "track:2")]
+    public string Track(int? track)
     {
       var queryable = this.everything.Search().Music.Track(track);
 

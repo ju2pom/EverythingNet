@@ -7,7 +7,7 @@
   using EverythingNet.Interfaces;
   using EverythingNet.Query;
 
-  public class Everything : IEverything, IEverythingInternal, IDisposable
+  public class Everything : IEverythingInternal, IDisposable
   {
     private const uint SearchFlags = (uint)(RequestFlags.EVERYTHING_REQUEST_SIZE
                                       | RequestFlags.EVERYTHING_REQUEST_FILE_NAME

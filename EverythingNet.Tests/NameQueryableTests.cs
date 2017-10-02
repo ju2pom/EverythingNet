@@ -22,7 +22,7 @@ namespace EverythingNet.Tests
 
     [TestCase("*.abc", ExpectedResult = "*.abc")]
     [TestCase("Any value", ExpectedResult = "\"Any value\"")]
-    public string Is(string name)
+    public string Contains(string name)
     {
       var queryable = this.everyThing
         .Search()
@@ -123,6 +123,17 @@ namespace EverythingNet.Tests
         .Extensions(extensions);
 
       return queryable.ToString();
+    }
+
+    [Test]
+    public void ExtensionsWithParam()
+    {
+      var queryable = this.everyThing
+                          .Search()
+                          .Name
+                          .Extensions("jpg", "png", "bmp", "tif");
+
+      Assert.That(queryable.ToString(), Is.EqualTo("ext:jpg;png;bmp;tif"));
     }
   }
 }
