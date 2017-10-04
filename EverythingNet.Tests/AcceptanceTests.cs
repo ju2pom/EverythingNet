@@ -175,6 +175,25 @@ namespace EverythingNet.Tests
       Assert.That(resetEvent2.Wait(15000), Is.True);
     }
 
+    [Test]
+    public void MultipleInstances()
+    {
+      var firstResult = this.everyThing
+          .Search()
+          .Name
+          .Contains("IImageQueryable.cs");
+
+      IEverything secondEverything = new Everything();
+      var secondResult = secondEverything
+          .Search()
+          .Name
+          .Contains("IMusicQueryable.cs");
+
+      Assert.That(firstResult.First().FileName, Is.EqualTo("IImageQueryable.cs"));
+      Assert.That(secondResult.First().FileName, Is.EqualTo("IMusicQueryable.cs"));
+
+    }
+
     private ManualResetEventSlim StartSearchInBackground(string searchString)
     {
       ManualResetEventSlim resetEvent = new ManualResetEventSlim(false);

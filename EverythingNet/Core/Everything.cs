@@ -3,12 +3,15 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Threading;
 
   using EverythingNet.Interfaces;
   using EverythingNet.Query;
 
   public class Everything : IEverythingInternal, IDisposable
   {
+    private static int lastReplyId;
+
     private const uint SearchFlags = (uint)(RequestFlags.EVERYTHING_REQUEST_SIZE
                                       | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
                                       | RequestFlags.EVERYTHING_REQUEST_EXTENSION
@@ -25,7 +28,8 @@
     public Everything()
     {
       this.ResulKind = ResultKind.Both;
-      this.replyId = Convert.ToUInt32(this.GetHashCode());
+      Interlocked.Increment(ref lastReplyId);
+      this.replyId = Convert.ToUInt32(lastReplyId);
       if (!EverythingState.IsStarted())
       {
         throw new InvalidOperationException("Everything service must be started");
@@ -95,7 +99,7 @@
     {
       var numResults = EverythingWrapper.Everything_GetNumResults();
 
-      return Enumerable.Range(0, (int)numResults).Select(x => new SearchResult(x));
+      return Enumerable.Range(0, (int)numResults).Select(x => new SearchResult(x, this.replyId));
     }
 
     private ErrorCode GetError()

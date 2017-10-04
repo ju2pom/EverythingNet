@@ -9,10 +9,14 @@ namespace EverythingNet.Core
   {
     private delegate bool MyDelegate(uint index, out long date);
 
+    private readonly uint replyId;
     private readonly uint index;
 
-    public SearchResult(int index)
+    private string fullPath;
+
+    public SearchResult(int index, uint replyId)
     {
+      this.replyId = replyId;
       this.index = Convert.ToUInt32(index);
     }
 
@@ -24,11 +28,17 @@ namespace EverythingNet.Core
     {
       get
       {
-        var builder = new StringBuilder(260);
+        if (this.fullPath == null)
+        {
+          var builder = new StringBuilder(260);
 
-        EverythingWrapper.Everything_GetResultFullPathName(this.index, builder, 260);
+          EverythingWrapper.Everything_SetReplyID(this.replyId);
+          EverythingWrapper.Everything_GetResultFullPathName(this.index, builder, 260);
 
-        return builder.ToString();
+          this.fullPath = builder.ToString();
+        }
+
+        return this.fullPath;
       }
     }
 
@@ -76,13 +86,21 @@ namespace EverythingNet.Core
     {
       get
       {
+        EverythingWrapper.Everything_SetReplyID(this.replyId);
         EverythingWrapper.Everything_GetResultSize(this.index, out var size);
 
         return size;
       }
     }
 
-    public uint Attributes => EverythingWrapper.Everything_GetResultAttributes(this.index);
+    public uint Attributes
+    {
+      get
+      {
+        EverythingWrapper.Everything_SetReplyID(this.replyId);
+        return EverythingWrapper.Everything_GetResultAttributes(this.index);
+      }
+    }
 
     public DateTime Created => this.GenericDate(EverythingWrapper.Everything_GetResultDateCreated);
 
@@ -96,6 +114,7 @@ namespace EverythingNet.Core
 
     private DateTime GenericDate(MyDelegate func)
     {
+      EverythingWrapper.Everything_SetReplyID(this.replyId);
       if (func(this.index, out var date) && date >= 0)
       {
         return DateTime.FromFileTime(date);
