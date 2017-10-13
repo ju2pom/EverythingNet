@@ -194,6 +194,16 @@ namespace EverythingNet.Tests
 
     }
 
+    [Test]
+    public void CountPerformance()
+    {
+      var queryable = new Everything()
+          .Search()
+          .Name.Contains("micro");
+
+      Assert.That(queryable.Count, Is.GreaterThan(0));
+    }
+
     private ManualResetEventSlim StartSearchInBackground(string searchString)
     {
       ManualResetEventSlim resetEvent = new ManualResetEventSlim(false);

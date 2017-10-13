@@ -55,6 +55,6 @@
   {
     long Count { get; }
 
-    IEnumerable<ISearchResult> SendSearch(string searchPattern);
+    IEnumerable<ISearchResult> SendSearch(string searchPattern, RequestFlags flags);
   }
 }

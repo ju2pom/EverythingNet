@@ -16,6 +16,7 @@ namespace EverythingNet.Query
     public NameQueryable(IEverythingInternal everything, IQueryGenerator parent)
       : base(everything, parent)
     {
+      this.Flags = RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME;
     }
 
     public INameQueryable Contains(string contains)

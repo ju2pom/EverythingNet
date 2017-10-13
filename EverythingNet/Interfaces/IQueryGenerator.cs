@@ -4,6 +4,8 @@
 
   internal interface IQueryGenerator
   {
+    RequestFlags Flags { get; }
+
     IEnumerable<string> GetQueryParts();
   }
 }

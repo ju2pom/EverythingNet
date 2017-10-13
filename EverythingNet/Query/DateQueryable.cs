@@ -13,6 +13,21 @@
       : base(everything, parent)
     {
       this.searchPattern = kind;
+      switch (this.searchPattern)
+      {
+        case "dm":
+          this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED;
+          break;
+        case "dc":
+          this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_CREATED;
+          break;
+        case "dr":
+          this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_RUN;
+          break;
+        case "da":
+          this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED;
+          break;
+      }
     }
 
     public IDateQueryable Before(DateTime date)

@@ -12,16 +12,17 @@
   {
     private static int lastReplyId;
 
-    private const uint SearchFlags = (uint)(RequestFlags.EVERYTHING_REQUEST_SIZE
-                                      | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
-                                      | RequestFlags.EVERYTHING_REQUEST_EXTENSION
-                                      | RequestFlags.EVERYTHING_REQUEST_ATTRIBUTES
-                                      | RequestFlags.EVERYTHING_REQUEST_PATH
-                                      | RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME
-                                      | RequestFlags.EVERYTHING_REQUEST_DATE_CREATED
-                                      | RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED
-                                      | RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED
-                                      | RequestFlags.EVERYTHING_REQUEST_DATE_RUN);
+    private const uint SearchFlags = (uint)(
+      RequestFlags.EVERYTHING_REQUEST_SIZE
+    | RequestFlags.EVERYTHING_REQUEST_FILE_NAME
+    | RequestFlags.EVERYTHING_REQUEST_EXTENSION
+    | RequestFlags.EVERYTHING_REQUEST_ATTRIBUTES
+    | RequestFlags.EVERYTHING_REQUEST_PATH
+    | RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME
+    | RequestFlags.EVERYTHING_REQUEST_DATE_CREATED
+    | RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED
+    | RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED
+    | RequestFlags.EVERYTHING_REQUEST_DATE_RUN);
 
     private readonly uint replyId;
 
@@ -63,7 +64,7 @@
       this.Reset();
     }
 
-    IEnumerable<ISearchResult> IEverythingInternal.SendSearch(string searchPattern)
+    IEnumerable<ISearchResult> IEverythingInternal.SendSearch(string searchPattern, RequestFlags flags)
     {
       using (EverythingWrapper.Lock())
       {
@@ -71,7 +72,8 @@
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
-        EverythingWrapper.Everything_SetRequestFlags(SearchFlags);
+        //EverythingWrapper.Everything_SetRequestFlags(SearchFlags);
+        EverythingWrapper.Everything_SetRequestFlags((uint)flags);
         searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearch(searchPattern);
         EverythingWrapper.Everything_Query(true);

@@ -3,6 +3,9 @@ EverythingNet\.Tests/bin/
 EverythingNet\.Tests/obj/
 EverythingNet/bin/x64/
 EverythingNet/obj/
+EverythingNet\.Bench/bin/
+EverythingNet\.Bench/obj/
+
 packages/
 
 \.vs/

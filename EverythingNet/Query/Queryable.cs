@@ -34,6 +34,8 @@
 
     public IQuery Or => new LogicalQuery(this.everything, this, "|");
 
+    public RequestFlags Flags { get; protected set; }
+
     public override string ToString()
     {
       return string.Join("", this.GetQueryParts());
@@ -80,7 +82,7 @@
     {
       if (this.results == null)
       {
-        this.results = this.everything.SendSearch(string.Join("", this.GetQueryParts()));
+        this.results = this.everything.SendSearch(string.Join("", this.GetQueryParts()), this.parent.Flags|this.Flags);
       }
     }
   }

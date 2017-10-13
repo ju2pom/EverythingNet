@@ -31,6 +31,7 @@ namespace EverythingNet.Query
     public SizeQueryable(IEverythingInternal everything, IQueryGenerator parent)
       : base(everything, parent)
     {
+      this.Flags = RequestFlags.EVERYTHING_REQUEST_SIZE;
     }
 
     public ISizeQueryable Equal(int value)

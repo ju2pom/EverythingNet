@@ -18,6 +18,7 @@
     public FileQueryable(IEverythingInternal everything, IQueryGenerator parent)
       : base(everything, parent)
     {
+      this.Flags = RequestFlags.EVERYTHING_REQUEST_EXTENSION|RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME;
     }
 
     public IFileQueryable Roots()
