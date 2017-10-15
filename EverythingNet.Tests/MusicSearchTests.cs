@@ -95,7 +95,7 @@ namespace EverythingNet.Tests
     {
       var queryable = new Everything()
           .Search()
-          .Music.Genre("Rock");
+          .Music.Genre("Bird");
 
       Assert.That(queryable.Count, Is.GreaterThan(0));
     }
