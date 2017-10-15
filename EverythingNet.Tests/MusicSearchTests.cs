@@ -88,5 +88,16 @@ namespace EverythingNet.Tests
 
       return queryable.ToString();
     }
+
+
+    [Test]
+    public void AcceptanceTest()
+    {
+      var queryable = new Everything()
+          .Search()
+          .Music.Genre("Rock");
+
+      Assert.That(queryable.Count, Is.GreaterThan(0));
+    }
   }
 }

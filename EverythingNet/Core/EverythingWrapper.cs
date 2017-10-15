@@ -40,6 +40,16 @@
     private const int EVERYTHING_ERROR_INVALIDINDEX = 6;
     private const int EVERYTHING_ERROR_INVALIDCALL = 7;
 
+    public enum FileInfoIndex
+    {
+      FileSize = 1,
+      FolderSize,
+      DateCreated,
+      DateModified,
+      DateAccessed,
+      Attributes
+    }
+
     internal static IDisposable Lock()
     {
       return new Locker(locker);
@@ -223,5 +233,8 @@
 
     [DllImport(EverythingDLL)]
     public static extern UInt32 Everything_IncRunCountFromFileName(string lpFileName);
+
+    [DllImport(EverythingDLL)]
+    public static extern bool Everything_IsFileInfoIndexed(FileInfoIndex fileInfoType);
   }
 }

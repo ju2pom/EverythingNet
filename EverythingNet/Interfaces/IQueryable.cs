@@ -4,6 +4,8 @@
 
   public interface IQueryable : IEnumerable<ISearchResult>
   {
+    bool IsFast { get; }
+
     long Count { get; }
 
     IQuery And { get; }

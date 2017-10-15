@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
 
+  using EverythingNet.Core;
   using EverythingNet.Interfaces;
 
   internal class DateQueryable : Queryable, IDateQueryable
@@ -13,21 +14,29 @@
       : base(everything, parent)
     {
       this.searchPattern = kind;
+      EverythingWrapper.FileInfoIndex fileInfoIndex;
+
       switch (this.searchPattern)
       {
-        case "dm":
+        default:
           this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_MODIFIED;
+          fileInfoIndex = EverythingWrapper.FileInfoIndex.DateModified;
           break;
         case "dc":
           this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_CREATED;
+          fileInfoIndex = EverythingWrapper.FileInfoIndex.DateCreated;
           break;
         case "dr":
           this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_RUN;
+          fileInfoIndex = EverythingWrapper.FileInfoIndex.DateAccessed;
           break;
         case "da":
           this.Flags = RequestFlags.EVERYTHING_REQUEST_DATE_ACCESSED;
+          fileInfoIndex = EverythingWrapper.FileInfoIndex.DateAccessed;
           break;
       }
+
+      this.IsFast = EverythingWrapper.Everything_IsFileInfoIndexed(fileInfoIndex);
     }
 
     public IDateQueryable Before(DateTime date)

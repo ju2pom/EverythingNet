@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
 
+  using EverythingNet.Core;
   using EverythingNet.Interfaces;
 
   internal class FileQueryable : Queryable, IFileQueryable
@@ -19,6 +20,7 @@
       : base(everything, parent)
     {
       this.Flags = RequestFlags.EVERYTHING_REQUEST_EXTENSION|RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME;
+      this.IsFast = true;
     }
 
     public IFileQueryable Roots()

@@ -135,5 +135,15 @@ namespace EverythingNet.Tests
 
       Assert.That(queryable.ToString(), Is.EqualTo("ext:jpg;png;bmp;tif"));
     }
+
+    [Test]
+    public void AcceptanceTest()
+    {
+      var queryable = new Everything()
+          .Search()
+          .Name.Contains("user");
+
+      Assert.That(queryable.Count, Is.GreaterThan(0));
+    }
   }
 }

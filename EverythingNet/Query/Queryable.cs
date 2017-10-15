@@ -18,7 +18,10 @@
     {
       this.everything = everything;
       this.parent = parent;
+      this.IsFast = true;
     }
+
+    public bool IsFast { get; protected set; }
 
     public long Count
     {

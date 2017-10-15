@@ -129,5 +129,15 @@ namespace EverythingNet.Tests
 
       return queryable.ToString();
     }
+
+    [Test]
+    public void AcceptanceTest()
+    {
+      var queryable = new Everything()
+          .Search()
+          .Size.GreaterThan(10, SizeUnit.Kb);
+
+      Assert.That(queryable.Count, Is.GreaterThan(0));
+    }
   }
 }

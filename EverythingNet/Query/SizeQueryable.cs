@@ -3,6 +3,7 @@ namespace EverythingNet.Query
   using System;
   using System.Collections.Generic;
 
+  using EverythingNet.Core;
   using EverythingNet.Interfaces;
 
   public enum SizeUnit
@@ -32,6 +33,8 @@ namespace EverythingNet.Query
       : base(everything, parent)
     {
       this.Flags = RequestFlags.EVERYTHING_REQUEST_SIZE;
+      this.IsFast = EverythingWrapper.Everything_IsFileInfoIndexed(EverythingWrapper.FileInfoIndex.FileSize)
+                    && EverythingWrapper.Everything_IsFileInfoIndexed(EverythingWrapper.FileInfoIndex.FolderSize);
     }
 
     public ISizeQueryable Equal(int value)

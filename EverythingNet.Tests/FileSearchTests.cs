@@ -122,5 +122,15 @@ namespace EverythingNet.Tests
 
       Assert.That(queryable.ToString(), Is.EqualTo("root:"));
     }
+
+    [Test]
+    public void AcceptanceTest()
+    {
+      var queryable = new Everything()
+          .Search()
+          .File.Exe();
+
+      Assert.That(queryable.Count, Is.GreaterThan(0));
+    }
   }
 }

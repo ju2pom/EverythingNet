@@ -109,10 +109,7 @@ namespace EverythingNet.Tests
 
       foreach (var result in queryable)
       {
-        Assert.That(result.Created.Year, Is.GreaterThanOrEqualTo(2017));
         Assert.That(result.Modified.Year, Is.GreaterThanOrEqualTo(2017));
-        Assert.That(result.Accessed.Year, Is.GreaterThanOrEqualTo(2017));
-        Assert.That(result.Executed, Is.EqualTo(DateTime.MinValue));
       }
     }
 
