@@ -1,6 +1,7 @@
 namespace EverythingNet.Core
 {
   using System;
+  using System.IO;
   using System.Text;
 
   using EverythingNet.Interfaces;
@@ -46,6 +47,7 @@ namespace EverythingNet.Core
     {
       get
       {
+        //EverythingWrapper.Everything_SetReplyID(this.replyId);
         //return EverythingWrapper.Everything_GetResultPath(this.index);
 
         // Temporary implementation until the native function works as expected
@@ -66,6 +68,7 @@ namespace EverythingNet.Core
     {
       get
       {
+        //EverythingWrapper.Everything_SetReplyID(this.replyId);
         //return EverythingWrapper.Everything_GetResultFileName(this.index);
 
         // Temporary implementation until the native function works as expected
@@ -98,21 +101,25 @@ namespace EverythingNet.Core
       get
       {
         EverythingWrapper.Everything_SetReplyID(this.replyId);
-        return EverythingWrapper.Everything_GetResultAttributes(this.index);
+        uint attributes = EverythingWrapper.Everything_GetResultAttributes(this.index);
+
+        return attributes > 0
+          ? attributes
+          : (uint)File.GetAttributes(this.FullPath);
       }
     }
 
-    public DateTime Created => this.GenericDate(EverythingWrapper.Everything_GetResultDateCreated);
+    public DateTime Created => this.GenericDate(EverythingWrapper.Everything_GetResultDateCreated, File.GetCreationTime);
 
-    public DateTime Modified => this.GenericDate(EverythingWrapper.Everything_GetResultDateModified);
+    public DateTime Modified => this.GenericDate(EverythingWrapper.Everything_GetResultDateModified, File.GetLastWriteTime);
 
-    public DateTime Accessed => this.GenericDate(EverythingWrapper.Everything_GetResultDateAccessed);
+    public DateTime Accessed => this.GenericDate(EverythingWrapper.Everything_GetResultDateAccessed, File.GetLastAccessTime);
 
-    public DateTime Executed => this.GenericDate(EverythingWrapper.Everything_GetResultDateRun);
+    public DateTime Executed => this.GenericDate(EverythingWrapper.Everything_GetResultDateRun, File.GetLastAccessTime);
 
     public Exception LastException { get; private set; }
 
-    private DateTime GenericDate(MyDelegate func)
+    private DateTime GenericDate(MyDelegate func, Func<string, DateTime> fallbackDelegate)
     {
       EverythingWrapper.Everything_SetReplyID(this.replyId);
       if (func(this.index, out var date) && date >= 0)
@@ -120,7 +127,7 @@ namespace EverythingNet.Core
         return DateTime.FromFileTime(date);
       }
 
-      return DateTime.MinValue;
+      return fallbackDelegate(this.FullPath);
     }
   }
 }
