@@ -30,7 +30,7 @@
 
     public IFileQueryable Parent(string parentFolder)
     {
-      return this.Macro($"parent:{parentFolder}", string.Empty);
+      return this.Macro($"parent:{this.QuoteIfNeeded(parentFolder)}", string.Empty);
     }
 
     public IFileQueryable Audio(string search = null)
