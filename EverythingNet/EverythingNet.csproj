@@ -50,6 +50,7 @@
     <Compile Include="Core\Everything.cs" />
     <Compile Include="Core\EverythingState.cs" />
     <Compile Include="Core\EverythingWrapper.cs" />
+    <Compile Include="Interfaces\SortingKey.cs" />
     <Compile Include="Interfaces\ResultKind.cs" />
     <Compile Include="Interfaces\IEverything.cs" />
     <Compile Include="Interfaces\IImageQueryable.cs" />

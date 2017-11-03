@@ -51,8 +51,7 @@
       return queryable;
     }
 
-    public RequestFlags Flags
-    { get { return this.parent?.Flags ?? 0; } }
+    public RequestFlags Flags => this.parent?.Flags ?? 0;
 
     public virtual IEnumerable<string> GetQueryParts()
     {

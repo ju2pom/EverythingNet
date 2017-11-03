@@ -3,7 +3,6 @@
   using System;
   using System.Diagnostics;
   using System.IO;
-  using System.Linq;
   using System.Reflection;
 
   using EverythingNet.Interfaces;
@@ -18,12 +17,14 @@
 
     public static bool IsStarted()
     {
-      return GetEverythingProcess() != null;
+      Version version = GetVersion();
+
+      return version.Major > 0;
     }
 
     public static bool StartService(bool admin, StartMode mode)
     {
-      if (GetEverythingProcess() == null)
+      if (!IsStarted())
       {
         string option = admin ? "-admin" : string.Empty;
 
@@ -39,7 +40,7 @@
 
         StartProcess(option);
 
-        return GetEverythingProcess() != null;
+        return IsStarted();
       }
 
       return true;
@@ -63,12 +64,6 @@
     public static ErrorCode GetLastError()
     {
       return (ErrorCode)EverythingWrapper.Everything_GetLastError();
-    }
-
-    private static Process GetEverythingProcess()
-    {
-      // TODO: Check if it's the correct process
-      return Process.GetProcessesByName("Everything").FirstOrDefault();
     }
 
     private static void StartProcess(string options)

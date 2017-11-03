@@ -50,7 +50,8 @@
       Attributes
     }
 
-    internal static IDisposable Lock()
+
+  internal static IDisposable Lock()
     {
       return new Locker(locker);
     }

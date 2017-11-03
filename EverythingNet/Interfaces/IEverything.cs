@@ -3,6 +3,8 @@
   using System;
   using System.Collections.Generic;
 
+  using EverythingNet.Core;
+
   public enum ErrorCode
   {
     Ok = 0,
@@ -45,6 +47,8 @@
     bool MatchPath { get; set; }
 
     bool MatchWholeWord { get; set; }
+
+    SortingKey SortKey { get; set; }
 
     IQuery Search();
 

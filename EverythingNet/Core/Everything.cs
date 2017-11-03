@@ -41,6 +41,8 @@
 
     public bool MatchWholeWord { get; set; }
 
+    public SortingKey SortKey { get; set; }
+
     public ErrorCode LastErrorCode { get; set; }
 
     public long Count => EverythingWrapper.Everything_GetNumResults();
@@ -71,6 +73,12 @@
         EverythingWrapper.Everything_SetRequestFlags((uint)flags|DefaultSearchFlags);
         searchPattern = this.ApplySearchResultKind(searchPattern);
         EverythingWrapper.Everything_SetSearch(searchPattern);
+
+        if (this.SortKey != SortingKey.None)
+        {
+          EverythingWrapper.Everything_SetSort((uint)this.SortKey);
+        }
+
         EverythingWrapper.Everything_Query(true);
 
         this.LastErrorCode = this.GetError();

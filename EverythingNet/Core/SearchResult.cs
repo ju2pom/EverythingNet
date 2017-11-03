@@ -53,7 +53,9 @@ namespace EverythingNet.Core
         // Temporary implementation until the native function works as expected
         try
         {
-          return System.IO.Path.GetDirectoryName(this.FullPath);
+          return !string.IsNullOrEmpty(this.FullPath)
+            ? System.IO.Path.GetDirectoryName(this.FullPath)
+            : string.Empty;
         }
         catch (Exception e)
         {
@@ -74,7 +76,9 @@ namespace EverythingNet.Core
         // Temporary implementation until the native function works as expected
         try
         {
-          return System.IO.Path.GetFileName(this.FullPath);
+          return !string.IsNullOrEmpty(this.FullPath)
+            ? System.IO.Path.GetFileName(this.FullPath)
+            : string.Empty;
         }
         catch (Exception e)
         {
@@ -105,7 +109,9 @@ namespace EverythingNet.Core
 
         return attributes > 0
           ? attributes
-          : (uint)File.GetAttributes(this.FullPath);
+          : (!string.IsNullOrEmpty(this.FullPath)
+            ? (uint)File.GetAttributes(this.FullPath)
+            : 0);
       }
     }
 
@@ -127,7 +133,9 @@ namespace EverythingNet.Core
         return DateTime.FromFileTime(date);
       }
 
-      return fallbackDelegate(this.FullPath);
+      return !string.IsNullOrEmpty(this.FullPath)
+        ? fallbackDelegate(this.FullPath)
+        : DateTime.MinValue;
     }
   }
 }
