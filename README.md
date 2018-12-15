@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=master)](https://coveralls.io/github/ju2pom/EverythingNet?branch=master)
 [![NuGet](https://img.shields.io/nuget/v/EverythingNet.svg?style=flat)]()
 
-# EverythingNet ![](http://www.voidtools.com/forum/styles/prosilver/theme/images/site_logo.gif)
+# EverythingNet ![](media/site_logo.gif)
 
 ## Check demo app
 
