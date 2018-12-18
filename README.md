@@ -1,6 +1,6 @@
 [![Build status](https://img.shields.io/appveyor/ci/ju2pom/everythingnet/master.svg?style=flat)](https://ci.appveyor.com/project/ju2pom/everythingnet/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=master)](https://coveralls.io/github/ju2pom/EverythingNet?branch=master)
-[![NuGet](https://img.shields.io/nuget/v/EverythingNet.svg?style=flat)]()
+[![NuGet](https://img.shields.io/nuget/v/EverythingNet.svg?style=flat)](https://www.nuget.org/packages/EverythingNet/)
 
 # EverythingNet ![](media/site_logo.gif)
 
