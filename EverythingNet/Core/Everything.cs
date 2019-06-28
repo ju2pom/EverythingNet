@@ -6,9 +6,8 @@
   using System.Threading;
 
   using EverythingNet.Interfaces;
-  using EverythingNet.Query;
 
-  public class Everything : IEverythingInternal, IDisposable
+  public class Everything : IEverything
   {
     private static int lastReplyId;
 
@@ -43,26 +42,11 @@
 
     public SortingKey SortKey { get; set; }
 
-    public ErrorCode LastErrorCode { get; set; }
+    public ErrorCode LastErrorCode { get; private set; }
 
     public long Count => EverythingWrapper.Everything_GetNumResults();
 
-    public IQuery Search()
-    {
-      return new Query(this);
-    }
-
-    public void Reset()
-    {
-      EverythingWrapper.Everything_Reset();
-    }
-
-    public void Dispose()
-    {
-      this.Reset();
-    }
-
-    IEnumerable<ISearchResult> IEverythingInternal.SendSearch(string searchPattern, RequestFlags flags)
+    public IEnumerable<ISearchResult> Search(IQuery query)
     {
       using (EverythingWrapper.Lock())
       {
@@ -70,8 +54,8 @@
         EverythingWrapper.Everything_SetMatchWholeWord(this.MatchWholeWord);
         EverythingWrapper.Everything_SetMatchPath(this.MatchPath);
         EverythingWrapper.Everything_SetMatchCase(this.MatchCase);
-        EverythingWrapper.Everything_SetRequestFlags((uint)flags|DefaultSearchFlags);
-        searchPattern = this.ApplySearchResultKind(searchPattern);
+        EverythingWrapper.Everything_SetRequestFlags((uint)((IQueryGenerator)query).Flags | DefaultSearchFlags);
+        var searchPattern = this.ApplySearchResultKind(query.ToString());
         EverythingWrapper.Everything_SetSearch(searchPattern);
 
         if (this.SortKey != SortingKey.None)
@@ -85,6 +69,16 @@
 
         return this.GetResults();
       }
+    }
+
+    public void Reset()
+    {
+      EverythingWrapper.Everything_Reset();
+    }
+
+    public void Dispose()
+    {
+      this.Reset();
     }
 
     private string ApplySearchResultKind(string searchPatten)

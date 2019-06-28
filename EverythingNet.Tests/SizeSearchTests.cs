@@ -4,23 +4,13 @@ using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
+  using System.Linq;
+
+  using Query = EverythingNet.Query.Query;
+
   [TestFixture]
   public class SizeSearchTests
   {
-    private Everything everyThing;
-
-    [SetUp]
-    public void Setup()
-    {
-      this.everyThing = new Everything();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-      this.everyThing.Dispose();
-    }
-
     [TestCase(Sizes.Empty, ExpectedResult = "size:empty")]
     [TestCase(Sizes.Gigantic, ExpectedResult = "size:gigantic")]
     [TestCase(Sizes.Huge, ExpectedResult = "size:huge")]
@@ -31,12 +21,9 @@ namespace EverythingNet.Tests
     [TestCase(Sizes.Unknown, ExpectedResult = "size:unknown")]
     public string StandardSize(Sizes standardSize)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .Equal(standardSize);
+      var query = new Query().Size.Equal(standardSize);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(SizeUnit.Kb, 10, ExpectedResult = "size:>10kb")]
@@ -44,12 +31,9 @@ namespace EverythingNet.Tests
     [TestCase(SizeUnit.Gb, 10, ExpectedResult = "size:>10gb")]
     public string SizeGreater(SizeUnit unit, int value)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .GreaterThan(value, unit);
+      var query = new Query().Size.GreaterThan(value, unit);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(SizeUnit.Kb, 10, ExpectedResult = "size:>=10kb")]
@@ -57,12 +41,9 @@ namespace EverythingNet.Tests
     [TestCase(SizeUnit.Gb, 10, ExpectedResult = "size:>=10gb")]
     public string SizeGreaterOrEqual(SizeUnit unit, int value)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .GreaterOrEqualThan(value, unit);
+      var query = new Query().Size.GreaterOrEqualThan(value, unit);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(SizeUnit.Kb, 10, ExpectedResult = "size:<10kb")]
@@ -70,12 +51,9 @@ namespace EverythingNet.Tests
     [TestCase(SizeUnit.Gb, 10, ExpectedResult = "size:<10gb")]
     public string SizeLess(SizeUnit unit, int value)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .LessThan(value, unit);
+      var query = new Query().Size.LessThan(value, unit);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(SizeUnit.Kb, 10, ExpectedResult = "size:<=10kb")]
@@ -83,12 +61,9 @@ namespace EverythingNet.Tests
     [TestCase(SizeUnit.Gb, 10, ExpectedResult = "size:<=10gb")]
     public string SizeLessOrEqual(SizeUnit unit, int value)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .LessOrEqualThan(value, unit);
+      var query = new Query().Size.LessOrEqualThan(value, unit);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(1, 10, ExpectedResult = "size:1Kb-10Kb")]
@@ -96,12 +71,9 @@ namespace EverythingNet.Tests
     [TestCase(1000, 2000, ExpectedResult = "size:1000Kb-2000Kb")]
     public string SizeBetweenDefaultUnit(int min, int max)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .Between(min, max);
+      var query = new Query().Size.Between(min, max);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(SizeUnit.Kb, 10, 100, ExpectedResult = "size:10Kb-100Kb")]
@@ -109,12 +81,9 @@ namespace EverythingNet.Tests
     [TestCase(SizeUnit.Gb, 10, 100, ExpectedResult = "size:10Gb-100Gb")]
     public string SizeBetweenSameUnit(SizeUnit unit, int min, int max)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .Between(min, max, unit);
+      var query = new Query().Size.Between(min, max, unit);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase(10, SizeUnit.Kb, 100, SizeUnit.Mb, ExpectedResult = "size:10Kb-100Mb")]
@@ -122,22 +91,20 @@ namespace EverythingNet.Tests
     [TestCase(10, SizeUnit.Kb, 100, SizeUnit.Gb, ExpectedResult = "size:10Kb-100Gb")]
     public string SizeBetweenDifferentUnits(int min, SizeUnit minUnit, int max, SizeUnit maxUnit)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Size
-        .Between(min, minUnit, max, maxUnit);
+      var query = new Query().Size.Between(min, minUnit, max, maxUnit);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [Test]
     public void AcceptanceTest()
     {
-      var queryable = new Everything()
-          .Search()
-          .Size.GreaterThan(10, SizeUnit.Kb);
+      using (var everything = new Everything())
+      {
+        var query = new Query().Size.GreaterThan(10, SizeUnit.Kb);
 
-      Assert.That(queryable.Count, Is.GreaterThan(0));
+        Assert.That(everything.Search(query).Count(), Is.GreaterThan(0));
+      }
     }
   }
 }

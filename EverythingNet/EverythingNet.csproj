@@ -50,6 +50,7 @@
     <Compile Include="Core\Everything.cs" />
     <Compile Include="Core\EverythingState.cs" />
     <Compile Include="Core\EverythingWrapper.cs" />
+    <Compile Include="Interfaces\IRawQuery.cs" />
     <Compile Include="Interfaces\SortingKey.cs" />
     <Compile Include="Interfaces\ResultKind.cs" />
     <Compile Include="Interfaces\IEverything.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Interfaces\IFileQueryable.cs" />
     <Compile Include="Query\LogicalQuery.cs" />
     <Compile Include="Query\MusicQueryable.cs" />
+    <Compile Include="Query\RawQuery.cs" />
     <Compile Include="Query\NameQueryable.cs" />
     <Compile Include="Query\SizeQueryable.cs" />
     <Compile Include="Query\Query.cs" />

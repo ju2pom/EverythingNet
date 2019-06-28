@@ -67,24 +67,24 @@ namespace EverythingNet.Interfaces
 
   public interface IDateQueryable : IQueryable
   {
-    IDateQueryable Equal(DateTime date);
+    IQuery Equal(DateTime date);
 
-    IDateQueryable Equal(Dates date);
+    IQuery Equal(Dates date);
 
-    IDateQueryable Before(DateTime date);
+    IQuery Before(DateTime date);
 
-    IDateQueryable Before(Dates date);
+    IQuery Before(Dates date);
 
-    IDateQueryable After(DateTime date);
+    IQuery After(DateTime date);
 
-    IDateQueryable After(Dates date);
+    IQuery After(Dates date);
 
-    IDateQueryable Between(DateTime from, DateTime to);
+    IQuery Between(DateTime from, DateTime to);
 
-    IDateQueryable Between(Dates from, Dates to);
+    IQuery Between(Dates from, Dates to);
 
-    IDateQueryable Last(int count, CountableDates date);
+    IQuery Last(int count, CountableDates date);
 
-    IDateQueryable Next(int count, CountableDates date);
+    IQuery Next(int count, CountableDates date);
   }
 }

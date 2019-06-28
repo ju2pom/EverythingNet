@@ -13,17 +13,17 @@ namespace EverythingNet.Query
     private string endWith;
     private string extensions;
 
-    public NameQueryable(IEverythingInternal everything, IQueryGenerator parent)
-      : base(everything, parent)
+    public NameQueryable(Query parent)
+      : base(parent)
     {
       this.Flags = RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME;
     }
 
-    public INameQueryable Contains(string contains)
+    public IQuery Contains(string contains)
     {
       this.pattern = this.QuoteIfNeeded(contains);
 
-      return this;
+      return new Query(this);
     }
 
     public override IEnumerable<string> GetQueryParts()
@@ -54,21 +54,21 @@ namespace EverythingNet.Query
       }
     }
 
-    public INameQueryable StartWith(string pattern)
+    public IQuery StartWith(string pattern)
     {
       this.startWith = this.QuoteIfNeeded(pattern);
 
-      return this;
+      return new Query(this);
     }
 
-    public INameQueryable EndWith(string pattern)
+    public IQuery EndWith(string pattern)
     {
       this.endWith = this.QuoteIfNeeded(pattern);
 
-      return this;
+      return new Query(this);
     }
 
-    public INameQueryable Extension(string extension)
+    public IQuery Extension(string extension)
     {
       if (extension.Contains("."))
       {
@@ -79,20 +79,20 @@ namespace EverythingNet.Query
         ? extension
         : $"{this.extensions};{extension}";
 
-      return this;
+      return new Query(this);
     }
 
-    public INameQueryable Extensions(IEnumerable<string> newExtensions)
+    public IQuery Extensions(IEnumerable<string> newExtensions)
     {
       return this.ExtensionCollection(newExtensions);
     }
 
-    public INameQueryable Extensions(params string[] newExtensions)
+    public IQuery Extensions(params string[] newExtensions)
     {
       return this.ExtensionCollection(newExtensions);
     }
 
-    private INameQueryable ExtensionCollection(IEnumerable<string> newExtensions)
+    private IQuery ExtensionCollection(IEnumerable<string> newExtensions)
     {
       if (newExtensions == null)
       {

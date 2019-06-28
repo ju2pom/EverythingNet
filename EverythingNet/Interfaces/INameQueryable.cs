@@ -4,16 +4,16 @@ namespace EverythingNet.Interfaces
 
   public interface INameQueryable : IQueryable
   {
-    INameQueryable Contains(string pattern);
+    IQuery Contains(string pattern);
 
-    INameQueryable StartWith(string pattern);
+    IQuery StartWith(string pattern);
 
-    INameQueryable EndWith(string pattern);
+    IQuery EndWith(string pattern);
 
-    INameQueryable Extension(string extension);
+    IQuery Extension(string extension);
 
-    INameQueryable Extensions(IEnumerable<string> extensions);
+    IQuery Extensions(IEnumerable<string> extensions);
 
-    INameQueryable Extensions(params string[] extensions);
+    IQuery Extensions(params string[] extensions);
   }
 }

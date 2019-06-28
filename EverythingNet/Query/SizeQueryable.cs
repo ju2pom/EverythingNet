@@ -29,31 +29,93 @@ namespace EverythingNet.Query
   {
     private ISizeRef sizeRef;
 
-    public SizeQueryable(IEverythingInternal everything, IQueryGenerator parent)
-      : base(everything, parent)
+    public SizeQueryable(IQueryGenerator parent)
+      : base(parent)
     {
       this.Flags = RequestFlags.EVERYTHING_REQUEST_SIZE;
       this.IsFast = EverythingWrapper.Everything_IsFileInfoIndexed(EverythingWrapper.FileInfoIndex.FileSize)
                     && EverythingWrapper.Everything_IsFileInfoIndexed(EverythingWrapper.FileInfoIndex.FolderSize);
     }
 
-    public ISizeQueryable Equal(int value)
+    public IQuery Equal(int value)
     {
       return this.Equal(value, SizeUnit.Kb);
     }
 
-    public ISizeQueryable Equal(int value, SizeUnit u)
+    public IQuery Equal(int value, SizeUnit u)
     {
       this.sizeRef = new SizeComparison(value, string.Empty, u);
 
-      return this;
+      return new Query(this);
     }
 
-    public ISizeQueryable Equal(Sizes s)
+    public IQuery Equal(Sizes s)
     {
       this.sizeRef = new DefaultSize(s);
 
-      return this;
+      return new Query(this);
+    }
+
+    public IQuery GreaterThan(int value)
+    {
+      return this.GreaterThan(value, SizeUnit.Kb);
+    }
+
+    public IQuery GreaterThan(int value, SizeUnit u)
+    {
+      return this.Comparison(value, ">", u);
+    }
+
+    public IQuery GreaterOrEqualThan(int value)
+    {
+      return this.GreaterOrEqualThan(value, SizeUnit.Kb);
+    }
+
+    public IQuery GreaterOrEqualThan(int value, SizeUnit unit)
+    {
+      return this.Comparison(value, ">=", unit);
+    }
+
+    public IQuery LessThan(int value)
+    {
+      return this.LessThan(value, SizeUnit.Kb);
+    }
+
+    public IQuery LessThan(int value, SizeUnit u)
+    {
+      return this.Comparison(value, "<", u);
+    }
+
+    public IQuery LessOrEqualThan(int value)
+    {
+      return this.LessOrEqualThan(value, SizeUnit.Kb);
+    }
+
+    public IQuery LessOrEqualThan(int value, SizeUnit unit)
+    {
+      return this.Comparison(value, "<=", unit);
+    }
+
+    public IQuery Between(int min, int max)
+    {
+      return this.Between(min, max, SizeUnit.Kb);
+    }
+
+    public IQuery Between(int min, int max, SizeUnit u)
+    {
+      return this.Between(min, u, max, u);
+    }
+
+    public IQuery Between(int min, SizeUnit u1, int max, SizeUnit u2)
+    {
+      if (min * Math.Pow(10, (int)u1) > max * Math.Pow(10, (int)u2))
+      {
+        throw new InvalidOperationException($"Minimum value must be lower or equal to max value: min={min}{u1} max={max}{u2}");
+      }
+
+      this.sizeRef = new BetweenSize(min, u1, max, u2);
+
+      return new Query(this);
     }
 
     public override IEnumerable<string> GetQueryParts()
@@ -66,73 +128,11 @@ namespace EverythingNet.Query
       yield return this.sizeRef.ToString();
     }
 
-    public ISizeQueryable GreaterThan(int value)
-    {
-      return this.GreaterThan(value, SizeUnit.Kb);
-    }
-
-    public ISizeQueryable GreaterThan(int value, SizeUnit u)
-    {
-      return this.Comparison(value, ">", u);
-    }
-
-    public ISizeQueryable GreaterOrEqualThan(int value)
-    {
-      return this.GreaterOrEqualThan(value, SizeUnit.Kb);
-    }
-
-    public ISizeQueryable GreaterOrEqualThan(int value, SizeUnit unit)
-    {
-      return this.Comparison(value, ">=", unit);
-    }
-
-    public ISizeQueryable LessThan(int value)
-    {
-      return this.LessThan(value, SizeUnit.Kb);
-    }
-
-    public ISizeQueryable LessThan(int value, SizeUnit u)
-    {
-      return this.Comparison(value, "<", u);
-    }
-
-    public ISizeQueryable LessOrEqualThan(int value)
-    {
-      return this.LessOrEqualThan(value, SizeUnit.Kb);
-    }
-
-    public ISizeQueryable LessOrEqualThan(int value, SizeUnit unit)
-    {
-      return this.Comparison(value, "<=", unit);
-    }
-
-    public ISizeQueryable Between(int min, int max)
-    {
-      return this.Between(min, max, SizeUnit.Kb);
-    }
-
-    public ISizeQueryable Between(int min, int max, SizeUnit u)
-    {
-      return this.Between(min, u, max, u);
-    }
-
-    public ISizeQueryable Between(int min, SizeUnit u1, int max, SizeUnit u2)
-    {
-      if (min * Math.Pow(10, (int)u1) > max * Math.Pow(10, (int)u2))
-      {
-        throw new InvalidOperationException($"Minimum value must be lower or equal to max value: min={min}{u1} max={max}{u2}");
-      }
-
-      this.sizeRef = new BetweenSize(min, u1, max, u2);
-
-      return this;
-    }
-
-    private ISizeQueryable Comparison(int value, string comparison, SizeUnit unit)
+    private IQuery Comparison(int value, string comparison, SizeUnit unit)
     {
       this.sizeRef = new SizeComparison(value, comparison, unit);
 
-      return this;
+      return new Query(this);
     }
 
     private interface ISizeRef

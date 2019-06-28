@@ -2,17 +2,17 @@
 {
   public interface IMusicQueryable : IQueryable
   {
-    IMusicQueryable Album(string album);
+    IQuery Album(string album);
 
-    IMusicQueryable Artist(string artist);
+    IQuery Artist(string artist);
 
-    IMusicQueryable Genre(string genre);
+    IQuery Genre(string genre);
 
-    IMusicQueryable Title(string title);
+    IQuery Title(string title);
 
     // TODO: Add a way to nicely support constraints on track value (<, >, between)
-    IMusicQueryable Track(int? track);
+    IQuery Track(int? track);
 
-    IMusicQueryable Comment(string comment);
+    IQuery Comment(string comment);
   }
 }

@@ -3,48 +3,33 @@ using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
+  using System.Linq;
+
+  using EverythingNet.Query;
+
   [TestFixture]
-  public class NameQueryable
+  public class Namequery
   {
-    private Everything everyThing;
-
-    [SetUp]
-    public void Setup()
-    {
-      this.everyThing = new Everything();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-      this.everyThing.Dispose();
-    }
-
     [TestCase("*.abc", ExpectedResult = "*.abc")]
     [TestCase("Any value", ExpectedResult = "\"Any value\"")]
     public string Contains(string name)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Name
-        .Contains(name);
+      var query = new Query().Name.Contains(name);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("*.abc", "*.def", ExpectedResult = "*.abc|*.def")]
     [TestCase("\"Any value\"", "\"another value\"", ExpectedResult = "\"Any value\"|\"another value\"")]
     public string Or(string search1, string search2)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Name
+      var query = new Query().Name
         .Contains(search1)
         .Or
         .Name
         .Contains(search2);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("*.abc", "*.def", ExpectedResult = "*.abc *.def")]
@@ -52,64 +37,51 @@ namespace EverythingNet.Tests
 
     public string And(string search1, string search2)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Name
+      var query = new Query().Name
         .Contains(search1)
         .And
         .Name
         .Contains(search2);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("*.abc", "*.def", ExpectedResult = "*.abc !*.def")]
     public string Not(string search1, string search2)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Name
+      var query = new Query().Name
         .Contains(search1)
         .And
         .Not
         .Name
         .Contains(search2);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("prefix", ExpectedResult = "startwith:prefix")]
     public string StartWith(string pattern)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Name
-        .StartWith(pattern);
+      var query = new Query().Name.StartWith(pattern);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("postfix", ExpectedResult = "endwith:postfix")]
     public string EndWith(string pattern)
     {
-      var queryable = this.everyThing
-        .Search()
-        .Name
-        .EndWith(pattern);
+      var query = new Query().Name.EndWith(pattern);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("cs", ExpectedResult = "ext:cs")]
     [TestCase("xaml", ExpectedResult = "ext:xaml")]
     public string Extension(string search)
     {
-      var queryable = this.everyThing.
-        Search()
-        .Name
-        .Extension(search);
+      var query = new Query().Name.Extension(search);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [TestCase("cs csproj xaml", ExpectedResult = "ext:cs;csproj;xaml")]
@@ -117,33 +89,28 @@ namespace EverythingNet.Tests
     public string Extensions(string search)
     {
       var extensions = search.Split(' ');
-      var queryable = this.everyThing
-        .Search()
-        .Name
-        .Extensions(extensions);
+      var query = new Query().Name.Extensions(extensions);
 
-      return queryable.ToString();
+      return query.ToString();
     }
 
     [Test]
     public void ExtensionsWithParam()
     {
-      var queryable = this.everyThing
-                          .Search()
-                          .Name
-                          .Extensions("jpg", "png", "bmp", "tif");
+      var query = new Query().Name.Extensions("jpg", "png", "bmp", "tif");
 
-      Assert.That(queryable.ToString(), Is.EqualTo("ext:jpg;png;bmp;tif"));
+      Assert.That(query.ToString(), Is.EqualTo("ext:jpg;png;bmp;tif"));
     }
 
     [Test]
     public void AcceptanceTest()
     {
-      var queryable = new Everything()
-          .Search()
-          .Name.Contains("user");
+      using (var everything = new Everything())
+      {
+        var query = new Query().Name.Contains("user");
 
-      Assert.That(queryable.Count, Is.GreaterThan(0));
+        Assert.That(everything.Search(query).Count(), Is.GreaterThan(0));
+      }
     }
   }
 }

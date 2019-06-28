@@ -13,54 +13,54 @@
     private string commentPattern;
     private string albumPattern;
 
-    public MusicQueryable(IEverythingInternal everything, IQueryGenerator parent)
-      : base(everything, parent)
+    public MusicQueryable(IQueryGenerator parent)
+      : base(parent)
     {
     }
 
-    public IMusicQueryable Album(string album)
+    public IQuery Album(string album)
     {
       this.albumPattern = this.QuoteIfNeeded(album);
 
-      return this;
+      return new Query(this);
     }
 
-    public IMusicQueryable Artist(string artist)
+    public IQuery Artist(string artist)
     {
       this.artistPattern = this.QuoteIfNeeded(artist);
 
-      return this;
+      return new Query(this);
     }
 
-    public IMusicQueryable Genre(string genre)
+    public IQuery Genre(string genre)
     {
       this.genrePattern = this.QuoteIfNeeded(genre);
 
-      return this;
+      return new Query(this);
     }
 
-    public IMusicQueryable Title(string title)
+    public IQuery Title(string title)
     {
       this.titlePattern = this.QuoteIfNeeded(title);
 
-      return this;
+      return new Query(this);
     }
 
-    public IMusicQueryable Track(int? track)
+    public IQuery Track(int? track)
     {
       this.trackNumber = track;
 
-      return this;
+      return new Query(this);
     }
 
-    public IMusicQueryable Comment(string comment)
+    public IQuery Comment(string comment)
     {
       if (!string.IsNullOrEmpty(comment))
       {
         this.commentPattern = this.QuoteIfNeeded(comment);
       }
 
-      return this;
+      return new Query(this);
     }
 
     public override IEnumerable<string> GetQueryParts()

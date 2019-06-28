@@ -8,8 +8,8 @@
   {
     private string pattern;
 
-    public ImageQueryable(IEverythingInternal everything, IQueryGenerator parent)
-      : base(everything, parent)
+    public ImageQueryable(IQueryGenerator parent)
+      : base(parent)
     {
     }
 

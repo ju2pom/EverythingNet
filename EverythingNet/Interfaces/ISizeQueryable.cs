@@ -4,32 +4,32 @@ namespace EverythingNet.Interfaces
 
   public interface ISizeQueryable : IQueryable
   {
-    ISizeQueryable Equal(int value);
+    IQuery Equal(int value);
 
-    ISizeQueryable Equal(int value, SizeUnit u);
+    IQuery Equal(int value, SizeUnit u);
 
-    ISizeQueryable Equal(Sizes size);
+    IQuery Equal(Sizes size);
 
-    ISizeQueryable GreaterThan(int value);
+    IQuery GreaterThan(int value);
 
-    ISizeQueryable GreaterThan(int value, SizeUnit u);
+    IQuery GreaterThan(int value, SizeUnit u);
 
-    ISizeQueryable GreaterOrEqualThan(int value);
+    IQuery GreaterOrEqualThan(int value);
 
-    ISizeQueryable GreaterOrEqualThan(int value, SizeUnit u);
+    IQuery GreaterOrEqualThan(int value, SizeUnit u);
 
-    ISizeQueryable LessThan(int value);
+    IQuery LessThan(int value);
 
-    ISizeQueryable LessThan(int value, SizeUnit u);
+    IQuery LessThan(int value, SizeUnit u);
 
-    ISizeQueryable LessOrEqualThan(int value);
+    IQuery LessOrEqualThan(int value);
 
-    ISizeQueryable LessOrEqualThan(int value, SizeUnit u);
+    IQuery LessOrEqualThan(int value, SizeUnit u);
 
-    ISizeQueryable Between(int min, int max);
+    IQuery Between(int min, int max);
 
-    ISizeQueryable Between(int min, int max, SizeUnit u);
+    IQuery Between(int min, int max, SizeUnit u);
 
-    ISizeQueryable Between(int min, SizeUnit umin, int max, SizeUnit umax);
+    IQuery Between(int min, SizeUnit umin, int max, SizeUnit umax);
   }
 }

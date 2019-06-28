@@ -5,40 +5,33 @@ using NUnit.Framework;
 
 namespace EverythingNet.Tests
 {
+  using EverythingNet.Query;
+
   [TestFixture]
   public class DateSearchTests
   {
-    private Everything everyThing;
-
-    [SetUp]
-    public void Setup()
-    {
-      this.everyThing = new Everything();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-      this.everyThing.Dispose();
-    }
-
     [Test, Ignore("Too long to execute")]
     public void CreationDate()
     {
-      // Arrange
-      string filename = "FileCreatedToday.txt";
-      using (File.Create(filename)) {}
-      string expectedResult = Path.Combine(Directory.GetCurrentDirectory(), filename);
+      using (var everything = new Everything())
+      {
+        // Arrange
+        string filename = "FileCreatedToday.txt";
+        using (File.Create(filename))
+        {
+        }
+        string expectedResult = Path.Combine(Directory.GetCurrentDirectory(), filename);
+        var query = new Query().CreationDate.Equal(Dates.Today);
 
-      // Act
-      var results = this.everyThing.Search()
-        .CreationDate
-        .Equal(Dates.Today);
+        // Act
+        var results = everything.Search(query);
 
-      // Assert
-      Assert.That(this.everyThing.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
-      Assert.That(results, Has.Member(expectedResult));
+        // Assert
+        Assert.That(everything.LastErrorCode, Is.EqualTo(ErrorCode.Ok));
+        Assert.That(results, Has.Member(expectedResult));
+      }
     }
+
     [TestCase(Dates.Yesterday, ExpectedResult = "da:yesterday")]
     [TestCase(Dates.Today, ExpectedResult = "da:today")]
     [TestCase(Dates.LastYear, ExpectedResult = "da:lastyear")]
@@ -91,13 +84,10 @@ namespace EverythingNet.Tests
     public string AccessDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing
-        .Search()
-        .AccessDate
-        .Equal(date);
+      var query = new Query().AccessDate.Equal(date);
 
       // Assert
-      return queryable.ToString().ToLower();
+      return query.ToString().ToLower();
     }
 
     [TestCase(Dates.Yesterday, ExpectedResult = "dm:yesterday")]
@@ -152,13 +142,10 @@ namespace EverythingNet.Tests
     public string ModificationDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing
-        .Search()
-        .ModificationDate
-        .Equal(date);
+      var query = new Query().ModificationDate.Equal(date);
 
       // Assert
-      return queryable.ToString().ToLower();
+      return query.ToString().ToLower();
     }
 
 
@@ -214,13 +201,10 @@ namespace EverythingNet.Tests
     public string CreationDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing
-        .Search()
-        .CreationDate
-        .Equal(date);
+      var query = new Query().CreationDate.Equal(date);
 
       // Assert
-      return queryable.ToString().ToLower();
+      return query.ToString().ToLower();
     }
 
 
@@ -276,13 +260,10 @@ namespace EverythingNet.Tests
     public string RunDate(Dates date)
     {
       // Act
-      var queryable = this.everyThing
-        .Search()
-        .RunDate
-        .Equal(date);
+      var query = new Query().RunDate.Equal(date);
 
       // Assert
-      return queryable.ToString().ToLower();
+      return query.ToString().ToLower();
     }
 
     [TestCase(1, CountableDates.Hours, ExpectedResult = "dm:last1hours")]
@@ -294,13 +275,10 @@ namespace EverythingNet.Tests
     public string LastDate(int count, CountableDates date)
     {
       // Act
-      var queryable = this.everyThing
-        .Search()
-        .ModificationDate
-        .Last(count, date);
+      var query = new Query().ModificationDate.Last(count, date);
 
       // Assert
-      return queryable.ToString().ToLower();
+      return query.ToString().ToLower();
     }
   }
 }

@@ -1,6 +1,5 @@
 ﻿namespace EverythingNet.Query
 {
-  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
 
@@ -10,45 +9,25 @@
 
   internal abstract class Queryable : IQueryable, IQueryGenerator
   {
-    private readonly IEverythingInternal everything;
     private IQueryGenerator parent;
-    private IEnumerable<ISearchResult> results;
 
-    protected Queryable(IEverythingInternal everything, IQueryGenerator parent)
+    protected Queryable(IQueryGenerator parent)
     {
-      this.everything = everything;
       this.parent = parent;
       this.IsFast = true;
     }
 
     public bool IsFast { get; protected set; }
 
-    public long Count
-    {
-      get
-      {
-        this.ExecuteIfNeeded();
+    public IQuery And => new LogicalQuery(this, " ");
 
-        return this.everything.Count;
-      }
-    }
-
-    public IQuery And => new LogicalQuery(this.everything, this, " ");
-
-    public IQuery Or => new LogicalQuery(this.everything, this, "|");
+    public IQuery Or => new LogicalQuery(this, "|");
 
     public RequestFlags Flags { get; protected set; }
 
     public override string ToString()
     {
       return string.Join("", this.GetQueryParts());
-    }
-
-    public IEnumerator<ISearchResult> GetEnumerator()
-    {
-      this.ExecuteIfNeeded();
-
-      return this.results.GetEnumerator();
     }
 
     public virtual IEnumerable<string> GetQueryParts()
@@ -71,22 +50,11 @@
       return text;
     }
 
-    internal void SetParent(IQueryGenerator onTheFlyparent)
+    internal IQueryable FromParent(IQueryGenerator onTheFlyparent)
     {
       this.parent = onTheFlyparent;
-    }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return this.GetEnumerator();
-    }
-
-    private void ExecuteIfNeeded()
-    {
-      if (this.results == null)
-      {
-        this.results = this.everything.SendSearch(string.Join("", this.GetQueryParts()), this.parent.Flags|this.Flags);
-      }
+      return this;
     }
   }
 }

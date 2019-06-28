@@ -1,6 +1,7 @@
 ﻿namespace EverythingNet.Query
 {
   using System.Collections.Generic;
+  using System.Linq;
 
   using EverythingNet.Interfaces;
 
@@ -8,20 +9,15 @@
   {
     private readonly string logicalOperator;
 
-    public LogicalQuery(IEverythingInternal everything, IQueryGenerator parent, string logicalOperator)
-      : base(everything, parent)
+    public LogicalQuery(IQueryGenerator parent, string logicalOperator)
+      : base(parent)
     {
       this.logicalOperator = logicalOperator;
     }
 
     public override IEnumerable<string> GetQueryParts()
     {
-      List<string> query = new List<string>();
-
-      query.AddRange(base.GetQueryParts());
-      query.Add(this.logicalOperator);
-
-      return query;
+      return base.GetQueryParts().Union(new[] { this.logicalOperator });
     }
   }
 }

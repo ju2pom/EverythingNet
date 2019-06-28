@@ -3,8 +3,6 @@
   using System;
   using System.Collections.Generic;
 
-  using EverythingNet.Core;
-
   public enum ErrorCode
   {
     Ok = 0,
@@ -38,7 +36,7 @@
     EVERYTHING_REQUEST_HIGHLIGHTED_FULL_PATH_AND_FILE_NAME = 0x00008000
   }
 
-  public interface IEverything
+  public interface IEverything : IDisposable
   {
     ResultKind ResulKind { get; set; }
 
@@ -50,15 +48,10 @@
 
     SortingKey SortKey { get; set; }
 
-    IQuery Search();
+    ErrorCode LastErrorCode { get; }
+
+    IEnumerable<ISearchResult> Search(IQuery query);
 
     void Reset();
-  }
-
-  internal interface IEverythingInternal : IEverything
-  {
-    long Count { get; }
-
-    IEnumerable<ISearchResult> SendSearch(string searchPattern, RequestFlags flags);
   }
 }
