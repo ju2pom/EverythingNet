@@ -18,7 +18,7 @@
 
     public override IEnumerable<string> GetQueryParts()
     {
-      return base.GetQueryParts().Union(this.child.GetQueryParts());
+      return base.GetQueryParts().Concat(this.child.GetQueryParts());
     }
   }
 

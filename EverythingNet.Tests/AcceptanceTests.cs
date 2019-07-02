@@ -8,8 +8,8 @@ namespace EverythingNet.Tests
 {
   using System.IO;
   using System.Linq;
-
-  using EverythingNet.Query;
+    using System.Reflection;
+    using EverythingNet.Query;
 
   [TestFixture]
   public class AcceptanceTests
@@ -115,7 +115,7 @@ namespace EverythingNet.Tests
     {
       // Arrange
       string zipFile = "acceptanceTest.zip";
-      File.Create(zipFile).Close();
+      File.Create(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), zipFile)).Close();
       Thread.Sleep(1000);
 
       var query = new Query().File.Zip();

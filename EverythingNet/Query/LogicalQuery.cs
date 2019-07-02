@@ -17,7 +17,7 @@
 
     public override IEnumerable<string> GetQueryParts()
     {
-      return base.GetQueryParts().Union(new[] { this.logicalOperator });
+      return base.GetQueryParts().Concat(new[] { this.logicalOperator });
     }
   }
 }
