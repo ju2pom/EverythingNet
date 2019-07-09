@@ -1,18 +1,19 @@
 ﻿namespace EverythingNet.Core
 {
   using System;
-  using System.Diagnostics;
   using System.IO;
   using System.Reflection;
-
+  using System.Threading;
   using EverythingNet.Interfaces;
 
   public static class EverythingState
   {
+    private const int ReadyTimeout = 60 * 1000; // 1min
+
     public enum StartMode
     {
       Install,
-      Service
+      Service,
     }
 
     public static bool IsStarted()
@@ -40,6 +41,14 @@
 
         StartProcess(option);
 
+        int idleTime = 100;
+        int remainingTime = ReadyTimeout;
+        while(remainingTime > 0 && !IsStarted())
+        {
+          Thread.Sleep(idleTime);
+          remainingTime -= idleTime;
+        }
+
         return IsStarted();
       }
 
@@ -66,12 +75,12 @@
       return (ErrorCode)EverythingWrapper.Everything_GetLastError();
     }
 
-    private static void StartProcess(string options)
+    internal static void StartProcess(string options)
     {
       string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       string exePath = Path.GetFullPath(Path.Combine(path, @"Everything.exe"));
 
-      Process.Start(exePath, options);
+      System.Diagnostics.Process.Start(exePath, options);
     }
   }
 }

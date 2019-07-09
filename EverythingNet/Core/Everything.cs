@@ -26,9 +26,9 @@
       this.ResulKind = ResultKind.Both;
       Interlocked.Increment(ref lastReplyId);
       this.replyId = Convert.ToUInt32(lastReplyId);
-      if (!EverythingState.IsStarted())
+      if (!EverythingState.StartService(false, EverythingState.StartMode.Service))
       {
-        throw new InvalidOperationException("Everything service must be started");
+        throw new InvalidOperationException("Everything client could not be started");
       }
     }
 
