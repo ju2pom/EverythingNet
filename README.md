@@ -36,10 +36,10 @@ using (var everything = new Everything())
 {
   var query = new Query()
 	.Name
-	.StartWith("Date")
+	.StartWith("read")
 	.And
 	.Name
-	.Extension("cs");
+	.Extension("md");
 	
   IEnumerable<ISearchResult> results = everything.Search(query);
 }
