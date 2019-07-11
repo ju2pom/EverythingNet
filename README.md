@@ -2,11 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/ju2pom/EverythingNet/badge.svg?branch=master)](https://coveralls.io/github/ju2pom/EverythingNet?branch=master)
 [![NuGet](https://img.shields.io/nuget/v/EverythingNet.svg?style=flat)](https://www.nuget.org/packages/EverythingNet/)
 
-# EverythingNet ![](media/site_logo.gif)
-
-## Check demo app
-
-https://github.com/ju2pom/EverythingNetDemo
+# EverythingNet2 ![](media/site_logo.gif)
 
 ## What
 
@@ -36,8 +32,17 @@ The library exposes a fluent API that ease access to specific search functions.
 Here is a very simple example:
 
 ```csharp
-IEverything everything = new Everything();
-var results = everything.Search().Name.Contains("temp");
+using (var everything = new Everything())
+{
+  var query = new Query()
+	.Name
+	.StartWith("Date")
+	.And
+	.Name
+	.Extension("cs");
+	
+  IEnumerable<ISearchResult> results = everything.Search(query);
+}
 ```
 
 ## Wiki
