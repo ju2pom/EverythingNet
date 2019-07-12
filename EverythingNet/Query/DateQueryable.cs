@@ -8,6 +8,8 @@
 
   internal class DateQueryable : Queryable, IDateQueryable
   {
+    private const string DateTimeFormat = "dd/MM/yyyy-hh:mm:ss";
+
     private string searchPattern;
 
     internal DateQueryable(Query parent, string kind)
@@ -41,22 +43,22 @@
 
     public IQuery Before(DateTime date)
     {
-      return this.DateSearch($"<{date.ToShortDateString()}");
+      return this.DateSearch($"<{date.ToString(DateTimeFormat)}");
     }
 
     public IQuery After(DateTime date)
     {
-      return this.DateSearch($">{date.ToShortDateString()}");
+      return this.DateSearch($">{date.ToString(DateTimeFormat)}");
     }
 
     public IQuery Equal(DateTime date)
     {
-      return this.DateSearch($"={date.ToShortDateString()}");
+      return this.DateSearch($"={date.ToString(DateTimeFormat)}");
     }
 
     public IQuery Between(DateTime from, DateTime to)
     {
-      return this.DateSearch($"{from.ToShortDateString()}-{to.ToShortDateString()}");
+      return this.DateSearch($"{from.ToString(DateTimeFormat)}-{to.ToString(DateTimeFormat)}");
     }
 
     public IQuery Before(Dates date)
