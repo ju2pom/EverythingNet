@@ -8,7 +8,7 @@
 
   internal class DateQueryable : Queryable, IDateQueryable
   {
-    private const string DateTimeFormat = "dd/MM/yyyy-hh:mm:ss";
+    private const string DateTimeFormat = "dd/MM/yyyyThh:mm:ss";
 
     private string searchPattern;
 
