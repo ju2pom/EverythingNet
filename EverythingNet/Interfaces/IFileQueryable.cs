@@ -1,7 +1,15 @@
-﻿namespace EverythingNet.Interfaces
+﻿using System.Collections.Generic;
+
+namespace EverythingNet.Interfaces
 {
   public interface IFileQueryable : IQueryable
   {
+    IQuery Child(string pattern);
+
+    IQuery ChildAnd(IEnumerable<string> patterns);
+
+    IQuery ChildOr(IEnumerable<string> patterns);
+
     IQuery Roots();
 
     IQuery Parent(string parentFolder);

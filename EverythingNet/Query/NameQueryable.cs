@@ -12,6 +12,7 @@ namespace EverythingNet.Query
     private string startWith;
     private string endWith;
     private string extensions;
+    private string paths;
 
     public NameQueryable(Query parent)
       : base(parent)
@@ -22,6 +23,20 @@ namespace EverythingNet.Query
     public IQuery Contains(string contains)
     {
       this.pattern = this.QuoteIfNeeded(contains);
+
+      return new Query(this);
+    }
+
+    public IQuery Path(string path)
+    {
+      this.paths = this.QuoteIfNeeded(path);
+
+      return new Query(this);
+    }
+
+    public IQuery Paths(IEnumerable<string> paths)
+    {
+      this.paths = $"<{string.Join("|", paths.Select(this.QuoteIfNeeded))}>";
 
       return new Query(this);
     }
@@ -51,6 +66,11 @@ namespace EverythingNet.Query
       if (!string.IsNullOrEmpty(this.extensions))
       {
         yield return $"ext:{this.extensions}";
+      }
+
+      if (!string.IsNullOrEmpty(this.paths))
+      {
+        yield return $"path:{this.paths}";
       }
     }
 
@@ -101,7 +121,7 @@ namespace EverythingNet.Query
 
       if (!newExtensions.Any())
       {
-        throw new ArgumentException("The list of exceptions must not be empty");
+        throw new ArgumentException("The list of file extension must not be empty");
       }
 
       if (newExtensions.Any(x => x.Contains(".")))

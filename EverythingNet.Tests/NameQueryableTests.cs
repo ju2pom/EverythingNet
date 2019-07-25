@@ -102,6 +102,38 @@ namespace EverythingNet.Tests
       Assert.That(query.ToString(), Is.EqualTo("ext:jpg;png;bmp;tif"));
     }
 
+    [TestCase(@"c:\some\path", ExpectedResult = "path:c:\\some\\path")]
+    public string Path(string pattern)
+    {
+      var query = new Query().Name.Path(pattern);
+
+      return query.ToString();
+    }
+
+    [TestCase(@"c:\some path\with\space", ExpectedResult = "path:\"c:\\some path\\with\\space\"")]
+    public string PathWithSpace(string pattern)
+    {
+      var query = new Query().Name.Path(pattern);
+
+      return query.ToString();
+    }
+
+    [TestCase(@"c:\some\path;d:\another\path", ExpectedResult = "path:<c:\\some\\path|d:\\another\\path>")]
+    public string MultiplePaths(string pattern)
+    {
+      var query = new Query().Name.Paths(pattern.Split(';'));
+
+      return query.ToString();
+    }
+
+    [TestCase(@"c:\some path\with\spaces;d:\another\path", ExpectedResult = "path:<\"c:\\some path\\with\\spaces\"|d:\\another\\path>")]
+    public string MultiplePathsWithSpaces(string pattern)
+    {
+      var query = new Query().Name.Paths(pattern.Split(';'));
+
+      return query.ToString();
+    }
+
     [Test]
     public void AcceptanceTest()
     {

@@ -1,6 +1,7 @@
 ﻿namespace EverythingNet.Query
 {
   using System.Collections.Generic;
+  using System.Linq;
 
   using EverythingNet.Interfaces;
 
@@ -20,6 +21,21 @@
     {
       this.Flags = RequestFlags.EVERYTHING_REQUEST_EXTENSION|RequestFlags.EVERYTHING_REQUEST_FULL_PATH_AND_FILE_NAME;
       this.IsFast = true;
+    }
+
+    public IQuery Child(string pattern)
+    {
+      return this.Macro($"child:{pattern}", string.Empty);
+    }
+
+    public IQuery ChildAnd(IEnumerable<string> patterns)
+    {
+      return this.Macro(string.Join(" ", patterns.Select(x => $"child:{x}")), string.Empty);
+    }
+
+    public IQuery ChildOr(IEnumerable<string> patterns)
+    {
+      return this.Macro(string.Join("|", patterns.Select(x => $"child:{x}")), string.Empty);
     }
 
     public IQuery Roots()

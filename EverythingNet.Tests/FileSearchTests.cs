@@ -89,6 +89,30 @@ namespace EverythingNet.Tests
       Assert.That(query.ToString(), Is.EqualTo("root:"));
     }
 
+    [TestCase("*.jpg", ExpectedResult = "child:*.jpg")]
+    public string Child(string pattern)
+    {
+      var query = new Query().File.Child(pattern);
+
+      return query.ToString();
+    }
+
+    [TestCase("*.jpg;*.png", ExpectedResult = "child:*.jpg child:*.png")]
+    public string ChildAnd(string patterns)
+    {
+      var query = new Query().File.ChildAnd(patterns.Split(';'));
+
+      return query.ToString();
+    }
+
+    [TestCase("*.jpg;*.png", ExpectedResult = "child:*.jpg|child:*.png")]
+    public string ChildOr(string patterns)
+    {
+      var query = new Query().File.ChildOr(patterns.Split(';'));
+
+      return query.ToString();
+    }
+
     [Test]
     public void AcceptanceTest()
     {

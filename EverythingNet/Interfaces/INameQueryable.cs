@@ -6,6 +6,10 @@ namespace EverythingNet.Interfaces
   {
     IQuery Contains(string pattern);
 
+    IQuery Path(string path);
+
+    IQuery Paths(IEnumerable<string> paths);
+
     IQuery StartWith(string pattern);
 
     IQuery EndWith(string pattern);
